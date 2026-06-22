@@ -24,6 +24,7 @@
             background: #f4efe6;
         }
 
+        /* ===== BACKGROUND FULL — muka.png ===== */
         .bg-muka {
             position: fixed;
             inset: 0;
@@ -43,6 +44,24 @@
             backdrop-filter: blur(2px);
             -webkit-backdrop-filter: blur(2px);
             pointer-events: none;
+        }
+
+        /* ===== ORNAMEN BATIK TIPIS (tanpa merubah muka.png) ===== */
+        .batik-ornament {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            background-image:
+                radial-gradient(circle at 10% 20%, rgba(180, 150, 120, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(180, 150, 120, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, rgba(200, 170, 140, 0.03) 0%, transparent 60%),
+                repeating-linear-gradient(45deg,
+                    transparent,
+                    transparent 50px,
+                    rgba(180, 150, 120, 0.015) 50px,
+                    rgba(180, 150, 120, 0.015) 51px);
+            background-size: 100% 100%, 100% 100%, 100% 100%, 102px 102px;
         }
 
         /* ===== MODE SELECTOR ===== */
@@ -745,7 +764,7 @@
             margin-right: 6px;
         }
 
-        /* ===== SERAT GALLERY — NAVIGASI DI BAWAH GAMBAR ===== */
+        /* ===== SERAT GALLERY ===== */
         .serat-gallery-wrap {
             margin: 20px 0 24px;
             position: relative;
@@ -817,7 +836,6 @@
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
         }
 
-        /* LABEL BAHASA DI BAWAH GAMBAR */
         .serat-slide .slide-label {
             margin-top: 12px;
             font-size: clamp(0.7rem, 1vw, 0.85rem);
@@ -830,7 +848,26 @@
             border: 1px solid rgba(200, 180, 165, 0.10);
         }
 
-        /* ===== NAVIGASI TITIK 3 DI BAWAH GAMBAR (TENGAH) ===== */
+        /* ===== PERINGATAN VISUAL — VERSI PROFESIONAL (AJAKAN) ===== */
+        .serat-slide .slide-warning {
+            margin-top: 10px;
+            font-size: clamp(0.6rem, 0.8vw, 0.7rem);
+            color: #4a3f36;
+            text-align: center;
+            max-width: 420px;
+            background: rgba(255, 252, 245, 0.6);
+            padding: 8px 18px;
+            border-radius: 30px;
+            border: 1px solid rgba(201, 160, 92, 0.15);
+            line-height: 1.6;
+            font-style: italic;
+        }
+        .serat-slide .slide-warning i {
+            color: #c9a05c;
+            margin-right: 8px;
+        }
+
+        /* ===== DOT NAVIGASI DI BAWAH ===== */
         .dot-nav-bottom {
             display: flex;
             justify-content: center;
@@ -859,25 +896,6 @@
         .dot-nav-bottom button:hover {
             background: rgba(201, 160, 92, 0.3);
             transform: scale(1.1);
-        }
-
-        /* PERINGATAN DI BAWAH NAVIGASI */
-        .serat-slide .slide-warning {
-            margin-top: 10px;
-            font-size: clamp(0.6rem, 0.8vw, 0.7rem);
-            color: #8a3a2a;
-            text-align: center;
-            max-width: 400px;
-            background: rgba(255, 252, 245, 0.5);
-            padding: 6px 16px;
-            border-radius: 30px;
-            border: 1px solid rgba(138, 58, 42, 0.10);
-            line-height: 1.5;
-            font-style: italic;
-        }
-        .serat-slide .slide-warning i {
-            color: #c9a05c;
-            margin-right: 6px;
         }
 
         /* ===== NILAI UTAMA ===== */
@@ -1165,7 +1183,7 @@
             font-size: clamp(0.9rem, 1.3vw, 1.05rem);
         }
 
-        /* ===== FOOTER ===== */
+        /* ===== FOOTER + REFERENSI ===== */
         .footer {
             margin-top: 48px;
             padding-top: 24px;
@@ -1174,14 +1192,40 @@
             color: #7b5e4b;
             font-size: clamp(0.7rem, 1vw, 0.85rem);
             display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            line-height: 1.8;
+        }
+
+        .footer .footer-main {
+            display: flex;
             flex-wrap: wrap;
             justify-content: center;
             gap: 8px 16px;
-            line-height: 1.6;
         }
-        .footer i {
+
+        .footer .footer-main i {
             color: #c9a05c;
             margin: 0 4px;
+        }
+
+        .footer .footer-sumber {
+            font-size: clamp(0.6rem, 0.9vw, 0.75rem);
+            color: #8f7a6a;
+            background: rgba(255, 252, 245, 0.3);
+            padding: 6px 20px;
+            border-radius: 30px;
+            border: 1px solid rgba(200, 180, 165, 0.06);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 4px 16px;
+        }
+
+        .footer .footer-sumber i {
+            color: #c9a05c;
+            margin-right: 4px;
         }
 
         /* ===== RESPONSIF ===== */
@@ -1281,6 +1325,11 @@
                 width: 100%;
                 max-width: 280px;
             }
+            .footer .footer-sumber {
+                flex-direction: column;
+                align-items: center;
+                gap: 4px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -1354,7 +1403,11 @@
             }
             .footer {
                 font-size: 0.65rem;
-                gap: 4px 10px;
+            }
+            .footer .footer-sumber {
+                font-size: 0.55rem;
+                flex-direction: column;
+                align-items: center;
             }
             .serat-gallery-wrap .gallery-header {
                 flex-direction: column;
@@ -1442,6 +1495,7 @@
     <!-- ===== BACKGROUND ===== -->
     <div class="bg-muka"></div>
     <div class="bg-overlay"></div>
+    <div class="batik-ornament"></div>
 
     <!-- ===== MODE SELECTOR ===== -->
     <div id="modeSelector">
@@ -1578,7 +1632,7 @@
                     </div>
                 </div>
 
-                <!-- ===== SERAT GALLERY — NAVIGASI DI BAWAH GAMBAR ===== -->
+                <!-- ===== SERAT GALLERY ===== -->
                 <div class="serat-gallery-wrap">
                     <div class="gallery-header">
                         <h3><i class="fas fa-image" style="color:#c9a05c;"></i> Visualisasi Naskah Serat Wedharaga</h3>
@@ -1593,7 +1647,7 @@
                                 </div>
                                 <div class="slide-label">🇮🇩 Bahasa Indonesia</div>
                                 <div class="slide-warning">
-                                    <i class="fas fa-info-circle"></i> Ini adalah ilustrasi, bisa saja salah. Untuk memastikan kebenarannya, silakan kunjungi peneliti, riset, atau terpercaya.
+                                    <i class="fas fa-info-circle"></i> Untuk referensi lebih lanjut, kamu bisa mengecek langsung koleksi naskah di Perpustakaan Nasional (Perpusnas) atau platform digital seperti Khastara.
                                 </div>
                             </div>
                             <!-- Slide 2: Ucapan -->
@@ -1603,7 +1657,7 @@
                                 </div>
                                 <div class="slide-label">💬 Ucapan</div>
                                 <div class="slide-warning">
-                                    <i class="fas fa-info-circle"></i> Ini adalah ilustrasi, bisa saja salah. Untuk memastikan kebenarannya, silakan kunjungi peneliti, riset, atau terpercaya.
+                                    <i class="fas fa-info-circle"></i> Untuk referensi lebih lanjut, kamu bisa mengecek langsung koleksi naskah di Perpustakaan Nasional (Perpusnas) atau platform digital seperti Khastara.
                                 </div>
                             </div>
                             <!-- Slide 3: Bahasa Jawa + Aksara -->
@@ -1613,13 +1667,13 @@
                                 </div>
                                 <div class="slide-label">🇯🇻 Bahasa Jawa · Aksara</div>
                                 <div class="slide-warning">
-                                    <i class="fas fa-info-circle"></i> Ini adalah ilustrasi, bisa saja salah. Untuk memastikan kebenarannya, silakan kunjungi peneliti, riset, atau terpercaya.
+                                    <i class="fas fa-info-circle"></i> Untuk referensi lebih lanjut, kamu bisa mengecek langsung koleksi naskah di Perpustakaan Nasional (Perpusnas) atau platform digital seperti Khastara.
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- ===== NAVIGASI TITIK 3 DI BAWAH GAMBAR (TENGAH) ===== -->
+                    <!-- ===== NAVIGASI TITIK 3 DI BAWAH ===== -->
                     <div class="dot-nav-bottom" id="dotNavBottom">
                         <button class="active" data-index="0"></button>
                         <button data-index="1"></button>
@@ -1627,7 +1681,7 @@
                     </div>
                 </div>
 
-                <!-- EMPAT NILAI UTAMA -->
+                <!-- ===== NILAI UTAMA ===== -->
                 <div style="margin:20px 0 4px;">
                     <h3 style="color:#3d5a3d;font-size:clamp(1.1rem,2vw,1.3rem);display:flex;align-items:center;gap:8px;">
                         <i class="fas fa-star" style="color:#c9a05c;"></i> Empat Nilai Utama Serat Wedharaga
@@ -1660,7 +1714,7 @@
                     </div>
                 </div>
 
-                <!-- STRUKTUR SERAT -->
+                <!-- ===== STRUKTUR SERAT ===== -->
                 <div style="margin:20px 0 8px;">
                     <h3 style="color:#3d5a3d;font-size:clamp(1rem,1.8vw,1.2rem);display:flex;align-items:center;gap:8px;">
                         <i class="fas fa-scroll" style="color:#c9a05c;"></i> Struktur Serat Wedharaga
@@ -1798,7 +1852,7 @@
                     </div>
                 </div>
 
-                <!-- CTA GAME -->
+                <!-- ===== CTA GAME (Senjata Pamungkas) ===== -->
                 <div class="game-cta" id="game-cta">
                     <h3><i class="fas fa-gamepad"></i> Siap Uji Pemahamanmu?</h3>
                     <p>Kami telah menyiapkan 3 skenario interaktif berbasis ajaran Serat Wedharaga. <br />Klik tombol di bawah untuk memulai permainan di halaman terpisah.</p>
@@ -1811,10 +1865,16 @@
                 </div>
             </section>
 
-            <!-- ===== FOOTER ===== -->
+            <!-- ===== FOOTER + REFERENSI ===== -->
             <div class="footer">
-                <span><i class="fas fa-copyright"></i> 2026 Credit by Nazwa Ananda Devina, Sekolah SMP Muhammadiyah 17 Ciputat, Kota Tangerang Selatan.</span>
-                <span><i class="fas fa-users"></i> Dibuat untuk Gen Z dan Gen Alpha.</span>
+                <div class="footer-main">
+                    <span><i class="fas fa-copyright"></i> 2026 Credit by Nazwa Ananda Devina, Sekolah SMP Muhammadiyah 17 Ciputat, Kota Tangerang Selatan.</span>
+                    <span><i class="fas fa-users"></i> Dibuat untuk Gen Z dan Gen Alpha.</span>
+                </div>
+                <div class="footer-sumber">
+                    <span><i class="fas fa-database"></i> Sumber data: Komdigi, 2024</span>
+                    <span><i class="fas fa-book"></i> Rujukan: Perpustakaan Nasional (Perpusnas) & Khastara</span>
+                </div>
             </div>
 
         </div>
@@ -1961,12 +2021,13 @@
             // ===== DEFAULT =====
             navigateTo('home');
 
-            // ===== TOMBOL GAME =====
+            // ===== TOMBOL GAME (GANTI DENGAN LINK ASLI) =====
             const gameBtn = document.querySelector('.game-cta .btn-primary');
             if (gameBtn) {
                 gameBtn.addEventListener('click', function(e) {
                     e.preventDefault();
                     alert('🚀 Ganti link ini dengan URL halaman game yang akan kamu buat sendiri!');
+                    // Ganti dengan: window.open('https://link-game-kamu.com', '_blank');
                 });
             }
 
