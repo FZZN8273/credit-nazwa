@@ -24,7 +24,7 @@
             background: #f4efe6;
         }
 
-        /* ===== BACKGROUND FULL — muka.png (TERLIHAT JELAS) ===== */
+        /* ===== BACKGROUND FULL — muka.png ===== */
         .bg-muka {
             position: fixed;
             inset: 0;
@@ -651,7 +651,7 @@
             margin: 12px 0 22px;
         }
 
-        /* POSTER hp.png — logo headphone putih ditutup dengan overlay */
+        /* POSTER hp.png — logo headphone putih ditutup */
         .hero-poster {
             flex: 0 0 auto;
             width: clamp(180px, 30vw, 280px);
@@ -671,57 +671,21 @@
             display: block;
         }
 
-        /* Tutup logo headphone putih di tengah hp.png dengan pseudo-element */
-        .hero-poster::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 70%;
-            height: 70%;
-            background: transparent;
-            /* Tidak menutupi, karena logo di gambar */
-            pointer-events: none;
-            /* Biarkan saja, karena logo di gambar bukan HTML */
-        }
-
-        /* TAPI karena logo headphone ada di dalam file gambar, saya tambahkan elemen penutup */
-        .hero-poster .logo-cover {
+        /* Penutup logo headphone putih */
+        .hero-poster .logo-cover-v2 {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             width: 70px;
             height: 70px;
-            background: rgba(255, 255, 255, 0.85);
-            border-radius: 50%;
-            border: 3px solid rgba(200, 180, 165, 0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0;
-            color: transparent;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
-            /* Tidak menutupi total, hanya memberi efek */
-            /* Lebih baik kita ganti dengan background transparan dan ikon pengganti */
-        }
-
-        /* Saya akan tutup dengan elemen yang lebih elegan — menutupi logo headphone */
-        .hero-poster .logo-cover-v2 {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 80px;
-            height: 80px;
-            background: rgba(244, 239, 230, 0.92);
+            background: rgba(244, 239, 230, 0.88);
             border-radius: 50%;
             border: 2px solid rgba(201, 160, 92, 0.15);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2rem;
+            font-size: 1.8rem;
             color: #c9a05c;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
             backdrop-filter: blur(4px);
@@ -730,7 +694,7 @@
         }
 
         .hero-poster .logo-cover-v2 i {
-            font-size: 2rem;
+            font-size: 1.8rem;
             color: #c9a05c;
         }
 
@@ -896,7 +860,6 @@
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
         }
 
-        /* LABEL + PERINGATAN */
         .serat-slide .slide-label {
             margin-top: 10px;
             font-size: clamp(0.6rem, 0.9vw, 0.75rem);
@@ -910,7 +873,6 @@
             border: 1px solid rgba(200, 180, 165, 0.06);
         }
 
-        /* PERINGATAN DI BAWAH ILUSTRASI */
         .serat-slide .slide-warning {
             margin-top: 8px;
             font-size: clamp(0.6rem, 0.8vw, 0.7rem);
@@ -1214,20 +1176,23 @@
             font-size: clamp(0.9rem, 1.3vw, 1.05rem);
         }
 
+        /* ===== FOOTER BARU ===== */
         .footer {
             margin-top: 48px;
             padding-top: 24px;
             border-top: 1px solid rgba(180, 160, 140, 0.08);
             text-align: center;
             color: #7b5e4b;
-            font-size: clamp(0.7rem, 1vw, 0.8rem);
+            font-size: clamp(0.7rem, 1vw, 0.85rem);
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 12px 24px;
+            gap: 8px 16px;
+            line-height: 1.6;
         }
         .footer i {
             color: #c9a05c;
+            margin: 0 4px;
         }
 
         /* ===== RESPONSIF ===== */
@@ -1298,6 +1263,14 @@
             .hero-poster {
                 width: clamp(140px, 40vw, 200px);
             }
+            .hero-poster .logo-cover-v2 {
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+            .hero-poster .logo-cover-v2 i {
+                font-size: 1.2rem;
+            }
             .nilai-grid {
                 grid-template-columns: 1fr 1fr;
             }
@@ -1355,6 +1328,14 @@
                 max-width: 260px;
                 margin: 0 auto;
             }
+            .hero-poster .logo-cover-v2 {
+                width: 45px;
+                height: 45px;
+                font-size: 1rem;
+            }
+            .hero-poster .logo-cover-v2 i {
+                font-size: 1rem;
+            }
             .hero {
                 flex-direction: column;
                 align-items: center;
@@ -1386,13 +1367,9 @@
                 flex-direction: column;
                 align-items: center;
             }
-            .hero-poster .logo-cover-v2 {
-                width: 50px;
-                height: 50px;
-                font-size: 1.2rem;
-            }
-            .hero-poster .logo-cover-v2 i {
-                font-size: 1.2rem;
+            .footer {
+                font-size: 0.65rem;
+                gap: 4px 10px;
             }
         }
 
@@ -1417,12 +1394,12 @@
                 max-width: 160px;
             }
             .hero-poster .logo-cover-v2 {
-                width: 40px;
-                height: 40px;
-                font-size: 1rem;
+                width: 35px;
+                height: 35px;
+                font-size: 0.8rem;
             }
             .hero-poster .logo-cover-v2 i {
-                font-size: 1rem;
+                font-size: 0.8rem;
             }
         }
 
@@ -1461,12 +1438,12 @@
                 min-width: 120px;
             }
             .hero-poster .logo-cover-v2 {
-                width: 40px;
-                height: 40px;
-                font-size: 1rem;
+                width: 35px;
+                height: 35px;
+                font-size: 0.8rem;
             }
             .hero-poster .logo-cover-v2 i {
-                font-size: 1rem;
+                font-size: 0.8rem;
             }
         }
     </style>
@@ -1566,7 +1543,6 @@
                     <!-- POSTER hp.png — dengan penutup logo headphone putih -->
                     <div class="hero-poster">
                         <img src="hp.png" alt="Jangan biarkan HP menguasai duniamu" />
-                        <!-- Penutup logo headphone putih di tengah -->
                         <div class="logo-cover-v2">
                             <i class="fas fa-scroll"></i>
                         </div>
@@ -1617,7 +1593,7 @@
                     </div>
                 </div>
 
-                <!-- GALERI SERAT — 3 ilustrasi -->
+                <!-- GALERI SERAT -->
                 <div class="serat-gallery-wrap">
                     <div class="gallery-header">
                         <h3><i class="fas fa-image" style="color:#c9a05c;"></i> Visualisasi Naskah Serat Wedharaga</h3>
@@ -1845,12 +1821,10 @@
                 </div>
             </section>
 
-            <!-- ===== FOOTER ===== -->
+            <!-- ===== FOOTER BARU ===== -->
             <div class="footer">
-                <span><i class="fas fa-scroll"></i> Serat Wedharaga · Ranggawarsita</span>
-                <span><i class="fas fa-mobile-alt"></i> Untuk Gen Z & Alpha</span>
-                <span><i class="fas fa-star"></i> #KendalikanDiri</span>
-                <span><i class="fas fa-palette"></i> Seni Nusantara</span>
+                <span><i class="fas fa-copyright"></i> 2026 Credit by Nazwa Ananda Devina, Sekolah SMP Muhammadiyah 17 Ciputat, Kota Tangerang Selatan.</span>
+                <span><i class="fas fa-users"></i> Dibuat untuk Gen Z dan Gen Alpha.</span>
             </div>
 
         </div>
