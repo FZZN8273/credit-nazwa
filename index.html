@@ -24,15 +24,15 @@
             background: #f4efe6;
         }
 
-        /* ===== BACKGROUND FULL — muka.png ===== */
+        /* ===== BACKGROUND FULL — muka.png (TERLIHAT JELAS) ===== */
         .bg-muka {
             position: fixed;
             inset: 0;
             z-index: 0;
             background: url('muka.png') center center / cover no-repeat;
-            opacity: 0.18;
+            opacity: 0.45;
             pointer-events: none;
-            filter: blur(1.5px) sepia(0.15);
+            filter: blur(1px) sepia(0.1);
             transform: scale(1.02);
         }
 
@@ -40,9 +40,9 @@
             position: fixed;
             inset: 0;
             z-index: 1;
-            background: rgba(244, 239, 230, 0.60);
-            backdrop-filter: blur(3px);
-            -webkit-backdrop-filter: blur(3px);
+            background: rgba(244, 239, 230, 0.20);
+            backdrop-filter: blur(2px);
+            -webkit-backdrop-filter: blur(2px);
             pointer-events: none;
         }
 
@@ -651,6 +651,7 @@
             margin: 12px 0 22px;
         }
 
+        /* POSTER hp.png — logo headphone putih ditutup dengan overlay */
         .hero-poster {
             flex: 0 0 auto;
             width: clamp(180px, 30vw, 280px);
@@ -669,10 +670,70 @@
             object-fit: cover;
             display: block;
         }
-        .hero-poster:hover {
-            transform: scale(1.02) rotate(-1deg);
-            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.12);
+
+        /* Tutup logo headphone putih di tengah hp.png dengan pseudo-element */
+        .hero-poster::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 70%;
+            height: 70%;
+            background: transparent;
+            /* Tidak menutupi, karena logo di gambar */
+            pointer-events: none;
+            /* Biarkan saja, karena logo di gambar bukan HTML */
         }
+
+        /* TAPI karena logo headphone ada di dalam file gambar, saya tambahkan elemen penutup */
+        .hero-poster .logo-cover {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 70px;
+            height: 70px;
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 50%;
+            border: 3px solid rgba(200, 180, 165, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0;
+            color: transparent;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+            /* Tidak menutupi total, hanya memberi efek */
+            /* Lebih baik kita ganti dengan background transparan dan ikon pengganti */
+        }
+
+        /* Saya akan tutup dengan elemen yang lebih elegan — menutupi logo headphone */
+        .hero-poster .logo-cover-v2 {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            background: rgba(244, 239, 230, 0.92);
+            border-radius: 50%;
+            border: 2px solid rgba(201, 160, 92, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: #c9a05c;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            pointer-events: none;
+        }
+
+        .hero-poster .logo-cover-v2 i {
+            font-size: 2rem;
+            color: #c9a05c;
+        }
+
         .hero-poster .poster-caption {
             position: absolute;
             bottom: 0;
@@ -686,6 +747,7 @@
             font-size: clamp(0.7rem, 1.2vw, 0.85rem);
             letter-spacing: 0.5px;
             text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            pointer-events: none;
         }
 
         .ticker {
@@ -738,7 +800,7 @@
             margin-right: 6px;
         }
 
-        /* ===== SERAT GALLERY — 3 ilustrasi: indo.png, ucapan.png, jawa.png ===== */
+        /* ===== SERAT GALLERY ===== */
         .serat-gallery-wrap {
             margin: 20px 0 24px;
             position: relative;
@@ -834,7 +896,7 @@
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
         }
 
-        /* HANYA LABEL KECIL — tanpa teks di atas gambar */
+        /* LABEL + PERINGATAN */
         .serat-slide .slide-label {
             margin-top: 10px;
             font-size: clamp(0.6rem, 0.9vw, 0.75rem);
@@ -846,6 +908,25 @@
             padding: 4px 16px;
             border-radius: 30px;
             border: 1px solid rgba(200, 180, 165, 0.06);
+        }
+
+        /* PERINGATAN DI BAWAH ILUSTRASI */
+        .serat-slide .slide-warning {
+            margin-top: 8px;
+            font-size: clamp(0.6rem, 0.8vw, 0.7rem);
+            color: #8a3a2a;
+            text-align: center;
+            max-width: 400px;
+            background: rgba(255, 252, 245, 0.5);
+            padding: 6px 16px;
+            border-radius: 30px;
+            border: 1px solid rgba(138, 58, 42, 0.10);
+            line-height: 1.5;
+            font-style: italic;
+        }
+        .serat-slide .slide-warning i {
+            color: #c9a05c;
+            margin-right: 6px;
         }
 
         /* ===== NILAI UTAMA ===== */
@@ -1305,6 +1386,14 @@
                 flex-direction: column;
                 align-items: center;
             }
+            .hero-poster .logo-cover-v2 {
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+            .hero-poster .logo-cover-v2 i {
+                font-size: 1.2rem;
+            }
         }
 
         @media (max-width: 360px) {
@@ -1326,6 +1415,14 @@
             }
             .serat-slide .slide-img {
                 max-width: 160px;
+            }
+            .hero-poster .logo-cover-v2 {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+            .hero-poster .logo-cover-v2 i {
+                font-size: 1rem;
             }
         }
 
@@ -1362,6 +1459,14 @@
             .mode-btn {
                 padding: 16px 20px;
                 min-width: 120px;
+            }
+            .hero-poster .logo-cover-v2 {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+            .hero-poster .logo-cover-v2 i {
+                font-size: 1rem;
             }
         }
     </style>
@@ -1458,10 +1563,15 @@
                         </div>
                     </div>
 
+                    <!-- POSTER hp.png — dengan penutup logo headphone putih -->
                     <div class="hero-poster">
-                        <img src="hp.png" alt="" />
+                        <img src="hp.png" alt="Jangan biarkan HP menguasai duniamu" />
+                        <!-- Penutup logo headphone putih di tengah -->
+                        <div class="logo-cover-v2">
+                            <i class="fas fa-scroll"></i>
+                        </div>
                         <div class="poster-caption">
-                            <i class="fas fa-mobile-alt"></i>
+                            <i class="fas fa-mobile-alt"></i> Jangan biarkan HP menguasai duniamu
                         </div>
                     </div>
                 </div>
@@ -1507,7 +1617,7 @@
                     </div>
                 </div>
 
-                <!-- GALERI SERAT — 3 ilustrasi: indo.png, ucapan.png, jawa.png -->
+                <!-- GALERI SERAT — 3 ilustrasi -->
                 <div class="serat-gallery-wrap">
                     <div class="gallery-header">
                         <h3><i class="fas fa-image" style="color:#c9a05c;"></i> Visualisasi Naskah Serat Wedharaga</h3>
@@ -1524,19 +1634,28 @@
                                 <div class="slide-img">
                                     <img src="indo.png" alt="Ilustrasi Serat Wedharaga bahasa Indonesia" />
                                 </div>
-                                <div class="slide-label">📄 Hanya ilustrasi pastikan membaca!</div>
+                                <div class="slide-label">📄 indo.png · Bahasa Indonesia</div>
+                                <div class="slide-warning">
+                                    <i class="fas fa-info-circle"></i> Ini adalah ilustrasi, bisa saja salah. Untuk memastikan kebenarannya, silakan kunjungi peneliti, riset, atau terpercaya.
+                                </div>
                             </div>
                             <div class="serat-slide">
                                 <div class="slide-img">
                                     <img src="ucapan.png" alt="Ilustrasi Serat Wedharaga ucapan" />
                                 </div>
-                                <div class="slide-label">📄 Ilustrasi serat WEDHARAGA ini murni referensi visual, bukan representasi mutlak. Untuk keakuratan silakan kunjungi langsung sumber aslinya guna memastikan kebenaran serta menghindari kesalahpahaman</div>
+                                <div class="slide-label">📄 ucapan.png · Ucapan</div>
+                                <div class="slide-warning">
+                                    <i class="fas fa-info-circle"></i> Ini adalah ilustrasi, bisa saja salah. Untuk memastikan kebenarannya, silakan kunjungi peneliti, riset, atau terpercaya.
+                                </div>
                             </div>
                             <div class="serat-slide">
                                 <div class="slide-img">
                                     <img src="jawa.png" alt="Ilustrasi Serat Wedharaga bahasa Jawa" />
                                 </div>
-                                <div class="slide-label">📄 Ilustrasi WEDHARAGA ini sekadar referensi visual, bukan salinan persis. Untuk kepastian, silakan temui peneliti atau lihat langsung sumber asli agar tidak keliru</div>
+                                <div class="slide-label">📄 jawa.png · Bahasa Jawa</div>
+                                <div class="slide-warning">
+                                    <i class="fas fa-info-circle"></i> Ini adalah ilustrasi, bisa saja salah. Untuk memastikan kebenarannya, silakan kunjungi peneliti, riset, atau terpercaya.
+                                </div>
                             </div>
                         </div>
                     </div>
