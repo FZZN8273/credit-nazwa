@@ -24,7 +24,6 @@
             background: #f4efe6;
         }
 
-        /* ===== BACKGROUND FULL — muka.png ===== */
         .bg-muka {
             position: fixed;
             inset: 0;
@@ -651,7 +650,6 @@
             margin: 12px 0 22px;
         }
 
-        /* ===== POSTER hp.png — TANPA CAPTION TAMBAHAN ===== */
         .hero-poster {
             flex: 0 0 auto;
             width: clamp(180px, 30vw, 280px);
@@ -671,7 +669,6 @@
             display: block;
         }
 
-        /* Penutup logo headphone putih */
         .hero-poster .logo-cover-v2 {
             position: absolute;
             top: 50%;
@@ -697,8 +694,6 @@
             font-size: 1.8rem;
             color: #c9a05c;
         }
-
-        /* TIDAK ADA CAPTION DI BAWAH POSTER */
 
         .ticker {
             background: rgba(255, 252, 245, 0.6);
@@ -750,7 +745,7 @@
             margin-right: 6px;
         }
 
-        /* ===== SERAT GALLERY ===== */
+        /* ===== SERAT GALLERY — NAVIGASI DI BAWAH GAMBAR ===== */
         .serat-gallery-wrap {
             margin: 20px 0 24px;
             position: relative;
@@ -759,7 +754,7 @@
         .serat-gallery-wrap .gallery-header {
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            justify-content: center;
             flex-wrap: wrap;
             gap: 12px;
             margin-bottom: 14px;
@@ -774,30 +769,6 @@
         }
         .serat-gallery-wrap .gallery-header h3 i {
             color: #c9a05c;
-        }
-
-        .dot-nav {
-            display: flex;
-            gap: 10px;
-        }
-        .dot-nav button {
-            width: 14px;
-            height: 14px;
-            border-radius: 50%;
-            border: 2px solid #c9a05c;
-            background: transparent;
-            cursor: pointer;
-            transition: 0.3s ease;
-            padding: 0;
-        }
-        .dot-nav button.active {
-            background: #c9a05c;
-            transform: scale(1.2);
-            box-shadow: 0 0 12px rgba(201, 160, 92, 0.3);
-        }
-        .dot-nav button:hover {
-            background: rgba(201, 160, 92, 0.3);
-            transform: scale(1.1);
         }
 
         .serat-slider {
@@ -846,21 +817,53 @@
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
         }
 
+        /* LABEL BAHASA DI BAWAH GAMBAR */
         .serat-slide .slide-label {
-            margin-top: 10px;
-            font-size: clamp(0.6rem, 0.9vw, 0.75rem);
-            color: #b8956e;
-            font-weight: 600;
+            margin-top: 12px;
+            font-size: clamp(0.7rem, 1vw, 0.85rem);
+            color: #3d5a3d;
+            font-weight: 700;
             letter-spacing: 0.5px;
-            text-transform: uppercase;
-            background: rgba(255, 252, 245, 0.3);
-            padding: 4px 16px;
+            background: rgba(255, 252, 245, 0.5);
+            padding: 4px 20px;
             border-radius: 30px;
-            border: 1px solid rgba(200, 180, 165, 0.06);
+            border: 1px solid rgba(200, 180, 165, 0.10);
         }
 
+        /* ===== NAVIGASI TITIK 3 DI BAWAH GAMBAR (TENGAH) ===== */
+        .dot-nav-bottom {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 14px;
+            padding: 4px 0;
+        }
+
+        .dot-nav-bottom button {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            border: 2px solid #c9a05c;
+            background: transparent;
+            cursor: pointer;
+            transition: 0.3s ease;
+            padding: 0;
+        }
+
+        .dot-nav-bottom button.active {
+            background: #c9a05c;
+            transform: scale(1.2);
+            box-shadow: 0 0 12px rgba(201, 160, 92, 0.3);
+        }
+
+        .dot-nav-bottom button:hover {
+            background: rgba(201, 160, 92, 0.3);
+            transform: scale(1.1);
+        }
+
+        /* PERINGATAN DI BAWAH NAVIGASI */
         .serat-slide .slide-warning {
-            margin-top: 8px;
+            margin-top: 10px;
             font-size: clamp(0.6rem, 0.8vw, 0.7rem);
             color: #8a3a2a;
             text-align: center;
@@ -1349,13 +1352,13 @@
             .extra-grid {
                 grid-template-columns: 1fr;
             }
-            .serat-gallery-wrap .gallery-header {
-                flex-direction: column;
-                align-items: center;
-            }
             .footer {
                 font-size: 0.65rem;
                 gap: 4px 10px;
+            }
+            .serat-gallery-wrap .gallery-header {
+                flex-direction: column;
+                align-items: center;
             }
         }
 
@@ -1436,7 +1439,7 @@
 </head>
 <body>
 
-    <!-- ===== BACKGROUND FULL — muka.png ===== -->
+    <!-- ===== BACKGROUND ===== -->
     <div class="bg-muka"></div>
     <div class="bg-overlay"></div>
 
@@ -1526,14 +1529,12 @@
                         </div>
                     </div>
 
-                    <!-- ===== POSTER hp.png — TANPA CAPTION ===== -->
                     <div class="hero-poster">
                         <img src="hp.png" alt="Poster Serat Wedharaga" />
                         <div class="logo-cover-v2">
                             <i class="fas fa-scroll"></i>
                         </div>
                     </div>
-                    <!-- TIDAK ADA ELEMEN CAPTION DI SINI -->
                 </div>
 
                 <div class="ticker">
@@ -1577,47 +1578,52 @@
                     </div>
                 </div>
 
-                <!-- GALERI SERAT -->
+                <!-- ===== SERAT GALLERY — NAVIGASI DI BAWAH GAMBAR ===== -->
                 <div class="serat-gallery-wrap">
                     <div class="gallery-header">
                         <h3><i class="fas fa-image" style="color:#c9a05c;"></i> Visualisasi Naskah Serat Wedharaga</h3>
-                        <div class="dot-nav" id="dotNav">
-                            <button class="active" data-index="0"></button>
-                            <button data-index="1"></button>
-                            <button data-index="2"></button>
-                        </div>
                     </div>
 
                     <div class="serat-slider">
                         <div class="serat-slides" id="seratSlides">
+                            <!-- Slide 1: Bahasa Indonesia -->
                             <div class="serat-slide">
                                 <div class="slide-img">
                                     <img src="indo.png" alt="Ilustrasi Serat Wedharaga bahasa Indonesia" />
                                 </div>
-                                <div class="slide-label">📄 indo.png · Bahasa Indonesia</div>
+                                <div class="slide-label">🇮🇩 Bahasa Indonesia</div>
                                 <div class="slide-warning">
                                     <i class="fas fa-info-circle"></i> Ini adalah ilustrasi, bisa saja salah. Untuk memastikan kebenarannya, silakan kunjungi peneliti, riset, atau terpercaya.
                                 </div>
                             </div>
+                            <!-- Slide 2: Ucapan -->
                             <div class="serat-slide">
                                 <div class="slide-img">
                                     <img src="ucapan.png" alt="Ilustrasi Serat Wedharaga ucapan" />
                                 </div>
-                                <div class="slide-label">📄 ucapan.png · Ucapan</div>
+                                <div class="slide-label">💬 Ucapan</div>
                                 <div class="slide-warning">
                                     <i class="fas fa-info-circle"></i> Ini adalah ilustrasi, bisa saja salah. Untuk memastikan kebenarannya, silakan kunjungi peneliti, riset, atau terpercaya.
                                 </div>
                             </div>
+                            <!-- Slide 3: Bahasa Jawa + Aksara -->
                             <div class="serat-slide">
                                 <div class="slide-img">
                                     <img src="jawa.png" alt="Ilustrasi Serat Wedharaga bahasa Jawa" />
                                 </div>
-                                <div class="slide-label">📄 jawa.png · Bahasa Jawa</div>
+                                <div class="slide-label">🇯🇻 Bahasa Jawa · Aksara</div>
                                 <div class="slide-warning">
                                     <i class="fas fa-info-circle"></i> Ini adalah ilustrasi, bisa saja salah. Untuk memastikan kebenarannya, silakan kunjungi peneliti, riset, atau terpercaya.
                                 </div>
                             </div>
                         </div>
+                    </div>
+
+                    <!-- ===== NAVIGASI TITIK 3 DI BAWAH GAMBAR (TENGAH) ===== -->
+                    <div class="dot-nav-bottom" id="dotNavBottom">
+                        <button class="active" data-index="0"></button>
+                        <button data-index="1"></button>
+                        <button data-index="2"></button>
                     </div>
                 </div>
 
@@ -1916,9 +1922,9 @@
                 });
             });
 
-            // ===== SERAT SLIDER =====
+            // ===== SERAT SLIDER — NAVIGASI DI BAWAH =====
             const slides = document.getElementById('seratSlides');
-            const dots = document.querySelectorAll('.dot-nav button');
+            const dots = document.querySelectorAll('#dotNavBottom button');
             let currentIndex = 0;
             const totalSlides = dots.length;
 
