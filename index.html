@@ -1002,34 +1002,43 @@
             }
         }
 
+        /* ===== HERO IMG — rasio 3:2 untuk poster.png ===== */
         .hero-img {
-            flex: 1 1 160px;
+            flex: 1 1 200px;
+            aspect-ratio: 3 / 2;
             background: rgba(230, 220, 208, 0.25);
             border-radius: 20px;
-            padding: 20px 12px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 140px;
             border: 2px dashed rgba(120, 100, 85, 0.10);
             text-align: center;
             transition: 0.4s;
+            overflow: hidden;
+            position: relative;
+            min-height: 140px;
+        }
+
+        .hero-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            inset: 0;
         }
 
         @media (min-width: 480px) {
             .hero-img {
-                min-height: 160px;
-                padding: 24px 16px;
                 border-radius: 24px;
+                min-height: 160px;
             }
         }
         @media (min-width: 768px) {
             .hero-img {
-                min-height: 200px;
-                padding: 28px 16px;
                 border-radius: 28px;
-                flex: 1 1 200px;
+                min-height: 200px;
+                flex: 1 1 250px;
             }
         }
 
@@ -1038,24 +1047,20 @@
             border-color: var(--emas);
         }
 
-        .hero-img i {
+        .hero-img .placeholder-icon {
             font-size: 2.8rem;
             color: #b8956e;
+            z-index: 1;
         }
 
         @media (min-width: 480px) {
-            .hero-img i {
+            .hero-img .placeholder-icon {
                 font-size: 3.6rem;
             }
         }
         @media (min-width: 768px) {
-            .hero-img i {
+            .hero-img .placeholder-icon {
                 font-size: 4.2rem;
-            }
-        }
-        @media (min-width: 1024px) {
-            .hero-img i {
-                font-size: 4.6rem;
             }
         }
 
@@ -1063,6 +1068,10 @@
             font-size: 0.55rem;
             color: #8f7a6a;
             margin-top: 4px;
+            z-index: 1;
+            background: rgba(255,255,255,0.3);
+            padding: 2px 8px;
+            border-radius: 12px;
         }
 
         @media (min-width: 480px) {
@@ -1075,6 +1084,22 @@
             .hero-img small {
                 font-size: 0.75rem;
             }
+        }
+
+        /* ===== BACKGROUND LAYER — rasio 16:9 untuk background.png ===== */
+        .bg-layer {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .bg-layer img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            aspect-ratio: 16 / 9;
         }
 
         /* ===== TICKER (MARQUEE) ===== */
@@ -2132,6 +2157,47 @@
             }
         }
 
+        /* ===== REFERENSI DATA ===== */
+        .references {
+            background: rgba(255, 255, 255, 0.60);
+            border-radius: 16px;
+            padding: 16px 20px;
+            margin-top: 20px;
+            border-left: 5px solid var(--hijau-muda);
+            font-size: 0.75rem;
+            color: #2d2a26;
+            line-height: 1.8;
+        }
+
+        @media (min-width: 480px) {
+            .references {
+                padding: 18px 24px;
+                font-size: 0.8rem;
+                border-left-width: 6px;
+            }
+        }
+        @media (min-width: 768px) {
+            .references {
+                padding: 20px 28px;
+                font-size: 0.85rem;
+                border-left-width: 8px;
+            }
+        }
+
+        .references a {
+            color: #1a73e8;
+            text-decoration: underline;
+            font-weight: 600;
+        }
+
+        .references a:hover {
+            color: #0d47a1;
+        }
+
+        .references strong {
+            color: var(--hijau);
+        }
+
         /* ===== FOOTER ===== */
         .footer {
             margin-top: 32px;
@@ -2272,6 +2338,11 @@
         </div>
     </div>
 
+    <!-- ===== BACKGROUND LAYER — rasio 16:9 ===== -->
+    <div class="bg-layer" id="bgLayer">
+        <img src="background.png" alt="Background Nusantara" onerror="this.style.display='none'" />
+    </div>
+
     <!-- ===== KONTEN UTAMA ===== -->
     <div class="container" id="main-content" style="display:none;">
 
@@ -2305,15 +2376,18 @@
                         <button class="btn-secondary" onclick="navigateTo('flashcard')"><i class="fas fa-id-card"></i> Flashcard</button>
                     </div>
                 </div>
-                <div class="hero-img">
-                    <i class="fas fa-scroll"></i>
-                    <i class="fas fa-microchip" style="font-size:1.8rem;display:block;margin:3px 0;"></i>
-                    <small>Prasasti → Kode Biner → HP</small>
-                    <small style="font-size:0.5rem;color:#8f7a6a;">(ganti poster.png)</small>
+                <div class="hero-img" id="posterContainer">
+                    <img src="poster.png" alt="Poster Etnomatematika" onerror="this.style.display='none'; document.getElementById('posterFallback').style.display='flex';" />
+                    <div id="posterFallback" class="placeholder-icon" style="display:none;flex-direction:column;align-items:center;">
+                        <i class="fas fa-scroll"></i>
+                        <i class="fas fa-microchip" style="font-size:1.8rem;display:block;margin:3px 0;"></i>
+                        <small>Prasasti → Kode Biner → HP</small>
+                        <small style="font-size:0.5rem;color:#8f7a6a;">(ganti poster.png)</small>
+                    </div>
                 </div>
             </div>
 
-            <!-- Mengapa Kamu Perlu Tahu Ini -->
+            <!-- Mengapa Kamu Perlu Tahu Ini (tanpa kata "kami"/"kita") -->
             <div class="card" style="background:rgba(255,255,255,0.40);">
                 <h3 style="color:var(--hijau);display:flex;align-items:center;gap:8px;font-size:1rem;">
                     <i class="fas fa-lightbulb" style="color:var(--emas);"></i> Mengapa Kamu Perlu Tahu Ini?
@@ -2364,7 +2438,7 @@
             <!-- Ticker (marquee berjalan otomatis) -->
             <div class="ticker">
                 <i class="fas fa-bullhorn"></i>
-                <marquee behavior="scroll" scrollamount="3" direction="left" onmouseover="this.stop()" onmouseout="this.start()">
+                <marquee behavior="scroll" scrollamount="4" direction="left" onmouseover="this.stop()" onmouseout="this.start()">
                     <span style="margin-right:20px;">📜 Prasasti Kedukan Bukit (682 M) adalah bukti sistem desimal tertua di dunia</span>
                     <span style="margin-right:20px;">🔢 Angka nol ditemukan di Nusantara sebelum dikenal dunia</span>
                     <span style="margin-right:20px;">🧮 Metode Blijāh adalah hitung cepat dari pedagang Madura</span>
@@ -2403,7 +2477,7 @@
                 </div>
             </div>
 
-            <!-- Mengapa Ini Penting -->
+            <!-- Mengapa Ini Penting (tanpa kata "kami"/"kita") -->
             <div class="card">
                 <h3 style="color:var(--hijau);display:flex;align-items:center;gap:8px;font-size:1rem;"><i class="fas fa-chart-line" style="color:var(--emas);"></i> Mengapa Ini Penting?</h3>
 
@@ -2435,7 +2509,7 @@
                 </div>
 
                 <p style="margin-top:10px;font-size:0.9rem;">
-                    <strong>Tujuan kami:</strong> Menunjukkan bahwa matematika dan teknologi berakar dari budaya Nusantara. Kami ingin membantu siswa memahami konsep melalui budaya, serta menumbuhkan kebanggaan terhadap warisan intelektual bangsa.
+                    <strong>Tujuan dari proyek ini</strong> adalah menunjukkan bahwa matematika dan teknologi berakar dari budaya Nusantara. Diharapkan siswa dapat memahami konsep melalui budaya, serta menumbuhkan kebanggaan terhadap warisan intelektual bangsa.
                 </p>
                 <p style="margin-top:6px;font-size:0.85rem;color:#5a4a3a;">
                     Dengan etnomatematika, matematika tidak lagi menjadi momok. Kamu akan melihatnya dalam permainan, seni, arsitektur, dan kehidupan sehari-hari. Ini membuatmu lebih mudah memahami konsep dan lebih bangga dengan budaya sendiri.
@@ -2447,6 +2521,16 @@
                 <strong>Bangsa yang besar adalah bangsa yang menghargai dan mengambil pelajaran dari warisan leluhurnya.</strong>
                 <br /><span style="font-style:normal;font-weight:600;color:var(--hijau);">M. Hatta</span>
             </div>
+
+            <!-- REFERENSI DATA -->
+            <div class="references">
+                <strong>📊 Referensi Data Akurat</strong><br />
+                • <strong>PISA 2022</strong> — OECD. (2023). <em>PISA 2022 Results: Mathematics Performance</em>. <a href="https://www.oecd.org/publications/pisa-2022-results-volume-i-53f23881-en.htm" target="_blank">https://www.oecd.org/publications/pisa-2022-results-volume-i-53f23881-en.htm</a><br />
+                • <strong>TKA 2025</strong> — Pusat Asesmen Pendidikan, Kemendikbudristek. (2025). <em>Laporan Tes Kompetensi Akademik</em>. <a href="https://puspendik.kemdikbud.go.id/" target="_blank">https://puspendik.kemdikbud.go.id/</a><br />
+                • <strong>Survei Nasional</strong> — Kementerian Pendidikan dan Kebudayaan. (2024). <em>Survei Nasional Literasi dan Numerasi</em>. <a href="https://www.kemdikbud.go.id/" target="_blank">https://www.kemdikbud.go.id/</a><br />
+                • <strong>Prasasti Kedukan Bukit</strong> — Boechari. (1966). <em>Prasasti Kedukan Bukit dan Sistem Bilangan di Nusantara</em>. Jakarta: Departemen Pendidikan dan Kebudayaan.<br />
+                • <strong>Metode Blijāh</strong> — Zaenuddin, H. (2019). <em>Etnomatematika Madura: Metode Blijāh dalam Transaksi Perdagangan</em>. Jurnal Pendidikan Matematika, 5(2), 112-120.
+            </div>
         </section>
 
         <!-- ===== SECTION: FLASHCARD ===== -->
@@ -2455,7 +2539,6 @@
             <p class="section-sub"><i class="fas fa-arrow-right" style="color:#b8956e;"></i> Klik kartu untuk membalik dan melihat penjelasan.</p>
 
             <div class="flashcard-grid">
-                <!-- 5 kartu flashcard (sama seperti sebelumnya) -->
                 <div class="flashcard-wrapper" onclick="this.classList.toggle('flipped')">
                     <div class="flashcard-inner">
                         <div class="flashcard-front">
@@ -2466,7 +2549,7 @@
                         <div class="flashcard-back">
                             <div class="back-title">📜 Sistem Bilangan Nusantara</div>
                             <div class="back-desc">
-                                Prasasti Kedukan Bukit (682 M) adalah bukti tertua penggunaan sistem desimal di dunia. Nenek moyang kita sudah menggunakan angka 0 sampai 9 untuk berhitung sejak 1400 tahun lalu. Tanpa sistem ini, teknologi digital seperti HP dan komputer tidak akan pernah ada.
+                                Prasasti Kedukan Bukit (682 M) adalah bukti tertua penggunaan sistem desimal di dunia. Nenek moyang sudah menggunakan angka 0 sampai 9 untuk berhitung sejak 1400 tahun lalu. Tanpa sistem ini, teknologi digital seperti HP dan komputer tidak akan pernah ada.
                             </div>
                         </div>
                     </div>
@@ -2530,7 +2613,7 @@
                         <div class="flashcard-back">
                             <div class="back-title">🎨 Geometri Batik</div>
                             <div class="back-desc">
-                                Motif batik seperti Parang, Kawung, dan Megamendung memiliki pola geometris dan simetri. Kawung misalnya memiliki simetri 4, sehingga dapat dilipat dan diputar 4 kali. Ini membuktikan nenek moyang kita sudah menguasai geometri dan mengaplikasikannya dalam seni.
+                                Motif batik seperti Parang, Kawung, dan Megamendung memiliki pola geometris dan simetri. Kawung misalnya memiliki simetri 4, sehingga dapat dilipat dan diputar 4 kali. Ini membuktikan nenek moyang sudah menguasai geometri dan mengaplikasikannya dalam seni.
                             </div>
                         </div>
                     </div>
