@@ -524,7 +524,7 @@
             }
         }
 
-        /* ===== NAVIGASI ===== */
+        /* ===== NAV ===== */
         .nav-bar {
             display: flex;
             align-items: center;
@@ -717,21 +717,6 @@
                 opacity: 1;
                 transform: translateY(0);
             }
-        }
-
-        /* Mode fokus quiz */
-        body.quiz-focus .section:not(#sec-quiz) {
-            display: none !important;
-        }
-        body.quiz-focus .nav-bar {
-            display: none !important;
-        }
-        body.quiz-focus .footer {
-            display: none !important;
-        }
-        body.quiz-focus #sec-quiz {
-            display: block !important;
-            padding-top: 30px;
         }
 
         /* ===== CARD & ELEMEN ===== */
@@ -2206,7 +2191,7 @@
             }
         }
 
-        /* ===== DASHBOARD JELAJAHI ===== */
+        /* ===== DASHBOARD ===== */
         .dashboard-grid {
             display: grid;
             grid-template-columns: 1fr;
@@ -2288,20 +2273,26 @@
             transform: translateX(6px);
         }
 
-        .dashboard-card.gold {
-            border-color: var(--emas);
+        /* ===== CTA POSTER ===== */
+        .cta-hero {
+            text-align: center;
+            margin-bottom: 20px;
         }
 
-        .dashboard-card.gold .icon {
-            color: var(--merah-bata);
+        .cta-hero img {
+            max-width: 100%;
+            width: 100%;
+            max-width: 420px;
+            aspect-ratio: 2/3;
+            object-fit: cover;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            transition: 0.3s;
         }
 
-        .dashboard-card.green {
-            border-color: var(--hijau-muda);
-        }
-
-        .dashboard-card.green .icon {
-            color: var(--hijau-muda);
+        .cta-hero img:hover {
+            transform: scale(1.02);
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.08);
         }
 
         /* ===== REFERENCES ===== */
@@ -2605,7 +2596,7 @@
                             <span class="icon">💻</span>
                             <span class="title">Teknologi digital berakar dari sistem bilangan Nusantara</span>
                             <span class="explanation">
-                                Setiap perangkat digital, seperti HP, laptop, dan komputer, bekerja dengan sistem biner yang hanya menggunakan angka 0 dan 1. Sistem ini adalah turunan dari sistem desimal yang pertama kali digunakan di Nusantara pada abad ke-6. Jadi, setiap kali kamu menggunakan gadget, sebenarnya kamu sedang menikmati warisan matematika leluhur.
+                                Setiap perangkat digital bekerja dengan sistem biner yang hanya menggunakan angka 0 dan 1. Sistem ini adalah turunan dari sistem desimal yang pertama kali digunakan di Nusantara pada abad ke-6.
                             </span>
                         </div>
                     </div>
@@ -2614,7 +2605,7 @@
                             <span class="icon">🧮</span>
                             <span class="title">Metode hitung cepat dari nenek moyang masih dipakai</span>
                             <span class="explanation">
-                                Pedagang di pasar menggunakan metode Blijāh untuk menghitung dengan cepat tanpa kalkulator. Metode ini menggunakan prinsip pembulatan dan pengurangan, sehingga sangat efisien dan masih relevan hingga kini dalam transaksi sehari-hari.
+                                Pedagang di pasar menggunakan metode Blijāh untuk menghitung dengan cepat tanpa kalkulator. Metode ini efisien dan masih relevan hingga kini.
                             </span>
                         </div>
                     </div>
@@ -2623,7 +2614,7 @@
                             <span class="icon">🎯</span>
                             <span class="title">Logika permainan tradisional sama dengan algoritma modern</span>
                             <span class="explanation">
-                                Permainan tradisional seperti congklak mengajarkan pola, strategi, dan perhitungan. Konsep ini sama dengan cara kerja algoritma dalam pemrograman dan game modern. Dengan memahami logika ini, kamu bisa lebih mudah menguasai teknologi.
+                                Permainan tradisional seperti congklak mengajarkan pola, strategi, dan perhitungan — sama dengan cara kerja algoritma dalam pemrograman.
                             </span>
                         </div>
                     </div>
@@ -2632,7 +2623,7 @@
                             <span class="icon">🇮🇩</span>
                             <span class="title">Ini adalah budayamu sendiri, warisan yang patut dibanggakan</span>
                             <span class="explanation">
-                                Matematika bukanlah barang asing. Ia tumbuh dan berkembang dari budaya Nusantara, mulai dari prasasti, permainan, batik, hingga cara berdagang. Dengan mempelajarinya, kamu tidak hanya pintar, tetapi juga bangga menjadi bagian dari peradaban besar Nusantara.
+                                Matematika bukanlah barang asing. Ia tumbuh dari budaya Nusantara, mulai dari prasasti, permainan, batik, hingga cara berdagang.
                             </span>
                         </div>
                     </div>
@@ -2653,7 +2644,7 @@
         <!-- ===== SECTION: TENTANG ===== -->
         <section class="section" id="sec-about">
             <h2 class="section-title"><i class="fas fa-info-circle"></i> Apa Itu Etnomatematika?</h2>
-            <p class="section-sub"><i class="fas fa-arrow-right" style="color:#b8956e;"></i> Belajar matematika melalui budaya sehari-hari, dari permainan, seni, hingga cara hidup.</p>
+            <p class="section-sub"><i class="fas fa-arrow-right" style="color:#b8956e;"></i> Belajar matematika melalui budaya sehari-hari.</p>
 
             <div class="card">
                 <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:center;">
@@ -2687,7 +2678,7 @@
                         <p><strong>Lihat batik ini:</strong> di dalamnya ada simetri dan geometri. Setiap motif batik adalah aplikasi matematika dalam seni.</p>
                         <p style="margin-top:8px;"><strong>Contoh lain:</strong> permainan congklak mengajarkan pola dan strategi, sama seperti algoritma dalam pemrograman.</p>
                         <p style="margin-top:8px;font-style:italic;color:#5a4a3a;">
-                            “Etnomatematika adalah jembatan antara budaya dan logika. Matematika tidak lahir di ruang hampa, ia tumbuh dari kebutuhan masyarakat.” — <strong>Dr. Marsigit, pakar etnomatematika UIN Sunan Kalijaga</strong>
+                            “Etnomatematika adalah jembatan antara budaya dan logika. Matematika tidak lahir di ruang hampa, ia tumbuh dari kebutuhan masyarakat.” — <strong>Dr. Marsigit</strong>
                         </p>
                     </div>
                 </div>
@@ -2695,39 +2686,34 @@
 
             <div class="card">
                 <h3 style="color:var(--hijau);display:flex;align-items:center;gap:8px;font-size:1rem;"><i class="fas fa-chart-line" style="color:var(--emas);"></i> Mengapa Ini Penting?</h3>
-
                 <div class="stat-grid">
                     <div class="stat-item" style="border-left:4px solid var(--emas);">
                         <i class="fas fa-chart-simple"></i>
                         <div class="num">PISA 2022</div>
                         <div class="lbl">Literasi sains & matematika Indonesia di peringkat bawah</div>
-                        <div class="sub-text">Banyak siswa kesulitan memahami soal matematika karena diajarkan secara hafalan, bukan pemahaman.</div>
+                        <div class="sub-text">Siswa kesulitan memahami soal karena diajarkan secara hafalan, bukan pemahaman.</div>
                     </div>
                     <div class="stat-item" style="border-left:4px solid var(--merah-bata);">
                         <i class="fas fa-file-alt"></i>
                         <div class="num">TKA 2025</div>
                         <div class="lbl">60% peserta kesulitan teks kompleks</div>
-                        <div class="sub-text">Siswa tidak paham kegunaan matematika dalam kehidupan, mereka hanya menghafal rumus tanpa aplikasi nyata.</div>
+                        <div class="sub-text">Siswa tidak paham kegunaan matematika dalam kehidupan.</div>
                     </div>
                     <div class="stat-item" style="border-left:4px solid var(--hijau-muda);">
                         <i class="fas fa-face-frown"></i>
                         <div class="num">Survei Nasional</div>
                         <div class="lbl">Mayoritas siswa tidak suka matematika</div>
-                        <div class="sub-text">Matematika dianggap abstrak dan membosankan, siswa tidak melihat hubungannya dengan kehidupan sehari-hari.</div>
+                        <div class="sub-text">Matematika dianggap abstrak dan membosankan.</div>
                     </div>
                     <div class="stat-item" style="border-left:4px solid var(--emas);">
                         <i class="fas fa-flag"></i>
                         <div class="num">100%</div>
                         <div class="lbl">Relevan dengan kehidupan & teknologi</div>
-                        <div class="sub-text">Semua konsep etnomatematika bisa langsung kamu lihat dan gunakan, misalnya dari HP, game, dan transaksi di pasar.</div>
+                        <div class="sub-text">Konsep etnomatematika bisa langsung kamu lihat dan gunakan sehari-hari.</div>
                     </div>
                 </div>
-
                 <p style="margin-top:10px;font-size:0.9rem;">
-                    <strong>Tujuan dari proyek ini</strong> adalah menunjukkan bahwa matematika dan teknologi berakar dari budaya Nusantara. Diharapkan siswa dapat memahami konsep melalui budaya, serta menumbuhkan kebanggaan terhadap warisan intelektual bangsa.
-                </p>
-                <p style="margin-top:6px;font-size:0.85rem;color:#5a4a3a;">
-                    Dengan etnomatematika, matematika tidak lagi menjadi momok. Kamu akan melihatnya dalam permainan, seni, arsitektur, dan kehidupan sehari-hari. Ini membuatmu lebih mudah memahami konsep dan lebih bangga dengan budaya sendiri.
+                    <strong>Tujuan proyek ini</strong> adalah menunjukkan bahwa matematika dan teknologi berakar dari budaya Nusantara. Diharapkan siswa dapat memahami konsep melalui budaya dan menumbuhkan kebanggaan terhadap warisan intelektual bangsa.
                 </p>
             </div>
 
@@ -2739,22 +2725,27 @@
 
             <div class="references">
                 <strong>📊 Referensi Data Akurat</strong><br />
-                • <strong>PISA 2022</strong> — OECD. (2023). <em>PISA 2022 Results: Mathematics Performance</em>. <a href="https://www.oecd.org/publications/pisa-2022-results-volume-i-53f23881-en.htm" target="_blank">https://www.oecd.org/publications/pisa-2022-results-volume-i-53f23881-en.htm</a><br />
-                • <strong>TKA 2025</strong> — Pusat Asesmen Pendidikan, Kemendikbudristek. (2025). <em>Laporan Tes Kompetensi Akademik</em>. <a href="https://puspendik.kemdikbud.go.id/" target="_blank">https://puspendik.kemdikbud.go.id/</a><br />
-                • <strong>Survei Nasional</strong> — Kementerian Pendidikan dan Kebudayaan. (2024). <em>Survei Nasional Literasi dan Numerasi</em>. <a href="https://www.kemdikbud.go.id/" target="_blank">https://www.kemdikbud.go.id/</a><br />
-                • <strong>Prasasti Kedukan Bukit</strong> — Boechari. (1966). <em>Prasasti Kedukan Bukit dan Sistem Bilangan di Nusantara</em>. Jakarta: Departemen Pendidikan dan Kebudayaan.<br />
-                • <strong>Metode Blijāh</strong> — Zaenuddin, H. (2019). <em>Etnomatematika Madura: Metode Blijāh dalam Transaksi Perdagangan</em>. Jurnal Pendidikan Matematika, 5(2), 112-120.
+                • <strong>PISA 2022</strong> — OECD. (2023). <a href="https://www.oecd.org/publications/pisa-2022-results-volume-i-53f23881-en.htm" target="_blank">https://www.oecd.org/publications/pisa-2022-results-volume-i-53f23881-en.htm</a><br />
+                • <strong>TKA 2025</strong> — Pusat Asesmen Pendidikan, Kemendikbudristek. <a href="https://puspendik.kemdikbud.go.id/" target="_blank">https://puspendik.kemdikbud.go.id/</a><br />
+                • <strong>Survei Nasional</strong> — Kementerian Pendidikan dan Kebudayaan. <a href="https://www.kemdikbud.go.id/" target="_blank">https://www.kemdikbud.go.id/</a><br />
+                • <strong>Prasasti Kedukan Bukit</strong> — Boechari. (1966). <em>Prasasti Kedukan Bukit dan Sistem Bilangan di Nusantara</em>.<br />
+                • <strong>Metode Blijāh</strong> — Zaenuddin, H. (2019). <em>Etnomatematika Madura: Metode Blijāh dalam Transaksi Perdagangan</em>.
             </div>
         </section>
 
-        <!-- ===== SECTION: DASHBOARD JELAJAHI ===== -->
+        <!-- ===== SECTION: DASHBOARD + cta.jpg ===== -->
         <section class="section" id="sec-dashboard">
             <h2 class="section-title"><i class="fas fa-compass"></i> Jelajahi Etnomatematika Nusantara</h2>
             <p class="section-sub"><i class="fas fa-arrow-right" style="color:#b8956e;"></i> Pilih petualanganmu dan mulai belajar!</p>
 
+            <!-- CTA POSTER — cta.jpg -->
+            <div class="cta-hero">
+                <img src="cta.jpg" alt="Jelajahi Etnomatematika Nusantara" onerror="this.alt='Poster CTA'; this.style.display='none';" />
+            </div>
+
             <div class="dashboard-grid">
                 <!-- Mainkan Game -->
-                <a href="#sec-games" class="dashboard-card gold" onclick="navigateTo('games')">
+                <a href="#sec-games" class="dashboard-card" onclick="navigateTo('games')">
                     <span class="icon"><i class="fas fa-gamepad"></i></span>
                     <h3>Mainkan Game</h3>
                     <p>3 skenario interaktif berbasis etnomatematika. Temukan logika di balik permainan tradisional.</p>
@@ -2762,7 +2753,7 @@
                 </a>
 
                 <!-- Ikuti Quiz -->
-                <a href="#sec-quiz" class="dashboard-card green" onclick="navigateTo('quiz')">
+                <a href="#sec-quiz" class="dashboard-card" onclick="navigateTo('quiz')">
                     <span class="icon"><i class="fas fa-pencil-alt"></i></span>
                     <h3>Ikuti Quiz</h3>
                     <p>15 soal untuk menguji pemahamanmu. Setiap jawaban membawa kamu lebih dekat pada warisan Nusantara.</p>
@@ -2794,7 +2785,7 @@
         <!-- ===== SECTION: FLASHCARD ===== -->
         <section class="section" id="sec-flashcard">
             <h2 class="section-title"><i class="fas fa-id-card"></i> Flashcard Etnomatematika</h2>
-            <p class="section-sub"><i class="fas fa-arrow-right" style="color:#b8956e;"></i> Klik kartu untuk membalik dan melihat penjelasan.</p>
+            <p class="section-sub"><i class="fas fa-arrow-right" style="color:#b8956e;"></i> Klik kartu untuk membalik.</p>
 
             <div class="flashcard-grid">
                 <div class="flashcard-wrapper" onclick="this.classList.toggle('flipped')">
@@ -2802,12 +2793,12 @@
                         <div class="flashcard-front">
                             <i class="fas fa-scroll"></i>
                             <div class="name">Sistem Bilangan Nusantara</div>
-                            <div class="hint"><i class="fas fa-hand-pointer"></i> Klik balik</div>
+                            <div class="hint"><i class="fas fa-hand-pointer"></i> Klik</div>
                         </div>
                         <div class="flashcard-back">
                             <div class="back-title">📜 Sistem Bilangan Nusantara</div>
                             <div class="back-desc">
-                                Prasasti Kedukan Bukit (682 M) adalah bukti tertua penggunaan sistem desimal di dunia. Nenek moyang sudah menggunakan angka 0 sampai 9 untuk berhitung sejak 1400 tahun lalu. Tanpa sistem ini, teknologi digital seperti HP dan komputer tidak akan pernah ada.
+                                Prasasti Kedukan Bukit (682 M) adalah bukti tertua sistem desimal di dunia. Nenek moyang sudah menggunakan angka 0-9 sejak 1400 tahun lalu.
                             </div>
                         </div>
                     </div>
@@ -2818,12 +2809,12 @@
                         <div class="flashcard-front">
                             <i class="fas fa-circle"></i>
                             <div class="name">Angka Nol</div>
-                            <div class="hint"><i class="fas fa-hand-pointer"></i> Klik balik</div>
+                            <div class="hint"><i class="fas fa-hand-pointer"></i> Klik</div>
                         </div>
                         <div class="flashcard-back">
                             <div class="back-title">🔢 Angka Nol</div>
                             <div class="back-desc">
-                                Konsep angka nol ditemukan di Nusantara pada abad ke-6, sebelum dikenal di India dan dunia Barat. Tanpa angka nol, sistem biner (0 dan 1) yang menjadi dasar semua teknologi digital tidak akan pernah tercipta.
+                                Konsep angka nol ditemukan di Nusantara pada abad ke-6, sebelum dikenal di India dan dunia Barat. Tanpa nol, sistem biner tidak ada.
                             </div>
                         </div>
                     </div>
@@ -2834,12 +2825,12 @@
                         <div class="flashcard-front">
                             <i class="fas fa-hand-holding-usd"></i>
                             <div class="name">Algoritma Blijāh</div>
-                            <div class="hint"><i class="fas fa-hand-pointer"></i> Klik balik</div>
+                            <div class="hint"><i class="fas fa-hand-pointer"></i> Klik</div>
                         </div>
                         <div class="flashcard-back">
                             <div class="back-title">🧮 Algoritma Blijāh</div>
                             <div class="back-desc">
-                                Metode hitung cepat dari Madura ini menggunakan prinsip penggenapan dan pengurangan. Contohnya, harga 17.500 dibulatkan ke 20.000, lalu dikurangi 2.500. Pedagang pasar masih menggunakannya hingga kini karena efisien dan tanpa kalkulator.
+                                Metode hitung cepat dari Madura: penggenapan dan pengurangan. Contoh: 17.500 dibulatkan ke 20.000, lalu dikurangi 2.500.
                             </div>
                         </div>
                     </div>
@@ -2850,12 +2841,12 @@
                         <div class="flashcard-front">
                             <i class="fas fa-chess"></i>
                             <div class="name">Logika Permainan Tradisional</div>
-                            <div class="hint"><i class="fas fa-hand-pointer"></i> Klik balik</div>
+                            <div class="hint"><i class="fas fa-hand-pointer"></i> Klik</div>
                         </div>
                         <div class="flashcard-back">
                             <div class="back-title">🎯 Logika Permainan Tradisional</div>
                             <div class="back-desc">
-                                Permainan tradisional mengajarkan pola, strategi, dan perhitungan. Hal ini sama dengan cara kerja algoritma dalam pemrograman modern. Bermain permainan ini melatih otak untuk berpikir kritis dan terencana.
+                                Permainan tradisional mengajarkan pola, strategi, dan perhitungan — sama dengan algoritma dalam pemrograman modern.
                             </div>
                         </div>
                     </div>
@@ -2866,27 +2857,15 @@
                         <div class="flashcard-front">
                             <i class="fas fa-palette"></i>
                             <div class="name">Geometri Batik</div>
-                            <div class="hint"><i class="fas fa-hand-pointer"></i> Klik balik</div>
+                            <div class="hint"><i class="fas fa-hand-pointer"></i> Klik</div>
                         </div>
                         <div class="flashcard-back">
                             <div class="back-title">🎨 Geometri Batik</div>
                             <div class="back-desc">
-                                Motif batik seperti Parang, Kawung, dan Megamendung memiliki pola geometris dan simetri. Kawung misalnya memiliki simetri 4, sehingga dapat dilipat dan diputar 4 kali. Ini membuktikan nenek moyang sudah menguasai geometri dan mengaplikasikannya dalam seni.
+                                Motif batik seperti Parang, Kawung memiliki pola geometris dan simetri. Kawung memiliki simetri 4.
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-
-            <div class="card" style="background:rgba(255,255,255,0.40);">
-                <h4 style="color:var(--hijau);display:flex;align-items:center;gap:8px;font-size:0.95rem;"><i class="fas fa-lightbulb" style="color:var(--emas);"></i> Tips Kehidupan Nyata</h4>
-                <div class="consequence-box good">
-                    <h4><i class="fas fa-check-circle" style="color:var(--hijau-muda);"></i> Jika Kamu Paham</h4>
-                    <p>Kamu akan mengerti bahwa teknologi modern berakar dari budaya Nusantara. Kamu jadi lebih mudah memahami konsep digital dan lebih bangga dengan warisan leluhur.</p>
-                </div>
-                <div class="consequence-box bad" style="margin-top:6px;">
-                    <h4><i class="fas fa-times-circle" style="color:#d48c8c;"></i> Jika Kamu Mengabaikan</h4>
-                    <p>Kamu akan terus melihat matematika sebagai sesuatu yang asing dan sulit, padahal akarnya ada di sekitarmu, seperti dalam permainan, seni, dan cara hidup sehari-hari.</p>
                 </div>
             </div>
         </section>
@@ -2894,7 +2873,7 @@
         <!-- ===== SECTION: QUIZ ===== -->
         <section class="section" id="sec-quiz">
             <h2 class="section-title"><i class="fas fa-question-circle"></i> Uji Pemahaman</h2>
-            <p class="section-sub"><i class="fas fa-arrow-right" style="color:#b8956e;"></i> 15 soal untuk menguji pemahamanmu tentang etnomatematika.</p>
+            <p class="section-sub"><i class="fas fa-arrow-right" style="color:#b8956e;"></i> 15 soal untuk menguji pemahamanmu.</p>
 
             <div style="text-align:right;margin-bottom:12px;">
                 <button class="btn-secondary" onclick="document.body.classList.toggle('quiz-focus')" style="font-size:0.7rem;padding:4px 14px;">
@@ -2910,7 +2889,7 @@
                     <span class="info" id="quizInfo">Soal 1/15</span>
                     <span class="score" id="quizScore">Skor: 0</span>
                 </div>
-                <div id="quizQuestion" class="quiz-question">Soal akan muncul di sini</div>
+                <div id="quizQuestion" class="quiz-question">Soal muncul di sini</div>
                 <div id="quizOptions" class="quiz-options"></div>
                 <div id="quizFeedback" class="quiz-feedback"></div>
                 <div class="quiz-nav">
@@ -2919,57 +2898,25 @@
                     <button class="next" id="nextBtn" onclick="nextQuestion()">Selanjutnya <i class="fas fa-arrow-right"></i></button>
                 </div>
             </div>
-
-            <div class="card" style="background:rgba(255,255,255,0.40);">
-                <h4 style="color:var(--hijau);display:flex;align-items:center;gap:8px;font-size:0.95rem;"><i class="fas fa-hand-pointer" style="color:var(--emas);"></i> Fungsi Kehidupan Sehari-hari</h4>
-                <div class="gap-grid">
-                    <div class="consequence-box good">
-                        <h4><i class="fas fa-check-circle" style="color:var(--hijau-muda);"></i> Jawaban Benar</h4>
-                        <p>Kamu menguatkan pemahaman bahwa matematika itu dekat dengan budaya. Ini membantumu memecahkan masalah lebih kreatif dan percaya diri.</p>
-                    </div>
-                    <div class="consequence-box bad">
-                        <h4><i class="fas fa-times-circle" style="color:#d48c8c;"></i> Jawaban Salah</h4>
-                        <p>Kesalahan adalah kesempatan belajar. Dengan belajar dari kesalahan, kamu jadi lebih tangguh dan tidak mudah menyerah saat menghadapi tantangan.</p>
-                    </div>
-                </div>
-            </div>
         </section>
 
         <!-- ===== SECTION: GAMES ===== -->
         <section class="section" id="sec-games">
             <h2 class="section-title"><i class="fas fa-gamepad"></i> Games Etnomatematika</h2>
-            <p class="section-sub"><i class="fas fa-arrow-right" style="color:#b8956e;"></i> Tiga skenario interaktif berbasis etnomatematika.</p>
+            <p class="section-sub"><i class="fas fa-arrow-right" style="color:#b8956e;"></i> Tiga skenario interaktif.</p>
 
             <div class="game-placeholder">
                 <i class="fas fa-puzzle-piece"></i>
                 <h3>Game Edukasi Interaktif</h3>
                 <p>
-                    Tiga skenario seru:<br />
                     <strong>1. Kode Rahasia</strong> (Sistem Biner)<br />
                     <strong>2. Hitung Cepat</strong> (Algoritma Blijāh)<br />
                     <strong>3. Logika Game</strong> (Pola & Strategi)
                 </p>
-                <p style="margin-top:4px;font-size:0.75rem;color:#8f7a6a;">
-                    Alur: Situasi → Konflik → Pilihan → Konsekuensi → Refleksi
-                </p>
                 <a href="#" class="btn-link" id="gameLinkBtn" target="_blank">
                     <i class="fas fa-play"></i> Mainkan Sekarang
                 </a>
-                <p style="margin-top:6px;font-size:0.6rem;color:#b8956e;">
-                    Ganti link # dengan URL game-mu
-                </p>
-            </div>
-
-            <div class="card" style="background:rgba(255,255,255,0.40);">
-                <h4 style="color:var(--hijau);display:flex;align-items:center;gap:8px;font-size:0.95rem;"><i class="fas fa-lightbulb" style="color:var(--emas);"></i> Fungsi Kehidupan Sehari-hari dari Game</h4>
-                <div class="consequence-box good">
-                    <h4><i class="fas fa-check-circle" style="color:var(--hijau-muda);"></i> Pilihan Berbasis Budaya</h4>
-                    <p>Kamu belajar bahwa solusi teknologi sudah ada dalam budaya Nusantara. Ini membuatmu lebih menghargai warisan dan lebih mudah menguasai teknologi.</p>
-                </div>
-                <div class="consequence-box bad" style="margin-top:6px;">
-                    <h4><i class="fas fa-times-circle" style="color:#d48c8c;"></i> Pilihan Asal-asalan</h4>
-                    <p>Kamu kehilangan kesempatan untuk memahami konsep. Di dunia nyata, ini membuatmu bergantung pada alat dan lemah dalam pemecahan masalah.</p>
-                </div>
+                <p style="margin-top:6px;font-size:0.6rem;color:#b8956e;">Ganti link # dengan URL game-mu</p>
             </div>
         </section>
 
@@ -3002,7 +2949,7 @@
         (function() {
             'use strict';
 
-            // ===== LOADING SCREEN =====
+            // ===== LOADING =====
             const loading = document.getElementById('loading-screen');
             const mainContent = document.getElementById('main-content');
 
@@ -3012,92 +2959,24 @@
                 document.body.style.overflow = 'auto';
             }, 2200);
 
-            // ===== FUNGSI SUARA =====
-            function playSound(type) {
-                try {
-                    const audio = new Audio(type === 'correct' ? 'correct.mp3' : 'wrong.mp3');
-                    audio.volume = 0.5;
-                    audio.play().catch(() => {});
-                } catch (e) {}
-            }
-
-            // ===== DATA SOAL (15 SOAL) =====
-            const questions = [{
-                q: 'Apa yang dimaksud dengan etnomatematika?',
-                options: ['Belajar matematika melalui budaya', 'Belajar budaya melalui matematika', 'Menghafal rumus', 'Membuat kerajinan'],
-                correct: 0,
-                explanation: 'Etnomatematika adalah pendekatan yang mengaitkan budaya dengan matematika. Dalam kehidupan sehari-hari, kamu bisa melihatnya saat bermain permainan tradisional, membuat batik, atau berdagang di pasar. Dengan memahami ini, matematika tidak lagi terasa asing.'
-            }, {
-                q: 'Prasasti Kedukan Bukit berasal dari abad ke berapa?',
-                options: ['Abad ke-4', 'Abad ke-6', 'Abad ke-8', 'Abad ke-10'],
-                correct: 1,
-                explanation: 'Prasasti Kedukan Bukit ditemukan di Sumatera dan berasal dari tahun 682 Masehi (abad ke-6). Ini adalah bukti tertua sistem desimal di dunia, nenek moyang kita sudah menggunakan angka 0-9 sejak 1400 tahun lalu.'
-            }, {
-                q: 'Apa yang diajarkan oleh permainan tradisional dalam matematika?',
-                options: ['Pola dan strategi', 'Warna dan bentuk', 'Gerakan fisik', 'Suara dan irama'],
-                correct: 0,
-                explanation: 'Permainan tradisional mengajarkan pola, strategi, dan perhitungan. Konsep ini sama dengan cara kerja algoritma dalam pemrograman dan game modern.'
-            }, {
-                q: 'Metode hitung cepat dari Madura disebut...',
-                options: ['Blijāh', 'Bijak', 'Cepat Madura', 'Metode Jari'],
-                correct: 0,
-                explanation: 'Blijāh adalah metode penggenapan dan pengurangan. Contohnya, harga 17.500 dibulatkan ke 20.000, lalu dikurangi 2.500. Ini membuat hitungan lebih cepat dan efisien.'
-            }, {
-                q: 'Angka nol ditemukan di Nusantara pada abad ke...',
-                options: ['Abad ke-6', 'Abad ke-8', 'Abad ke-10', 'Abad ke-12'],
-                correct: 0,
-                explanation: 'Konsep angka nol sudah dikenal di Nusantara sejak abad ke-6, bahkan sebelum dikenal di India dan dunia Barat. Tanpa angka nol, sistem biner (0 dan 1) sebagai dasar semua teknologi digital tidak akan pernah tercipta.'
-            }, {
-                q: 'Apa hubungan batik dengan matematika?',
-                options: ['Motif batik mengandung geometri', 'Batik hanya seni murni', 'Batik tidak ada kaitannya', 'Batik dibuat dengan mesin'],
-                correct: 0,
-                explanation: 'Motif batik seperti Parang, Kawung, dan Megamendung memiliki pola geometris dan simetri. Ini membuktikan bahwa nenek moyang kita sudah menguasai geometri dan mengaplikasikannya dalam seni.'
-            }, {
-                q: 'Sistem bilangan desimal menggunakan angka...',
-                options: ['0 sampai 9', '1 sampai 10', '0 sampai 10', '1 sampai 9'],
-                correct: 0,
-                explanation: 'Sistem desimal menggunakan 10 digit, yaitu 0,1,2,3,4,5,6,7,8,9. Ini adalah sistem yang kita gunakan sehari-hari untuk menghitung, berbelanja, dan mengukur.'
-            }, {
-                q: 'Apa manfaat utama belajar etnomatematika?',
-                options: ['Memahami matematika melalui budaya', 'Menghafal rumus dengan cepat', 'Menjadi ahli matematika', 'Mendapat nilai bagus'],
-                correct: 0,
-                explanation: 'Dengan etnomatematika, matematika tidak lagi abstrak. Kamu bisa melihatnya dalam permainan, seni, arsitektur, dan kehidupan sehari-hari. Ini membuatmu lebih mudah memahami konsep dan lebih bangga dengan budaya sendiri.'
-            }, {
-                q: 'Rumah adat Joglo mengandung konsep...',
-                options: ['Geometri', 'Kimia', 'Biologi', 'Fisika'],
-                correct: 0,
-                explanation: 'Struktur Joglo menggunakan geometri dan keseimbangan. Bentuk atap, tiang, dan susunannya menunjukkan pemahaman tentang sudut, simetri, dan proporsi, yang merupakan bukti arsitektur Nusantara sarat matematika.'
-            }, {
-                q: 'Teknologi digital berbasis sistem...',
-                options: ['Biner (0 dan 1)', 'Desimal (0-9)', 'Oktal (0-7)', 'Heksadesimal (0-15)'],
-                correct: 0,
-                explanation: 'Semua perangkat digital, seperti HP, laptop, dan server, menggunakan sistem biner (0 dan 1). Sistem biner adalah turunan dari sistem desimal yang pertama kali dikembangkan di Nusantara.'
-            }, {
-                q: 'Apa fungsi angka nol dalam sistem biner?',
-                options: ['Menjadi dasar dari semua kode digital', 'Hanya untuk hiasan', 'Untuk menghitung uang', 'Untuk mengukur waktu'],
-                correct: 0,
-                explanation: 'Angka nol adalah salah satu dari dua digit dalam sistem biner. Tanpa nol, tidak ada komputer, HP, atau internet. Konsep nol dari Nusantara adalah kunci dari seluruh peradaban digital.'
-            }, {
-                q: 'Contoh aplikasi etnomatematika dalam kehidupan sehari-hari adalah...',
-                options: ['Transaksi jual-beli menggunakan Blijāh', 'Menonton televisi', 'Membaca buku', 'Bermain game'],
-                correct: 0,
-                explanation: 'Transaksi jual-beli menggunakan metode Blijāh adalah contoh langsung etnomatematika. Setiap kali kamu berbelanja dan menghitung kembalian, sebenarnya kamu sedang menggunakan warisan matematika Nusantara.'
-            }, {
-                q: 'Belajar etnomatematika membantu kita untuk...',
-                options: ['Memahami teknologi melalui budaya', 'Menghafal rumus lebih cepat', 'Menjadi programmer handal', 'Mendapat nilai matematika sempurna'],
-                correct: 0,
-                explanation: 'Etnomatematika membuatmu mengerti bahwa teknologi dan budaya itu saling terkait. Kamu akan melihat HP-mu bukan sebagai benda asing, tetapi sebagai hasil dari perjalanan panjang pemikiran matematis dari Nusantara.'
-            }, {
-                q: 'Motif batik Kawung memiliki simetri berapa?',
-                options: ['Simetri 4', 'Simetri 2', 'Simetri 6', 'Simetri 8'],
-                correct: 0,
-                explanation: 'Kawung memiliki simetri lipat 4 dan simetri putar 90 derajat. Ini menunjukkan pemahaman yang dalam tentang geometri transformasi.'
-            }, {
-                q: 'Belajar etnomatematika membantu kita memahami bahwa...',
-                options: ['Teknologi berakar dari budaya Nusantara', 'Teknologi berasal dari luar negeri', 'Budaya tidak penting untuk teknologi', 'Matematika hanya untuk ilmuwan'],
-                correct: 0,
-                explanation: 'Dengan etnomatematika, kita menyadari bahwa teknologi modern yang kita gunakan setiap hari sebenarnya berakar dari pemikiran matematis yang sudah ada dalam budaya Nusantara sejak ribuan tahun lalu.'
-            }];
+            // ===== QUIZ DATA =====
+            const questions = [
+                { q: 'Apa yang dimaksud dengan etnomatematika?', options: ['Belajar matematika melalui budaya', 'Belajar budaya melalui matematika', 'Menghafal rumus', 'Membuat kerajinan'], correct: 0, explanation: 'Etnomatematika adalah pendekatan yang mengaitkan budaya dengan matematika.' },
+                { q: 'Prasasti Kedukan Bukit berasal dari abad ke berapa?', options: ['Abad ke-4', 'Abad ke-6', 'Abad ke-8', 'Abad ke-10'], correct: 1, explanation: 'Prasasti Kedukan Bukit berasal dari tahun 682 Masehi (abad ke-6).' },
+                { q: 'Apa yang diajarkan oleh permainan tradisional dalam matematika?', options: ['Pola dan strategi', 'Warna dan bentuk', 'Gerakan fisik', 'Suara dan irama'], correct: 0, explanation: 'Permainan tradisional mengajarkan pola, strategi, dan perhitungan.' },
+                { q: 'Metode hitung cepat dari Madura disebut...', options: ['Blijāh', 'Bijak', 'Cepat Madura', 'Metode Jari'], correct: 0, explanation: 'Blijāh adalah metode penggenapan dan pengurangan dari Madura.' },
+                { q: 'Angka nol ditemukan di Nusantara pada abad ke...', options: ['Abad ke-6', 'Abad ke-8', 'Abad ke-10', 'Abad ke-12'], correct: 0, explanation: 'Konsep angka nol sudah dikenal di Nusantara sejak abad ke-6.' },
+                { q: 'Apa hubungan batik dengan matematika?', options: ['Motif batik mengandung geometri', 'Batik hanya seni murni', 'Tidak ada kaitannya', 'Dibuat dengan mesin'], correct: 0, explanation: 'Motif batik memiliki pola geometris dan simetri.' },
+                { q: 'Sistem bilangan desimal menggunakan angka...', options: ['0 sampai 9', '1 sampai 10', '0 sampai 10', '1 sampai 9'], correct: 0, explanation: 'Sistem desimal menggunakan 10 digit: 0-9.' },
+                { q: 'Apa manfaat utama belajar etnomatematika?', options: ['Memahami matematika melalui budaya', 'Menghafal rumus', 'Menjadi ahli matematika', 'Mendapat nilai bagus'], correct: 0, explanation: 'Etnomatematika membuat matematika lebih hidup dan bermakna.' },
+                { q: 'Rumah adat Joglo mengandung konsep...', options: ['Geometri', 'Kimia', 'Biologi', 'Fisika'], correct: 0, explanation: 'Struktur Joglo menggunakan geometri dan keseimbangan.' },
+                { q: 'Teknologi digital berbasis sistem...', options: ['Biner (0 dan 1)', 'Desimal (0-9)', 'Oktal (0-7)', 'Heksadesimal (0-15)'], correct: 0, explanation: 'Semua perangkat digital menggunakan sistem biner.' },
+                { q: 'Apa fungsi angka nol dalam sistem biner?', options: ['Dasar dari semua kode digital', 'Hanya hiasan', 'Untuk menghitung uang', 'Untuk mengukur waktu'], correct: 0, explanation: 'Nol adalah salah satu dari dua digit dalam sistem biner.' },
+                { q: 'Contoh aplikasi etnomatematika sehari-hari adalah...', options: ['Transaksi jual-beli dengan Blijāh', 'Menonton TV', 'Membaca buku', 'Bermain game'], correct: 0, explanation: 'Blijāh digunakan dalam transaksi sehari-hari.' },
+                { q: 'Belajar etnomatematika membantu kita...', options: ['Memahami teknologi melalui budaya', 'Menghafal rumus', 'Menjadi programmer', 'Mendapat nilai sempurna'], correct: 0, explanation: 'Etnomatematika menghubungkan teknologi dengan budaya.' },
+                { q: 'Motif batik Kawung memiliki simetri berapa?', options: ['Simetri 4', 'Simetri 2', 'Simetri 6', 'Simetri 8'], correct: 0, explanation: 'Kawung memiliki simetri lipat 4 dan putar 90 derajat.' },
+                { q: 'Belajar etnomatematika membantu kita memahami bahwa...', options: ['Teknologi berakar dari budaya Nusantara', 'Teknologi dari luar negeri', 'Budaya tidak penting', 'Matematika hanya untuk ilmuwan'], correct: 0, explanation: 'Teknologi modern berakar dari pemikiran matematis Nusantara.' }
+            ];
 
             // ===== QUIZ STATE =====
             let current = 0;
@@ -3112,23 +2991,10 @@
             const scoreEl = document.getElementById('quizScore');
             const exitFocusBtn = document.getElementById('exitFocusBtn');
 
-            // Toggle focus mode
-            document.querySelector('.quiz-focus .btn-secondary')?.addEventListener('click', function() {
-                const isFocus = document.body.classList.contains('quiz-focus');
-                document.body.classList.toggle('quiz-focus');
-                exitFocusBtn.style.display = isFocus ? 'none' : 'inline-flex';
-            });
-
-            exitFocusBtn.addEventListener('click', function() {
-                document.body.classList.remove('quiz-focus');
-                this.style.display = 'none';
-            });
-
             function renderQuestion() {
                 const q = questions[current];
                 infoEl.textContent = `Soal ${current+1}/${questions.length}`;
                 scoreEl.textContent = `Skor: ${score}`;
-
                 questionEl.textContent = q.q;
 
                 optionsEl.innerHTML = '';
@@ -3154,14 +3020,9 @@
                     const qq = questions[current];
                     const isCorrect = selected[current] === qq.correct;
                     feedbackEl.className = 'quiz-feedback show ' + (isCorrect ? 'success' : 'fail');
-                    const icon = isCorrect ? '✅' : '❌';
-                    const status = isCorrect ? 'Jawaban Tepat' : 'Kurang Tepat';
                     feedbackEl.innerHTML = `
-                                <strong>${icon} ${status}</strong>
-                                <div class="explanation">
-                                    <strong>📖 Penjelasan</strong><br />
-                                    ${qq.explanation}
-                                </div>
+                                <strong>${isCorrect ? '✅' : '❌'} ${isCorrect ? 'Jawaban Tepat' : 'Kurang Tepat'}</strong>
+                                <div class="explanation"><strong>📖 Penjelasan</strong><br />${qq.explanation}</div>
                             `;
                 } else {
                     feedbackEl.className = 'quiz-feedback';
@@ -3176,12 +3037,7 @@
                 if (answered[current]) return;
                 const q = questions[current];
                 const isCorrect = choice === q.correct;
-                if (isCorrect) {
-                    score++;
-                    playSound('correct');
-                } else {
-                    playSound('wrong');
-                }
+                if (isCorrect) score++;
                 answered[current] = true;
                 selected[current] = choice;
                 renderQuestion();
@@ -3192,7 +3048,7 @@
                     current++;
                     renderQuestion();
                 } else {
-                    alert(`🎉 Quiz selesai! Skor akhir kamu: ${score}/${questions.length}\n\nTerima kasih telah menguji pemahamanmu tentang etnomatematika. Ingatlah bahwa setiap jawaban yang kamu pelajari akan membantumu memahami bahwa teknologi dan matematika berakar dari budaya Nusantara. Teruslah belajar dan banggalah dengan warisan leluhurmu.`);
+                    alert(`🎉 Quiz selesai! Skor akhir: ${score}/${questions.length}\n\nTerima kasih sudah belajar!`);
                 }
             }
 
@@ -3204,7 +3060,7 @@
             }
 
             function resetQuiz() {
-                if (confirm('Yakin ingin mengulang dari awal? Skor akan direset.')) {
+                if (confirm('Yakin ingin mengulang dari awal?')) {
                     current = 0;
                     score = 0;
                     answered = new Array(questions.length).fill(false);
@@ -3233,7 +3089,6 @@
                     document.body.classList.remove('quiz-focus');
                     document.getElementById('exitFocusBtn').style.display = 'none';
                 }
-
                 Object.values(sections).forEach(el => el.classList.remove('active'));
                 const target = sections[sectionId];
                 if (target) target.classList.add('active');
