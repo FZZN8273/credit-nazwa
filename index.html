@@ -2944,7 +2944,7 @@
     </div>
 
     <!-- ============================================================
-    JAVASCRIPT
+    JAVASCRIPT — SUARA CORRECT.MP3 & WRONG.MP3 TERINTEGRASI
     ============================================================ -->
     <script>
         (function() {
@@ -2960,13 +2960,20 @@
                 document.body.style.overflow = 'auto';
             }, 2200);
 
-            // ===== FUNGSI SUARA =====
-            function playSound(type) {
-                try {
-                    const audio = new Audio(type === 'correct' ? 'correct.mp3' : 'wrong.mp3');
-                    audio.volume = 0.5;
-                    audio.play().catch(() => {});
-                } catch (e) {}
+            // ===== AUDIO ELEMEN =====
+            const correctSound = new Audio('correct.mp3');
+            const wrongSound = new Audio('wrong.mp3');
+            correctSound.volume = 0.6;
+            wrongSound.volume = 0.6;
+
+            function playCorrect() {
+                correctSound.currentTime = 0;
+                correctSound.play().catch(() => {});
+            }
+
+            function playWrong() {
+                wrongSound.currentTime = 0;
+                wrongSound.play().catch(() => {});
             }
 
             // ===== QUIZ DATA =====
@@ -3049,9 +3056,9 @@
                 const isCorrect = choice === q.correct;
                 if (isCorrect) {
                     score++;
-                    playSound('correct'); // MEMUTAR correct.mp3
+                    playCorrect(); // <-- suara benar
                 } else {
-                    playSound('wrong'); // MEMUTAR wrong.mp3
+                    playWrong(); // <-- suara salah
                 }
                 answered[current] = true;
                 selected[current] = choice;
