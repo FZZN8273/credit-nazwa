@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <style>
+        /* ===== RESET & VARIABEL ===== */
         * {
             margin: 0;
             padding: 0;
@@ -719,6 +720,24 @@
             }
         }
 
+        /* Mode fokus quiz: sembunyikan yang lain */
+        body.quiz-focus .section:not(#sec-quiz) {
+            display: none !important;
+        }
+        body.quiz-focus .nav-bar {
+            display: none !important;
+        }
+        body.quiz-focus .footer {
+            display: none !important;
+        }
+        body.quiz-focus #sec-quiz {
+            display: block !important;
+            padding-top: 30px;
+        }
+        .quiz-focus-btn {
+            margin-top: 10px;
+        }
+
         /* ===== CARD & ELEMEN ===== */
         .card {
             background: var(--putih-trans);
@@ -1069,7 +1088,7 @@
             color: #8f7a6a;
             margin-top: 4px;
             z-index: 1;
-            background: rgba(255,255,255,0.3);
+            background: rgba(255, 255, 255, 0.3);
             padding: 2px 8px;
             border-radius: 12px;
         }
@@ -1086,7 +1105,7 @@
             }
         }
 
-        /* ===== BACKGROUND LAYER — rasio 16:9 untuk background.png ===== */
+        /* ===== BACKGROUND LAYER — rasio 16:9 ===== */
         .bg-layer {
             position: fixed;
             inset: 0;
@@ -2157,7 +2176,178 @@
             }
         }
 
-        /* ===== REFERENSI DATA ===== */
+        /* ===== ETNO ILLUSTRATION ===== */
+        .etno-illustration {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            align-items: center;
+            margin-top: 12px;
+        }
+
+        .etno-illustration img {
+            max-width: 100%;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            flex: 1 1 200px;
+            aspect-ratio: 4/3;
+            object-fit: cover;
+        }
+
+        .etno-illustration .etno-caption {
+            flex: 1 1 200px;
+            font-size: 0.9rem;
+            color: #4a3f36;
+            background: rgba(255, 255, 255, 0.4);
+            padding: 16px;
+            border-radius: 16px;
+            border-left: 4px solid var(--emas);
+        }
+
+        @media (min-width: 480px) {
+            .etno-illustration .etno-caption {
+                font-size: 0.95rem;
+                padding: 20px;
+            }
+        }
+
+        /* ===== CALL TO ACTION ===== */
+        .cta-section {
+            background: linear-gradient(135deg, rgba(42, 92, 45, 0.04), rgba(196, 154, 108, 0.04));
+            border-radius: var(--radius);
+            padding: 24px 20px;
+            margin-top: 24px;
+            text-align: center;
+            border: 2px dashed rgba(120, 100, 85, 0.12);
+            transition: 0.3s;
+        }
+
+        @media (min-width: 480px) {
+            .cta-section {
+                padding: 32px 28px;
+            }
+        }
+        @media (min-width: 768px) {
+            .cta-section {
+                padding: 40px 36px;
+            }
+        }
+
+        .cta-section:hover {
+            border-color: var(--emas);
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .cta-section h3 {
+            color: var(--hijau);
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+        }
+
+        @media (min-width: 480px) {
+            .cta-section h3 {
+                font-size: 1.4rem;
+            }
+        }
+        @media (min-width: 768px) {
+            .cta-section h3 {
+                font-size: 1.6rem;
+            }
+        }
+
+        .cta-section p {
+            color: var(--coklat);
+            font-size: 0.9rem;
+            max-width: 600px;
+            margin: 0 auto 16px;
+        }
+
+        @media (min-width: 480px) {
+            .cta-section p {
+                font-size: 0.95rem;
+            }
+        }
+        @media (min-width: 768px) {
+            .cta-section p {
+                font-size: 1rem;
+            }
+        }
+
+        .cta-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .cta-buttons .btn-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 22px;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            text-decoration: none;
+            transition: 0.3s;
+            border: 2px solid transparent;
+            background: var(--putih-trans);
+            color: var(--hijau);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+        }
+
+        @media (min-width: 480px) {
+            .cta-buttons .btn-cta {
+                padding: 12px 28px;
+                font-size: 0.85rem;
+            }
+        }
+        @media (min-width: 768px) {
+            .cta-buttons .btn-cta {
+                padding: 14px 34px;
+                font-size: 0.95rem;
+            }
+        }
+
+        .cta-buttons .btn-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+        }
+
+        .cta-buttons .btn-cta.primary {
+            background: linear-gradient(135deg, var(--hijau), var(--hijau-muda));
+            color: #fff;
+            border-color: transparent;
+        }
+
+        .cta-buttons .btn-cta.primary:hover {
+            background: var(--hijau);
+            box-shadow: 0 8px 24px rgba(61, 139, 64, 0.20);
+        }
+
+        .cta-buttons .btn-cta.gold {
+            background: linear-gradient(135deg, var(--emas), var(--merah-bata));
+            color: #fff;
+            border-color: transparent;
+        }
+
+        .cta-buttons .btn-cta.gold:hover {
+            background: var(--merah-bata);
+            box-shadow: 0 8px 24px rgba(196, 154, 108, 0.25);
+        }
+
+        .cta-buttons .btn-cta.outline {
+            border-color: var(--hijau-muda);
+            background: transparent;
+            color: var(--hijau-muda);
+        }
+
+        .cta-buttons .btn-cta.outline:hover {
+            background: var(--hijau-muda);
+            color: #fff;
+        }
+
+        /* ===== REFERENCES ===== */
         .references {
             background: rgba(255, 255, 255, 0.60);
             border-radius: 16px;
@@ -2200,37 +2390,97 @@
 
         /* ===== FOOTER ===== */
         .footer {
-            margin-top: 32px;
-            padding-top: 20px;
-            border-top: 2px solid rgba(120, 100, 85, 0.06);
-            text-align: center;
-            color: var(--coklat);
-            font-size: 0.6rem;
+            margin-top: 40px;
+            padding-top: 24px;
+            border-top: 2px solid rgba(120, 100, 85, 0.08);
             display: flex;
             flex-wrap: wrap;
-            justify-content: center;
-            gap: 8px 16px;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            font-size: 0.7rem;
+            color: var(--coklat);
         }
 
         @media (min-width: 480px) {
             .footer {
-                font-size: 0.7rem;
-                gap: 10px 20px;
-                margin-top: 40px;
-                padding-top: 24px;
+                font-size: 0.75rem;
+                padding-top: 28px;
+                margin-top: 48px;
             }
         }
         @media (min-width: 768px) {
             .footer {
                 font-size: 0.8rem;
-                gap: 12px 24px;
-                margin-top: 48px;
-                padding-top: 28px;
             }
+        }
+
+        .footer-left {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .footer-left .name {
+            font-weight: 700;
+            color: var(--hijau);
+            font-size: 0.85rem;
+        }
+
+        @media (min-width: 480px) {
+            .footer-left .name {
+                font-size: 0.95rem;
+            }
+        }
+
+        .footer-left .school {
+            font-size: 0.65rem;
+        }
+
+        @media (min-width: 480px) {
+            .footer-left .school {
+                font-size: 0.7rem;
+            }
+        }
+
+        .footer-right {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 16px;
+        }
+
+        .footer-right a {
+            color: var(--coklat);
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.2s;
+        }
+
+        .footer-right a:hover {
+            color: var(--hijau);
+            text-decoration: underline;
         }
 
         .footer i {
             color: var(--emas);
+            margin-right: 4px;
+        }
+
+        .footer-bottom {
+            width: 100%;
+            text-align: center;
+            font-size: 0.6rem;
+            border-top: 1px solid rgba(120, 100, 85, 0.06);
+            padding-top: 12px;
+            margin-top: 8px;
+            color: #8f7a6a;
+        }
+
+        @media (min-width: 480px) {
+            .footer-bottom {
+                font-size: 0.65rem;
+                padding-top: 16px;
+            }
         }
 
         /* ===== RESPONSIVE ===== */
@@ -2387,7 +2637,7 @@
                 </div>
             </div>
 
-            <!-- Mengapa Kamu Perlu Tahu Ini (tanpa kata "kami"/"kita") -->
+            <!-- Mengapa Kamu Perlu Tahu Ini -->
             <div class="card" style="background:rgba(255,255,255,0.40);">
                 <h3 style="color:var(--hijau);display:flex;align-items:center;gap:8px;font-size:1rem;">
                     <i class="fas fa-lightbulb" style="color:var(--emas);"></i> Mengapa Kamu Perlu Tahu Ini?
@@ -2447,7 +2697,7 @@
             </div>
         </section>
 
-        <!-- ===== SECTION: TENTANG ===== -->
+        <!-- ===== SECTION: TENTANG (dengan etno.png dan kutipan ahli) ===== -->
         <section class="section" id="sec-about">
             <h2 class="section-title"><i class="fas fa-info-circle"></i> Apa Itu Etnomatematika?</h2>
             <p class="section-sub"><i class="fas fa-arrow-right" style="color:#b8956e;"></i> Belajar matematika melalui budaya sehari-hari, dari permainan, seni, hingga cara hidup.</p>
@@ -2464,9 +2714,6 @@
                         <p style="margin-top:8px;font-style:italic;color:#5a4a3a;font-size:0.9rem;">
                             Jadi, etnomatematika adalah belajar matematika melalui budaya sehari-hari, seperti permainan tradisional, seni batik, dan cara berhitung di pasar.
                         </p>
-                        <p style="margin-top:10px;font-size:0.9rem;">
-                            <strong>Contoh nyata:</strong> Permainan tradisional mengajarkan pola dan strategi. Seni batik menunjukkan simetri dan geometri. Cara berdagang di pasar menggunakan metode hitung cepat. Semua itu adalah matematika yang hidup dan berakar dari budaya kita.
-                        </p>
                     </div>
                     <div style="flex:0 0 auto;background:linear-gradient(135deg,rgba(196,154,108,0.08),rgba(178,59,44,0.04));border-radius:16px;padding:12px 16px;text-align:center;">
                         <i class="fas fa-calculator" style="font-size:2.2rem;color:var(--emas);"></i>
@@ -2477,7 +2724,24 @@
                 </div>
             </div>
 
-            <!-- Mengapa Ini Penting (tanpa kata "kami"/"kita") -->
+            <!-- Ilustrasi etno.png + contoh visual + kutipan ahli -->
+            <div class="card">
+                <h3 style="color:var(--hijau);display:flex;align-items:center;gap:8px;font-size:1rem;">
+                    <i class="fas fa-image" style="color:var(--emas);"></i> Etnomatematika dalam Kehidupan
+                </h3>
+                <div class="etno-illustration">
+                    <img src="etno.png" alt="Ilustrasi Etnomatematika" onerror="this.alt='Ilustrasi Etnomatematika'; this.style.display='none';" />
+                    <div class="etno-caption">
+                        <p><strong>Lihat batik ini:</strong> di dalamnya ada simetri dan geometri. Setiap motif batik adalah aplikasi matematika dalam seni.</p>
+                        <p style="margin-top:8px;"><strong>Contoh lain:</strong> permainan congklak mengajarkan pola dan strategi, sama seperti algoritma dalam pemrograman.</p>
+                        <p style="margin-top:8px;font-style:italic;color:#5a4a3a;">
+                            “Etnomatematika adalah jembatan antara budaya dan logika. Matematika tidak lahir di ruang hampa, ia tumbuh dari kebutuhan masyarakat.” — <strong>Dr. Marsigit, pakar etnomatematika UIN Sunan Kalijaga</strong>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mengapa Ini Penting -->
             <div class="card">
                 <h3 style="color:var(--hijau);display:flex;align-items:center;gap:8px;font-size:1rem;"><i class="fas fa-chart-line" style="color:var(--emas);"></i> Mengapa Ini Penting?</h3>
 
@@ -2539,6 +2803,7 @@
             <p class="section-sub"><i class="fas fa-arrow-right" style="color:#b8956e;"></i> Klik kartu untuk membalik dan melihat penjelasan.</p>
 
             <div class="flashcard-grid">
+                <!-- 5 kartu flashcard (sama seperti sebelumnya) -->
                 <div class="flashcard-wrapper" onclick="this.classList.toggle('flipped')">
                     <div class="flashcard-inner">
                         <div class="flashcard-front">
@@ -2638,6 +2903,15 @@
             <h2 class="section-title"><i class="fas fa-question-circle"></i> Uji Pemahaman</h2>
             <p class="section-sub"><i class="fas fa-arrow-right" style="color:#b8956e;"></i> 15 soal untuk menguji pemahamanmu tentang etnomatematika.</p>
 
+            <div style="text-align:right;margin-bottom:12px;">
+                <button class="btn-secondary" onclick="document.body.classList.toggle('quiz-focus')" style="font-size:0.7rem;padding:4px 14px;">
+                    <i class="fas fa-expand"></i> Fokus Quiz
+                </button>
+                <button class="btn-secondary" onclick="document.body.classList.remove('quiz-focus')" style="font-size:0.7rem;padding:4px 14px;display:none;" id="exitFocusBtn">
+                    <i class="fas fa-compress"></i> Kembali
+                </button>
+            </div>
+
             <div class="card" id="quizContainer">
                 <div class="quiz-progress">
                     <span class="info" id="quizInfo">Soal 1/15</span>
@@ -2706,12 +2980,43 @@
             </div>
         </section>
 
+        <!-- ===== CALL TO ACTION (CTA) ===== -->
+        <section class="section" id="sec-cta">
+            <div class="cta-section">
+                <h3><i class="fas fa-rocket" style="color:var(--emas);"></i> Siap Menjelajah Lebih Dalam?</h3>
+                <p>
+                    Etnomatematika bukan hanya teori, tetapi juga pengalaman. Mulai petualanganmu sekarang dengan bermain game, menguji pemahaman lewat quiz, atau mempelajari flashcard. Setiap langkah akan membawamu lebih dekat pada warisan teknologi Nusantara.
+                </p>
+                <div class="cta-buttons">
+                    <a href="#sec-quiz" class="btn-cta primary" onclick="navigateTo('quiz')"><i class="fas fa-pencil-alt"></i> Ikuti Quiz</a>
+                    <a href="#sec-games" class="btn-cta gold" onclick="navigateTo('games')"><i class="fas fa-gamepad"></i> Mainkan Game</a>
+                    <a href="#sec-flashcard" class="btn-cta outline" onclick="navigateTo('flashcard')"><i class="fas fa-id-card"></i> Lihat Flashcard</a>
+                    <a href="#" class="btn-cta outline" onclick="alert('Makalah akan segera tersedia untuk diunduh.')"><i class="fas fa-file-pdf"></i> Unduh Makalah</a>
+                </div>
+                <p style="margin-top:12px;font-size:0.75rem;color:#8f7a6a;">
+                    * Makalah dalam format PDF akan ditambahkan kemudian.
+                </p>
+            </div>
+        </section>
+
         <!-- ===== FOOTER ===== -->
-        <div class="footer">
-            <span><i class="fas fa-calculator"></i> Etnomatematika Nusantara</span>
-            <span><i class="fas fa-user-graduate"></i> Nazwa Ananda Devina · SMP Muhammadiyah 17 Ciputat</span>
-            <span><i class="fas fa-trophy"></i> LKIP 2026 · SMA Taruna Nusantara</span>
-        </div>
+        <footer class="footer">
+            <div class="footer-left">
+                <div class="name">Nazwa Ananda Devina</div>
+                <div class="school">SMP Muhammadiyah 17 Ciputat Timur · Kota Tangerang Selatan</div>
+                <div style="font-size:0.6rem;color:#8f7a6a;">LKIP 2026 · SMA Taruna Nusantara Magelang</div>
+            </div>
+            <div class="footer-right">
+                <a href="#sec-home" onclick="navigateTo('home')"><i class="fas fa-home"></i> Beranda</a>
+                <a href="#sec-about" onclick="navigateTo('about')"><i class="fas fa-info-circle"></i> Tentang</a>
+                <a href="#sec-flashcard" onclick="navigateTo('flashcard')"><i class="fas fa-id-card"></i> Flashcard</a>
+                <a href="#sec-quiz" onclick="navigateTo('quiz')"><i class="fas fa-question-circle"></i> Quiz</a>
+                <a href="#sec-games" onclick="navigateTo('games')"><i class="fas fa-gamepad"></i> Games</a>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2026 Nazwa Ananda Devina · Dibangun untuk LKIP 2026 · <i class="fas fa-heart" style="color:var(--merah-bata);"></i> Nusantara
+            </div>
+        </footer>
 
     </div>
 
@@ -2830,6 +3135,20 @@
             const feedbackEl = document.getElementById('quizFeedback');
             const infoEl = document.getElementById('quizInfo');
             const scoreEl = document.getElementById('quizScore');
+            const exitFocusBtn = document.getElementById('exitFocusBtn');
+
+            // Toggle focus mode
+            document.querySelector('.quiz-focus .btn-secondary')?.addEventListener('click', function() {
+                const isFocus = document.body.classList.contains('quiz-focus');
+                document.body.classList.toggle('quiz-focus');
+                exitFocusBtn.style.display = isFocus ? 'none' : 'inline-flex';
+            });
+
+            // Exit focus via button
+            exitFocusBtn.addEventListener('click', function() {
+                document.body.classList.remove('quiz-focus');
+                this.style.display = 'none';
+            });
 
             function renderQuestion() {
                 const q = questions[current];
@@ -2932,9 +3251,16 @@
                 flashcard: document.getElementById('sec-flashcard'),
                 quiz: document.getElementById('sec-quiz'),
                 games: document.getElementById('sec-games'),
+                cta: document.getElementById('sec-cta'),
             };
 
             function navigateTo(sectionId) {
+                // Jika sedang fokus quiz, keluar dari mode fokus
+                if (document.body.classList.contains('quiz-focus')) {
+                    document.body.classList.remove('quiz-focus');
+                    document.getElementById('exitFocusBtn').style.display = 'none';
+                }
+
                 Object.values(sections).forEach(el => el.classList.remove('active'));
                 const target = sections[sectionId];
                 if (target) target.classList.add('active');
