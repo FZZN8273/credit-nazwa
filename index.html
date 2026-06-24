@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <style>
+        /* ===== SEMUA CSS SAMA DENGAN SEBELUMNYA ===== */
         * {
             margin: 0;
             padding: 0;
@@ -2959,6 +2960,15 @@
                 document.body.style.overflow = 'auto';
             }, 2200);
 
+            // ===== FUNGSI SUARA =====
+            function playSound(type) {
+                try {
+                    const audio = new Audio(type === 'correct' ? 'correct.mp3' : 'wrong.mp3');
+                    audio.volume = 0.5;
+                    audio.play().catch(() => {});
+                } catch (e) {}
+            }
+
             // ===== QUIZ DATA =====
             const questions = [
                 { q: 'Apa yang dimaksud dengan etnomatematika?', options: ['Belajar matematika melalui budaya', 'Belajar budaya melalui matematika', 'Menghafal rumus', 'Membuat kerajinan'], correct: 0, explanation: 'Etnomatematika adalah pendekatan yang mengaitkan budaya dengan matematika.' },
@@ -3037,7 +3047,12 @@
                 if (answered[current]) return;
                 const q = questions[current];
                 const isCorrect = choice === q.correct;
-                if (isCorrect) score++;
+                if (isCorrect) {
+                    score++;
+                    playSound('correct'); // MEMUTAR correct.mp3
+                } else {
+                    playSound('wrong'); // MEMUTAR wrong.mp3
+                }
                 answered[current] = true;
                 selected[current] = choice;
                 renderQuestion();
