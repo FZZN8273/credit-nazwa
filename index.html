@@ -1,2929 +1,482 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
-    <title>Etnomatematika Nusantara · Warisan Budaya, Fondasi Teknologi</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PELITA - Penerang Literasi Kesehatan</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700;900&family=Sen:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --hijau: #2a5c2d;
-            --hijau-muda: #3d8b40;
-            --emas: #c49a6c;
-            --merah-bata: #b23b2c;
-            --coklat: #7b5e4b;
-            --krem: #f5efe6;
-            --putih-trans: rgba(255, 255, 255, 0.85);
-            --shadow: 0 8px 40px rgba(0, 0, 0, 0.04);
-            --radius: 24px;
-            --transition: 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-        }
-
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; user-select: none; }
         body {
-            font-family: 'Inter', sans-serif;
-            background: var(--krem);
-            color: #1e1e1e;
-            line-height: 1.7;
-            min-height: 100vh;
-            overflow-x: hidden;
+            background-color: #1a0f08; display: flex; justify-content: center; align-items: center;
+            min-height: 100vh; font-family: 'Sen', sans-serif; overflow: hidden; margin: 0;
         }
 
-        .container {
-            max-width: 1120px;
-            margin: 0 auto;
-            padding: 0 16px 40px;
-            position: relative;
-            z-index: 2;
+        #desktop-lock {
+            display: flex; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #2c1e12; color: #fff; z-index: 10000;
+            flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 20px;
+        }
+        #desktop-lock h1 { font-family: 'Poppins', sans-serif; color: #dca658; font-size: 30px; margin-bottom: 15px; }
+        #desktop-lock p { font-size: 18px; max-width: 600px; margin-bottom: 20px; line-height: 1.5; }
+        .hint-box { border: 2px dashed #ffeb3b; color: #ffeb3b; padding: 15px; border-radius: 10px; font-weight: bold; font-size: 16px; margin-bottom: 20px; }
+        .btn-confirm {
+            padding: 15px 30px; border-radius: 50px; border: 4px solid #fff; cursor: pointer; 
+            font-family: 'Poppins', sans-serif; font-weight: 900; font-size: 18px; 
+            background: #4CAF50; color: #fff; box-shadow: 0 6px 0 #1b5e20; text-transform: uppercase;
         }
 
-        @media (min-width: 768px) {
-            .container {
-                padding: 0 28px 48px;
-            }
-        }
-        @media (min-width: 1024px) {
-            .container {
-                padding: 0 40px 56px;
-            }
+        #game-wrapper { display: none; width: 100vw; height: 100vh; justify-content: center; align-items: center; }
+        #game-container {
+            width: 900px; height: 600px; position: relative;
+            background-color: #fcf9ee; border: 10px solid #4a2e1b; border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8); overflow: hidden;
+            transform-origin: center center;
         }
 
-        /* ============================================================
-           LOADING SCREEN
-           ============================================================ */
+        .slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none; z-index: 1; }
+        .bg-img { width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; z-index: 1; }
+        .bg-dim { filter: brightness(0.4) contrast(1.1); }
+
+        /* --- UI GLOBAL --- */
+        .bottom-panel {
+            position: absolute; bottom: 0; left: 0; width: 100%; height: 110px; 
+            background: linear-gradient(to top, #4a2e1b, #6b442a); border-top: 5px solid #dca658; 
+            display: flex; justify-content: center; align-items: center; z-index: 50;
+        }
+        .btn-start {
+            width: 750px; height: 75px; background: linear-gradient(135deg, #dca658, #b87c32); 
+            color: #fff; border: 4px solid #fff; font-size: 28px; font-family: 'Poppins', sans-serif; 
+            font-weight: 900; letter-spacing: 3px; border-radius: 15px; cursor: pointer; box-shadow: 0 6px 0 #7c5333;
+        }
+
+        /* --- TOMBOL MUSIK ON/OFF --- */
+        .btn-music-toggle {
+            position: absolute; top: 15px; left: 15px; z-index: 9998;
+            padding: 8px 15px; border-radius: 20px; border: 3px solid #dca658;
+            background: #4a2e1b; color: #fff; cursor: pointer; box-shadow: 0 4px 0 #2c1e12;
+            font-family: 'Poppins', sans-serif; font-weight: 900; font-size: 16px;
+            transition: 0.2s; line-height: 1; pointer-events: auto;
+        }
+        .btn-music-toggle:active { transform: translateY(4px); box-shadow: none; }
+        .btn-music-toggle.muted { background: #7f5d46; border-color: #7f5d46; opacity: 0.8; }
+        .btn-music-toggle.hidden { display: none !important; }
+
+        /* ==========================================================
+           📌 SLIDE 2 MENU UTAMA
+           ========================================================== */
+        .papan-sign { position: absolute; top: 60px; left: 150px; width: 600px; text-align: center; z-index: 10; }
+        .papan-text { font-family: 'Poppins', sans-serif; font-weight: 900; color: #3e2717; font-size: 22px; text-transform: uppercase; line-height: 1.2; text-shadow: 2px 2px 0 #fff; }
+        
+        .menu-nav { 
+            position: absolute; top: 260px; left: 200px; width: 500px; height: 40px; 
+            display: flex; justify-content: space-between; align-items: center; z-index: 60; 
+        }
+        .menu-btn { 
+            width: 145px; height: 100%; background: transparent; border: none; cursor: pointer; 
+            color: #fff; font-family: 'Poppins', sans-serif; font-weight: 900; 
+            font-size: 11px; line-height: 1.2; padding: 0; white-space: nowrap; 
+            text-align: center; display: flex; justify-content: center; align-items: center; pointer-events: auto;
+        }
+
+        /* --- CHARACTERS (GELEMBUNG TEKS DIPERBESAR) --- */
+        .char-box-right {
+            position: absolute; right: 20px; bottom: 0; width: 380px; height: 600px;
+            display: flex; flex-direction: column; justify-content: flex-end; align-items: center; z-index: 100;
+        }
+        .bubble-container {
+            background: #ffffff; border: 5px solid #4a2e1b; border-radius: 20px;
+            padding: 15px; width: 360px; margin-bottom: 25px; box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+            position: relative; animation: popUp 0.3s ease-out;
+        }
+        .bubble-container::after {
+            content: ''; position: absolute; bottom: -20px; left: 50%; transform: translateX(-50%);
+            border-width: 20px 15px 0 15px; border-style: solid; border-color: #4a2e1b transparent transparent transparent;
+        }
+        .bubble-txt { font-weight: 900; font-size: 18px; color: #4a2e1b; line-height: 1.4; text-align: left; text-shadow: 0px 0px 4px rgba(255,255,255,0.8); }
+        .portrait-huge { height: 350px; width: auto; object-fit: contain; filter: drop-shadow(5px 5px 10px rgba(0,0,0,0.6)); }
+
+        .rina-char { position: absolute; left: 30px; bottom: 20px; height: 320px; z-index: 5; filter: drop-shadow(5px 5px 10px rgba(0,0,0,0.5)); }
+
+        /* ==========================================================
+           🛠️ SLIDE MEJA LAB
+           ========================================================== */
+        #ch1_lab .bg-meja-lab {
+            width: 100%; height: 100%;
+            object-fit: contain; object-position: center bottom;
+            position: absolute; top: 0; left: 0; z-index: 1;
+        }
+        #ch1_lab .char-box-right {
+            position: absolute; right: 20px; bottom: 0px; width: auto; height: auto;
+            transform: scale(0.9) translateX(10px); transform-origin: bottom right; z-index: 10; 
+        }
+        #ch1_lab .bubble-container { width: 340px; padding: 10px; margin-bottom: 10px; }
+        #ch1_lab .bubble-txt { font-size: 17px; line-height: 1.4; }
+        #ch1_lab .portrait-huge { height: 300px; width: auto; }
+
+        #ch1_lab .meja-lab-small {
+            position: absolute; bottom: 25px; 
+            left: 43%; transform: translateX(-50%);
+            width: 55%; height: 270px; 
+            z-index: 300; 
+            display: flex; flex-direction: column; justify-content: flex-end;
+            align-items: center; padding-bottom: 30px; gap: 15px;
+        }
+        #ch1_lab .row-atas, #ch1_lab .row-bawah {
+            display: flex; justify-content: space-between; width: 100%; padding: 0 20px;
+        }
+        #ch1_lab .obat-item { 
+            height: 100px; width: auto; object-fit: contain; 
+            cursor: pointer; transition: 0.2s; filter: drop-shadow(0 5px 5px rgba(0,0,0,0.6)); 
+            pointer-events: auto;
+        }
+        #ch1_lab .obat-active { transform: scale(1.15) translateY(-10px); filter: drop-shadow(0 0 15px #4CAF50); }
+
+        /* --- SLIDE CARA MAIN & RULES --- */
+        .slide-white {
+            background-color: #f7f2e1;
+            width: 100%; height: 100%;
+            position: absolute; top: 0; left: 0; z-index: 900; 
+        }
+        .cara-rules-content {
+            position: absolute; left: 40px; top: 60px; width: 420px; z-index: 80; color: #3e2717;
+        }
+
+        /* --- PANEL HASIL --- */
+        .result-panel {
+            position: absolute; left: 40px; top: 40px; width: 400px; z-index: 150;
+            display: flex; flex-direction: column; align-items: center; text-align: center;
+        }
+        #resBox { background: rgba(255,255,255,0.98); padding: 15px; border: 4px solid #dca658; border-radius: 15px; font-weight: bold; font-size: 14px; line-height: 1.4; box-shadow: 0 10px 20px rgba(0,0,0,0.3); width: 100%; }
+        .action-btns { display: flex; gap: 15px; margin-top: 15px; }
+        .btn-action { padding: 12px 25px; border-radius: 50px; border: none; cursor: pointer; font-family: 'Poppins', sans-serif; font-weight: 900; font-size: 14px; box-shadow: 0 4px 0 #2c1e12; text-transform: uppercase; }
+        .btn-back { background: #6b442a; color: #fff; }
+        .btn-next { background: #dca658; color: #fff; }
+
+        /* --- LOADING SCREEN NUSANTARA --- */
         #loading-screen {
-            position: fixed;
-            inset: 0;
-            z-index: 9999;
-            background: linear-gradient(180deg, #fdf6ed 0%, #e8dccc 50%, #c4b49a 100%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            transition: opacity 0.9s ease, visibility 0.9s ease;
-            overflow: hidden;
-            padding: 20px;
-        }
-
-        #loading-screen.hide {
-            opacity: 0;
-            visibility: hidden;
-            pointer-events: none;
-        }
-
-        .mountain-scene {
-            position: relative;
-            width: 200px;
-            height: 160px;
-            margin-bottom: 20px;
-        }
-
-        @media (min-width: 480px) {
-            .mountain-scene {
-                width: 280px;
-                height: 220px;
-            }
-        }
-        @media (min-width: 768px) {
-            .mountain-scene {
-                width: 340px;
-                height: 260px;
-            }
-        }
-
-        .sun {
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background: radial-gradient(circle, #f9d976, #f39c12);
-            box-shadow: 0 0 40px rgba(243, 156, 18, 0.30);
-            animation: sunGlow 3s ease-in-out infinite;
-            z-index: 3;
-        }
-
-        @media (min-width: 480px) {
-            .sun {
-                width: 50px;
-                height: 50px;
-            }
-        }
-        @media (min-width: 768px) {
-            .sun {
-                width: 64px;
-                height: 64px;
-            }
-        }
-
-        @keyframes sunGlow {
-            0%,
-            100% {
-                transform: translateX(-50%) scale(1);
-                box-shadow: 0 0 40px rgba(243, 156, 18, 0.30);
-            }
-            50% {
-                transform: translateX(-50%) scale(1.08);
-                box-shadow: 0 0 70px rgba(243, 156, 18, 0.45);
-            }
-        }
-
-        .sun-rays {
-            position: absolute;
-            top: -6px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(243, 156, 18, 0.10) 30%, transparent 70%);
-            animation: rayPulse 2.5s ease-in-out infinite;
-            z-index: 2;
-        }
-
-        @media (min-width: 480px) {
-            .sun-rays {
-                width: 70px;
-                height: 70px;
-                top: -8px;
-            }
-        }
-        @media (min-width: 768px) {
-            .sun-rays {
-                width: 90px;
-                height: 90px;
-                top: -10px;
-            }
-        }
-
-        @keyframes rayPulse {
-            0%,
-            100% {
-                transform: translateX(-50%) scale(1);
-                opacity: 0.4;
-            }
-            50% {
-                transform: translateX(-50%) scale(1.3);
-                opacity: 1;
-            }
-        }
-
-        .mountain-left {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 0;
-            border-left: 60px solid transparent;
-            border-right: 70px solid transparent;
-            border-bottom: 120px solid #5d7a5c;
-            z-index: 1;
-            filter: drop-shadow(0 -4px 16px rgba(93, 122, 92, 0.10));
-        }
-
-        @media (min-width: 480px) {
-            .mountain-left {
-                border-left-width: 80px;
-                border-right-width: 100px;
-                border-bottom-width: 170px;
-            }
-        }
-        @media (min-width: 768px) {
-            .mountain-left {
-                border-left-width: 100px;
-                border-right-width: 120px;
-                border-bottom-width: 200px;
-            }
-        }
-
-        .mountain-left::after {
-            content: '';
-            position: absolute;
-            top: 24px;
-            left: -36px;
-            width: 0;
-            height: 0;
-            border-left: 28px solid transparent;
-            border-right: 28px solid transparent;
-            border-bottom: 70px solid #4a6a49;
-            opacity: 0.4;
-        }
-
-        @media (min-width: 480px) {
-            .mountain-left::after {
-                top: 34px;
-                left: -50px;
-                border-left-width: 40px;
-                border-right-width: 40px;
-                border-bottom-width: 100px;
-            }
-        }
-
-        .snow-left {
-            position: absolute;
-            top: 28px;
-            left: -10px;
-            width: 0;
-            height: 0;
-            border-left: 16px solid transparent;
-            border-right: 16px solid transparent;
-            border-bottom: 24px solid rgba(255, 255, 255, 0.60);
-            z-index: 2;
-            filter: blur(1px);
-        }
-
-        @media (min-width: 480px) {
-            .snow-left {
-                top: 40px;
-                left: -14px;
-                border-left-width: 24px;
-                border-right-width: 24px;
-                border-bottom-width: 34px;
-            }
-        }
-        @media (min-width: 768px) {
-            .snow-left {
-                top: 48px;
-                left: -18px;
-                border-left-width: 30px;
-                border-right-width: 30px;
-                border-bottom-width: 40px;
-            }
-        }
-
-        .mountain-right {
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            width: 0;
-            height: 0;
-            border-left: 60px solid transparent;
-            border-right: 80px solid transparent;
-            border-bottom: 90px solid #6d8a6c;
-            z-index: 1;
-            filter: drop-shadow(0 -2px 12px rgba(109, 138, 108, 0.08));
-        }
-
-        @media (min-width: 480px) {
-            .mountain-right {
-                border-left-width: 80px;
-                border-right-width: 110px;
-                border-bottom-width: 130px;
-            }
-        }
-        @media (min-width: 768px) {
-            .mountain-right {
-                border-left-width: 100px;
-                border-right-width: 140px;
-                border-bottom-width: 150px;
-            }
-        }
-
-        .mountain-right::after {
-            content: '';
-            position: absolute;
-            top: 18px;
-            right: -28px;
-            width: 0;
-            height: 0;
-            border-left: 28px solid transparent;
-            border-right: 28px solid transparent;
-            border-bottom: 56px solid #5a7a59;
-            opacity: 0.35;
-        }
-
-        @media (min-width: 480px) {
-            .mountain-right::after {
-                top: 26px;
-                right: -40px;
-                border-left-width: 40px;
-                border-right-width: 40px;
-                border-bottom-width: 80px;
-            }
-        }
-
-        .hill-back {
-            position: absolute;
-            bottom: 4px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 200px;
-            height: 36px;
-            background: radial-gradient(ellipse at center, #a8b89a 20%, #8aa07c 80%);
-            border-radius: 50%;
-            opacity: 0.20;
-            z-index: 0;
-            filter: blur(4px);
-        }
-
-        @media (min-width: 480px) {
-            .hill-back {
-                width: 280px;
-                height: 50px;
-                bottom: 8px;
-            }
-        }
-        @media (min-width: 768px) {
-            .hill-back {
-                width: 340px;
-                height: 60px;
-            }
-        }
-
-        .cloud {
-            position: absolute;
-            background: rgba(255, 255, 255, 0.35);
-            border-radius: 60px;
-            filter: blur(2px);
-            animation: cloudFloat 8s ease-in-out infinite alternate;
-        }
-
-        .cloud-1 {
-            width: 40px;
-            height: 12px;
-            top: 16px;
-            left: 4px;
-            animation-delay: 0s;
-        }
-
-        .cloud-2 {
-            width: 30px;
-            height: 10px;
-            top: 30px;
-            right: 6px;
-            animation-delay: 2s;
-        }
-
-        @media (min-width: 480px) {
-            .cloud-1 {
-                width: 60px;
-                height: 18px;
-                top: 24px;
-                left: 6px;
-            }
-            .cloud-2 {
-                width: 44px;
-                height: 14px;
-                top: 42px;
-                right: 10px;
-            }
-        }
-        @media (min-width: 768px) {
-            .cloud-1 {
-                width: 70px;
-                height: 22px;
-                top: 30px;
-                left: 10px;
-            }
-            .cloud-2 {
-                width: 50px;
-                height: 16px;
-                top: 50px;
-                right: 15px;
-            }
-        }
-
-        @keyframes cloudFloat {
-            0% {
-                transform: translateX(-6px);
-            }
-            100% {
-                transform: translateX(6px);
-            }
-        }
-
-        .loading-title {
-            font-size: 1.4rem;
-            font-weight: 800;
-            letter-spacing: 1px;
-            color: var(--hijau);
-            text-align: center;
-            line-height: 1.2;
-            z-index: 5;
-            position: relative;
-        }
-
-        @media (min-width: 480px) {
-            .loading-title {
-                font-size: 1.8rem;
-                letter-spacing: 2px;
-            }
-        }
-        @media (min-width: 768px) {
-            .loading-title {
-                font-size: 2.4rem;
-            }
-        }
-
-        .loading-title .sub {
-            display: block;
-            font-size: 0.7rem;
-            font-weight: 400;
-            color: var(--coklat);
-            letter-spacing: 2px;
-            margin-top: 2px;
-        }
-
-        @media (min-width: 480px) {
-            .loading-title .sub {
-                font-size: 0.9rem;
-                letter-spacing: 3px;
-            }
-        }
-        @media (min-width: 768px) {
-            .loading-title .sub {
-                font-size: 1rem;
-                letter-spacing: 4px;
-            }
-        }
-
-        .loading-poem {
-            font-size: 0.7rem;
-            font-style: italic;
-            color: #5a4a3a;
-            margin-top: 10px;
-            letter-spacing: 0.5px;
-            opacity: 0.7;
-            text-align: center;
-            max-width: 280px;
-            line-height: 1.6;
-            z-index: 5;
-            position: relative;
-        }
-
-        @media (min-width: 480px) {
-            .loading-poem {
-                font-size: 0.85rem;
-                max-width: 340px;
-                margin-top: 12px;
-            }
-        }
-        @media (min-width: 768px) {
-            .loading-poem {
-                font-size: 0.95rem;
-                max-width: 420px;
-                margin-top: 14px;
-            }
-        }
-
-        .loader-dots {
-            display: flex;
-            gap: 8px;
-            margin-top: 14px;
-            z-index: 5;
-            position: relative;
-        }
-
-        @media (min-width: 480px) {
-            .loader-dots {
-                gap: 10px;
-                margin-top: 18px;
-            }
-        }
-
-        .loader-dots span {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: var(--emas);
-            animation: dotBounce 1.4s ease-in-out infinite;
-        }
-
-        @media (min-width: 480px) {
-            .loader-dots span {
-                width: 10px;
-                height: 10px;
-            }
-        }
-
-        .loader-dots span:nth-child(2) {
-            animation-delay: 0.2s;
-        }
-        .loader-dots span:nth-child(3) {
-            animation-delay: 0.4s;
-        }
-
-        @keyframes dotBounce {
-            0%,
-            80%,
-            100% {
-                transform: scale(0.6);
-                opacity: 0.3;
-            }
-            40% {
-                transform: scale(1);
-                opacity: 1;
-            }
-        }
-
-        /* ============================================================
-           NAVIGASI
-           ============================================================ */
-        .nav-bar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 10px 14px;
-            flex-wrap: wrap;
-            gap: 8px;
-            background: rgba(245, 239, 230, 0.72);
-            backdrop-filter: blur(8px);
-            border-radius: 0 0 24px 24px;
-            margin-bottom: 10px;
-            border-bottom: 2px solid rgba(120, 100, 85, 0.06);
-        }
-
-        @media (min-width: 480px) {
-            .nav-bar {
-                padding: 14px 20px;
-                gap: 10px;
-            }
-        }
-        @media (min-width: 768px) {
-            .nav-bar {
-                padding: 16px 28px;
-                border-radius: 0 0 28px 28px;
-            }
-        }
-        @media (min-width: 1024px) {
-            .nav-bar {
-                padding: 18px 32px;
-            }
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-weight: 800;
-            font-size: 0.85rem;
-            color: var(--hijau);
-        }
-
-        @media (min-width: 480px) {
-            .logo {
-                font-size: 1rem;
-                gap: 8px;
-            }
-        }
-        @media (min-width: 768px) {
-            .logo {
-                font-size: 1.2rem;
-                gap: 10px;
-            }
-        }
-
-        .logo i {
-            color: var(--emas);
-            font-size: 1.2rem;
-        }
-        @media (min-width: 480px) {
-            .logo i {
-                font-size: 1.4rem;
-            }
-        }
-        @media (min-width: 768px) {
-            .logo i {
-                font-size: 1.6rem;
-            }
-        }
-
-        .logo span {
-            color: var(--coklat);
-        }
-
-        .nav-links {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 3px 6px;
-        }
-
-        @media (min-width: 480px) {
-            .nav-links {
-                gap: 4px 10px;
-            }
-        }
-        @media (min-width: 768px) {
-            .nav-links {
-                gap: 6px 14px;
-            }
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.65rem;
-            color: #4a3f36;
-            padding: 4px 8px;
-            border-radius: 40px;
-            transition: 0.3s;
-            position: relative;
-            white-space: nowrap;
-        }
-
-        @media (min-width: 480px) {
-            .nav-links a {
-                font-size: 0.75rem;
-                padding: 5px 12px;
-            }
-        }
-        @media (min-width: 768px) {
-            .nav-links a {
-                font-size: 0.85rem;
-                padding: 6px 14px;
-            }
-        }
-        @media (min-width: 1024px) {
-            .nav-links a {
-                font-size: 0.9rem;
-                padding: 6px 16px;
-            }
-        }
-
-        .nav-links a i {
-            margin-right: 3px;
-        }
-        @media (min-width: 480px) {
-            .nav-links a i {
-                margin-right: 4px;
-            }
-        }
-        @media (min-width: 768px) {
-            .nav-links a i {
-                margin-right: 6px;
-            }
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: 2px;
-            left: 50%;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, var(--emas), var(--merah-bata));
-            border-radius: 4px;
-            transition: 0.3s;
-            transform: translateX(-50%);
-        }
-
-        @media (min-width: 480px) {
-            .nav-links a::after {
-                height: 3px;
-            }
-        }
-
-        .nav-links a:hover::after,
-        .nav-links a.active::after {
-            width: 50%;
-        }
-
-        @media (min-width: 480px) {
-            .nav-links a:hover::after,
-            .nav-links a.active::after {
-                width: 60%;
-            }
-        }
-
-        .nav-links a:hover,
-        .nav-links a.active {
-            background: rgba(196, 154, 108, 0.08);
-            color: var(--hijau);
-        }
-
-        /* ============================================================
-           SECTION
-           ============================================================ */
-        .section {
-            display: none;
-            animation: fadeSlide 0.5s ease forwards;
-            padding-top: 10px;
-        }
-
-        .section.active {
-            display: block;
-        }
-
-        @keyframes fadeSlide {
-            0% {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* ============================================================
-           CARD & ELEMEN UMUM
-           ============================================================ */
-        .card {
-            background: var(--putih-trans);
-            backdrop-filter: blur(6px);
-            border-radius: var(--radius);
-            padding: 16px 14px;
-            box-shadow: var(--shadow);
-            margin-bottom: 16px;
-            border: 1px solid rgba(120, 100, 85, 0.04);
-            transition: var(--transition);
-        }
-
-        @media (min-width: 480px) {
-            .card {
-                padding: 20px 20px;
-                margin-bottom: 20px;
-            }
-        }
-        @media (min-width: 768px) {
-            .card {
-                padding: 24px 28px;
-                margin-bottom: 24px;
-                border-radius: 28px;
-            }
-        }
-        @media (min-width: 1024px) {
-            .card {
-                padding: 28px 32px;
-            }
-        }
-
-        .card:hover {
-            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.05);
-            transform: translateY(-2px);
-        }
-
-        .badge {
-            display: inline-block;
-            background: linear-gradient(135deg, var(--emas), var(--merah-bata));
-            color: #fff;
-            font-weight: 700;
-            font-size: 0.55rem;
-            padding: 3px 12px;
-            border-radius: 40px;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-            margin-bottom: 4px;
-        }
-
-        @media (min-width: 480px) {
-            .badge {
-                font-size: 0.6rem;
-                padding: 4px 16px;
-                margin-bottom: 6px;
-            }
-        }
-        @media (min-width: 768px) {
-            .badge {
-                font-size: 0.7rem;
-                padding: 4px 18px;
-                margin-bottom: 8px;
-            }
-        }
-
-        .btn-primary {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: linear-gradient(135deg, var(--hijau), var(--hijau-muda));
-            color: #fff;
-            font-weight: 700;
-            padding: 10px 22px;
-            border-radius: 60px;
-            border: none;
-            font-size: 0.8rem;
-            cursor: pointer;
-            transition: 0.3s ease;
-            box-shadow: 0 6px 20px rgba(61, 139, 64, 0.16);
-            position: relative;
-            overflow: hidden;
-        }
-
-        @media (min-width: 480px) {
-            .btn-primary {
-                padding: 12px 30px;
-                font-size: 0.9rem;
-                gap: 8px;
-            }
-        }
-        @media (min-width: 768px) {
-            .btn-primary {
-                padding: 14px 38px;
-                font-size: 1rem;
-                gap: 10px;
-            }
-        }
-
-        .btn-primary::after {
-            content: '';
-            position: absolute;
-            inset: -50%;
-            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.08), transparent);
-            transform: rotate(45deg) translateX(-100%);
-            transition: 0.6s;
-        }
-
-        .btn-primary:hover::after {
-            transform: rotate(45deg) translateX(100%);
-        }
-
-        .btn-primary:hover {
-            transform: scale(1.03) translateY(-2px);
-            box-shadow: 0 10px 32px rgba(61, 139, 64, 0.25);
-        }
-
-        .btn-secondary {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: transparent;
-            color: var(--hijau-muda);
-            font-weight: 700;
-            padding: 8px 18px;
-            border-radius: 60px;
-            border: 2px solid var(--hijau-muda);
-            font-size: 0.75rem;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        @media (min-width: 480px) {
-            .btn-secondary {
-                padding: 10px 24px;
-                font-size: 0.85rem;
-                gap: 8px;
-            }
-        }
-        @media (min-width: 768px) {
-            .btn-secondary {
-                padding: 12px 30px;
-                font-size: 0.95rem;
-                gap: 10px;
-            }
-        }
-
-        .btn-secondary:hover {
-            background: var(--hijau-muda);
-            color: #fff;
-            box-shadow: 0 6px 20px rgba(61, 139, 64, 0.10);
-            transform: scale(1.02);
-        }
-
-        .section-title {
-            font-size: 1.4rem;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-            color: var(--hijau);
-            margin-bottom: 2px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-
-        @media (min-width: 480px) {
-            .section-title {
-                font-size: 1.6rem;
-                gap: 10px;
-            }
-        }
-        @media (min-width: 768px) {
-            .section-title {
-                font-size: 2rem;
-                letter-spacing: -0.8px;
-            }
-        }
-        @media (min-width: 1024px) {
-            .section-title {
-                font-size: 2.2rem;
-            }
-        }
-
-        .section-title i {
-            color: var(--emas);
-        }
-
-        .section-sub {
-            font-size: 0.85rem;
-            color: var(--coklat);
-            margin-bottom: 16px;
-            font-weight: 400;
-            padding-left: 2px;
-        }
-
-        @media (min-width: 480px) {
-            .section-sub {
-                font-size: 0.95rem;
-                margin-bottom: 20px;
-                padding-left: 4px;
-            }
-        }
-        @media (min-width: 768px) {
-            .section-sub {
-                font-size: 1.05rem;
-                margin-bottom: 28px;
-            }
-        }
-        @media (min-width: 1024px) {
-            .section-sub {
-                font-size: 1.1rem;
-            }
-        }
-
-        /* ============================================================
-           HOME
-           ============================================================ */
-        .hero {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            align-items: center;
-        }
-
-        @media (min-width: 768px) {
-            .hero {
-                gap: 30px;
-            }
-        }
-
-        .hero-text {
-            flex: 1 1 260px;
-        }
-
-        .hero-text h1 {
-            font-size: 1.6rem;
-            font-weight: 800;
-            line-height: 1.15;
-            color: var(--hijau);
-        }
-
-        @media (min-width: 480px) {
-            .hero-text h1 {
-                font-size: 2rem;
-            }
-        }
-        @media (min-width: 768px) {
-            .hero-text h1 {
-                font-size: 2.4rem;
-            }
-        }
-        @media (min-width: 1024px) {
-            .hero-text h1 {
-                font-size: 2.8rem;
-            }
-        }
-
-        .hero-text h1 i {
-            color: var(--emas);
-        }
-
-        .hero-text .sub {
-            font-size: 0.9rem;
-            color: var(--coklat);
-            margin: 8px 0 16px;
-            font-weight: 400;
-        }
-
-        @media (min-width: 480px) {
-            .hero-text .sub {
-                font-size: 1rem;
-                margin: 10px 0 18px;
-            }
-        }
-        @media (min-width: 768px) {
-            .hero-text .sub {
-                font-size: 1.1rem;
-                margin: 12px 0 22px;
-            }
-        }
-        @media (min-width: 1024px) {
-            .hero-text .sub {
-                font-size: 1.2rem;
-            }
-        }
-
-        .hero-img {
-            flex: 1 1 160px;
-            background: rgba(230, 220, 208, 0.25);
-            border-radius: 20px;
-            padding: 20px 12px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 140px;
-            border: 2px dashed rgba(120, 100, 85, 0.10);
-            text-align: center;
-            transition: 0.4s;
-        }
-
-        @media (min-width: 480px) {
-            .hero-img {
-                min-height: 160px;
-                padding: 24px 16px;
-                border-radius: 24px;
-            }
-        }
-        @media (min-width: 768px) {
-            .hero-img {
-                min-height: 200px;
-                padding: 28px 16px;
-                border-radius: 28px;
-                flex: 1 1 200px;
-            }
-        }
-
-        .hero-img:hover {
-            background: rgba(230, 220, 208, 0.40);
-            border-color: var(--emas);
-        }
-
-        .hero-img i {
-            font-size: 2.8rem;
-            color: #b8956e;
-        }
-
-        @media (min-width: 480px) {
-            .hero-img i {
-                font-size: 3.6rem;
-            }
-        }
-        @media (min-width: 768px) {
-            .hero-img i {
-                font-size: 4.2rem;
-            }
-        }
-        @media (min-width: 1024px) {
-            .hero-img i {
-                font-size: 4.6rem;
-            }
-        }
-
-        .hero-img small {
-            font-size: 0.55rem;
-            color: #8f7a6a;
-            margin-top: 4px;
-        }
-
-        @media (min-width: 480px) {
-            .hero-img small {
-                font-size: 0.65rem;
-                margin-top: 6px;
-            }
-        }
-        @media (min-width: 768px) {
-            .hero-img small {
-                font-size: 0.75rem;
-            }
-        }
-
-        .ticker {
-            background: rgba(255, 255, 255, 0.55);
-            backdrop-filter: blur(4px);
-            border-radius: 16px;
-            padding: 10px 14px;
-            margin-top: 14px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
-            border-left: 5px solid var(--emas);
-            transition: 0.3s;
-        }
-
-        @media (min-width: 480px) {
-            .ticker {
-                padding: 12px 18px;
-                gap: 12px;
-                border-radius: 20px;
-                margin-top: 16px;
-            }
-        }
-        @media (min-width: 768px) {
-            .ticker {
-                padding: 14px 24px;
-                gap: 16px;
-                border-left-width: 8px;
-                border-radius: 24px;
-            }
-        }
-
-        .ticker:hover {
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
-        }
-
-        .ticker i {
-            color: var(--emas);
-            font-size: 0.9rem;
-        }
-
-        @media (min-width: 480px) {
-            .ticker i {
-                font-size: 1.1rem;
-            }
-        }
-        @media (min-width: 768px) {
-            .ticker i {
-                font-size: 1.3rem;
-            }
-        }
-
-        .ticker marquee {
-            flex: 1;
-            font-weight: 500;
-            color: #3e2f24;
-            font-size: 0.7rem;
-        }
-
-        @media (min-width: 480px) {
-            .ticker marquee {
-                font-size: 0.8rem;
-            }
-        }
-        @media (min-width: 768px) {
-            .ticker marquee {
-                font-size: 0.95rem;
-            }
-        }
-
-        /* ============================================================
-           BENEFIT GRID — penjelasan lebih umum
-           ============================================================ */
-        .benefit-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 8px;
-            margin-top: 6px;
-        }
-
-        @media (min-width: 480px) {
-            .benefit-grid {
-                grid-template-columns: 1fr 1fr;
-                gap: 10px;
-            }
-        }
-
-        .benefit-item {
-            background: rgba(255, 255, 255, 0.45);
-            padding: 12px 14px;
-            border-radius: 14px;
-            border-left: 4px solid var(--emas);
-            font-size: 0.8rem;
-            line-height: 1.6;
-            transition: 0.3s;
-        }
-
-        @media (min-width: 480px) {
-            .benefit-item {
-                padding: 14px 18px;
-                font-size: 0.85rem;
-                border-left-width: 5px;
-                border-radius: 16px;
-            }
-        }
-        @media (min-width: 768px) {
-            .benefit-item {
-                padding: 16px 22px;
-                font-size: 0.9rem;
-                border-left-width: 6px;
-            }
-        }
-
-        .benefit-item:hover {
-            background: rgba(255, 255, 255, 0.70);
-            transform: translateX(4px);
-        }
-
-        .benefit-item .icon {
-            font-weight: 700;
-            margin-right: 6px;
-            color: var(--hijau-muda);
-        }
-
-        .benefit-item .title {
-            font-weight: 700;
-            color: var(--hijau);
-        }
-
-        .benefit-item .explanation {
-            display: block;
-            margin-top: 4px;
-            color: #4a3f36;
-            font-weight: 400;
-            font-size: 0.8rem;
-        }
-
-        @media (min-width: 480px) {
-            .benefit-item .explanation {
-                font-size: 0.85rem;
-            }
-        }
-        @media (min-width: 768px) {
-            .benefit-item .explanation {
-                font-size: 0.9rem;
-            }
-        }
-
-        /* ============================================================
-           FLASHCARD
-           ============================================================ */
-        .flashcard-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-            gap: 12px;
-            margin: 12px 0;
-        }
-
-        @media (min-width: 480px) {
-            .flashcard-grid {
-                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-                gap: 16px;
-                margin: 14px 0;
-            }
-        }
-        @media (min-width: 768px) {
-            .flashcard-grid {
-                grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-                gap: 20px;
-                margin: 16px 0;
-            }
-        }
-
-        .flashcard-wrapper {
-            perspective: 800px;
-            cursor: pointer;
-            aspect-ratio: 3 / 4;
-        }
-
-        .flashcard-inner {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-            transform-style: preserve-3d;
-            border-radius: 16px;
-        }
-
-        .flashcard-wrapper.flipped .flashcard-inner {
-            transform: rotateY(180deg);
-        }
-
-        .flashcard-front,
-        .flashcard-back {
-            position: absolute;
-            inset: 0;
-            backface-visibility: hidden;
-            border-radius: 16px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 14px 10px;
-            text-align: center;
-            background: rgba(255, 255, 255, 0.92);
-            border: 1px solid rgba(120, 100, 85, 0.06);
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
-            transition: 0.3s;
-        }
-
-        @media (min-width: 480px) {
-            .flashcard-front,
-            .flashcard-back {
-                padding: 18px 14px;
-                border-radius: 20px;
-            }
-        }
-
-        .flashcard-front:hover,
-        .flashcard-back:hover {
-            box-shadow: 0 10px 32px rgba(0, 0, 0, 0.06);
-        }
-
-        .flashcard-back {
-            transform: rotateY(180deg);
-            background: linear-gradient(135deg, #f9f6f0, #f2ece2);
-            border-left: 4px solid var(--emas);
-            justify-content: flex-start;
-            padding-top: 18px;
-            overflow-y: auto;
-        }
-
-        @media (min-width: 480px) {
-            .flashcard-back {
-                border-left-width: 6px;
-                padding-top: 22px;
-            }
-        }
-
-        .flashcard-back .back-title {
-            font-weight: 700;
-            color: var(--hijau);
-            font-size: 0.85rem;
-            margin-bottom: 4px;
-        }
-
-        @media (min-width: 480px) {
-            .flashcard-back .back-title {
-                font-size: 0.9rem;
-                margin-bottom: 6px;
-            }
-        }
-
-        .flashcard-back .back-desc {
-            font-size: 0.7rem;
-            color: #4a3f36;
-            line-height: 1.6;
-            text-align: left;
-            max-height: 100%;
-            overflow-y: auto;
-        }
-
-        @media (min-width: 480px) {
-            .flashcard-back .back-desc {
-                font-size: 0.75rem;
-            }
-        }
-        @media (min-width: 768px) {
-            .flashcard-back .back-desc {
-                font-size: 0.8rem;
-            }
-        }
-
-        .flashcard-front i {
-            font-size: 2.2rem;
-            color: var(--emas);
-            margin-bottom: 6px;
-        }
-
-        @media (min-width: 480px) {
-            .flashcard-front i {
-                font-size: 2.6rem;
-                margin-bottom: 8px;
-            }
-        }
-        @media (min-width: 768px) {
-            .flashcard-front i {
-                font-size: 3rem;
-            }
-        }
-
-        .flashcard-front .name {
-            font-weight: 700;
-            color: var(--hijau);
-            font-size: 0.8rem;
-        }
-
-        @media (min-width: 480px) {
-            .flashcard-front .name {
-                font-size: 0.9rem;
-            }
-        }
-        @media (min-width: 768px) {
-            .flashcard-front .name {
-                font-size: 1rem;
-            }
-        }
-
-        .flashcard-front .hint {
-            font-size: 0.55rem;
-            color: #8f7a6a;
-            margin-top: 6px;
-            opacity: 0.5;
-        }
-
-        @media (min-width: 480px) {
-            .flashcard-front .hint {
-                font-size: 0.6rem;
-                margin-top: 8px;
-            }
-        }
-
-        /* ============================================================
-           QUIZ (15 SOAL)
-           ============================================================ */
-        .quiz-progress {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 6px;
-            margin-bottom: 12px;
-            background: rgba(242, 236, 226, 0.25);
-            padding: 5px 12px;
-            border-radius: 40px;
-        }
-
-        @media (min-width: 480px) {
-            .quiz-progress {
-                padding: 6px 14px;
-                gap: 8px;
-                margin-bottom: 14px;
-            }
-        }
-        @media (min-width: 768px) {
-            .quiz-progress {
-                padding: 8px 16px;
-                margin-bottom: 18px;
-                gap: 10px;
-            }
-        }
-
-        .quiz-progress .info {
-            font-weight: 600;
-            color: var(--coklat);
-            font-size: 0.7rem;
-        }
-
-        @media (min-width: 480px) {
-            .quiz-progress .info {
-                font-size: 0.8rem;
-            }
-        }
-        @media (min-width: 768px) {
-            .quiz-progress .info {
-                font-size: 0.95rem;
-            }
-        }
-
-        .quiz-progress .score {
-            font-weight: 700;
-            color: var(--hijau);
-            background: rgba(196, 154, 108, 0.10);
-            padding: 2px 12px;
-            border-radius: 40px;
-            font-size: 0.7rem;
-        }
-
-        @media (min-width: 480px) {
-            .quiz-progress .score {
-                font-size: 0.8rem;
-                padding: 2px 14px;
-            }
-        }
-        @media (min-width: 768px) {
-            .quiz-progress .score {
-                font-size: 0.95rem;
-                padding: 4px 18px;
-            }
-        }
-
-        .quiz-question {
-            font-size: 0.9rem;
-            font-weight: 700;
-            color: var(--hijau);
-            margin-bottom: 10px;
-            padding-left: 2px;
-            line-height: 1.5;
-        }
-
-        @media (min-width: 480px) {
-            .quiz-question {
-                font-size: 1rem;
-                margin-bottom: 12px;
-                padding-left: 4px;
-            }
-        }
-        @media (min-width: 768px) {
-            .quiz-question {
-                font-size: 1.1rem;
-                margin-bottom: 14px;
-            }
-        }
-
-        .quiz-options {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            margin: 4px 0 10px;
-        }
-
-        @media (min-width: 480px) {
-            .quiz-options {
-                gap: 8px;
-                margin: 6px 0 12px;
-            }
-        }
-        @media (min-width: 768px) {
-            .quiz-options {
-                gap: 10px;
-                margin: 8px 0 16px;
-            }
-        }
-
-        .quiz-options button {
-            background: #f9f6f0;
-            border: 2px solid transparent;
-            border-radius: 12px;
-            padding: 10px 14px;
-            font-size: 0.8rem;
-            text-align: left;
-            cursor: pointer;
-            transition: 0.25s ease;
-            font-weight: 500;
-            color: #1e1e1e;
-            line-height: 1.4;
-        }
-
-        @media (min-width: 480px) {
-            .quiz-options button {
-                padding: 12px 18px;
-                font-size: 0.85rem;
-                border-radius: 14px;
-            }
-        }
-        @media (min-width: 768px) {
-            .quiz-options button {
-                padding: 14px 22px;
-                font-size: 0.95rem;
-                border-radius: 16px;
-            }
-        }
-
-        .quiz-options button:hover:not(:disabled) {
-            background: #ede7dd;
-            transform: translateX(3px);
-        }
-
-        @media (min-width: 480px) {
-            .quiz-options button:hover:not(:disabled) {
-                transform: translateX(4px);
-            }
-        }
-        @media (min-width: 768px) {
-            .quiz-options button:hover:not(:disabled) {
-                transform: translateX(6px);
-            }
-        }
-
-        .quiz-options button.correct {
-            border-color: var(--hijau-muda);
-            background: #e5f0e3;
-        }
-
-        .quiz-options button.wrong {
-            border-color: #d48c8c;
-            background: #f7e6e6;
-        }
-
-        .quiz-options button:disabled {
-            cursor: default;
-            opacity: 0.7;
-        }
-
-        .quiz-feedback {
-            margin-top: 10px;
-            padding: 12px 14px;
-            border-radius: 14px;
-            display: none;
-            animation: fadeSlide 0.3s ease;
-        }
-
-        @media (min-width: 480px) {
-            .quiz-feedback {
-                padding: 14px 18px;
-                border-radius: 16px;
-                margin-top: 12px;
-            }
-        }
-        @media (min-width: 768px) {
-            .quiz-feedback {
-                padding: 18px 22px;
-                border-radius: 18px;
-                margin-top: 14px;
-            }
-        }
-
-        .quiz-feedback.show {
-            display: block;
-        }
-
-        .quiz-feedback.success {
-            background: #e5f0e3;
-            border-left: 5px solid var(--hijau-muda);
-        }
-
-        @media (min-width: 480px) {
-            .quiz-feedback.success {
-                border-left-width: 6px;
-            }
-        }
-        @media (min-width: 768px) {
-            .quiz-feedback.success {
-                border-left-width: 8px;
-            }
-        }
-
-        .quiz-feedback.fail {
-            background: #f7e6e6;
-            border-left: 5px solid #d48c8c;
-        }
-
-        @media (min-width: 480px) {
-            .quiz-feedback.fail {
-                border-left-width: 6px;
-            }
-        }
-        @media (min-width: 768px) {
-            .quiz-feedback.fail {
-                border-left-width: 8px;
-            }
-        }
-
-        .quiz-feedback .explanation {
-            margin-top: 8px;
-            padding: 10px 12px;
-            background: rgba(255, 255, 255, 0.45);
-            border-radius: 12px;
-            font-size: 0.8rem;
-            line-height: 1.6;
-        }
-
-        @media (min-width: 480px) {
-            .quiz-feedback .explanation {
-                padding: 12px 16px;
-                font-size: 0.85rem;
-                margin-top: 10px;
-                border-radius: 14px;
-            }
-        }
-        @media (min-width: 768px) {
-            .quiz-feedback .explanation {
-                padding: 14px 18px;
-                font-size: 0.95rem;
-                margin-top: 12px;
-                border-radius: 16px;
-            }
-        }
-
-        .quiz-feedback .explanation strong {
-            color: var(--hijau);
-        }
-
-        .quiz-nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-top: 14px;
-        }
-
-        @media (min-width: 480px) {
-            .quiz-nav {
-                gap: 10px;
-                margin-top: 16px;
-            }
-        }
-        @media (min-width: 768px) {
-            .quiz-nav {
-                gap: 12px;
-                margin-top: 18px;
-            }
-        }
-
-        .quiz-nav button {
-            padding: 6px 14px;
-            border-radius: 40px;
-            border: none;
-            font-weight: 700;
-            cursor: pointer;
-            transition: 0.25s;
-            font-size: 0.7rem;
-        }
-
-        @media (min-width: 480px) {
-            .quiz-nav button {
-                padding: 8px 18px;
-                font-size: 0.8rem;
-            }
-        }
-        @media (min-width: 768px) {
-            .quiz-nav button {
-                padding: 10px 26px;
-                font-size: 0.9rem;
-            }
-        }
-
-        .quiz-nav .prev {
-            background: #ede7dd;
-            color: #4a3f36;
-        }
-
-        .quiz-nav .prev:hover {
-            background: #dccfc0;
-            transform: scale(1.03);
-        }
-
-        .quiz-nav .next {
-            background: linear-gradient(135deg, var(--hijau-muda), var(--hijau));
-            color: #fff;
-            box-shadow: 0 6px 20px rgba(61, 139, 64, 0.16);
-        }
-
-        .quiz-nav .next:hover {
-            transform: scale(1.04);
-            box-shadow: 0 10px 28px rgba(61, 139, 64, 0.24);
-        }
-
-        .quiz-nav .reset {
-            background: transparent;
-            color: #a14242;
-            border: 2px solid #d48c8c;
-        }
-
-        .quiz-nav .reset:hover {
-            background: #d48c8c;
-            color: #fff;
-        }
-
-        /* ============================================================
-           GAME PLACEHOLDER
-           ============================================================ */
-        .game-placeholder {
-            background: var(--putih-trans);
-            backdrop-filter: blur(4px);
-            border-radius: 20px;
-            padding: 28px 16px;
-            text-align: center;
-            border: 2px dashed rgba(120, 100, 85, 0.10);
-            transition: 0.4s;
-        }
-
-        @media (min-width: 480px) {
-            .game-placeholder {
-                padding: 36px 24px;
-                border-radius: 24px;
-            }
-        }
-        @media (min-width: 768px) {
-            .game-placeholder {
-                padding: 44px 28px;
-                border-radius: 28px;
-            }
-        }
-        @media (min-width: 1024px) {
-            .game-placeholder {
-                padding: 52px 32px;
-            }
-        }
-
-        .game-placeholder:hover {
-            border-color: var(--emas);
-            background: rgba(255, 255, 255, 0.88);
-            transform: scale(1.01);
-        }
-
-        .game-placeholder i {
-            font-size: 2.6rem;
-            color: var(--emas);
-            margin-bottom: 12px;
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        @media (min-width: 480px) {
-            .game-placeholder i {
-                font-size: 3.2rem;
-                margin-bottom: 14px;
-            }
-        }
-        @media (min-width: 768px) {
-            .game-placeholder i {
-                font-size: 4rem;
-                margin-bottom: 16px;
-            }
-        }
-
-        @keyframes pulse {
-            0%,
-            100% {
-                transform: scale(1);
-                opacity: 0.8;
-            }
-            50% {
-                transform: scale(1.06);
-                opacity: 1;
-            }
-        }
-
-        .game-placeholder h3 {
-            font-size: 1rem;
-            color: var(--hijau);
-            margin-bottom: 4px;
-        }
-
-        @media (min-width: 480px) {
-            .game-placeholder h3 {
-                font-size: 1.2rem;
-                margin-bottom: 6px;
-            }
-        }
-        @media (min-width: 768px) {
-            .game-placeholder h3 {
-                font-size: 1.4rem;
-                margin-bottom: 8px;
-            }
-        }
-        @media (min-width: 1024px) {
-            .game-placeholder h3 {
-                font-size: 1.5rem;
-            }
-        }
-
-        .game-placeholder p {
-            color: var(--coklat);
-            font-size: 0.8rem;
-            max-width: 480px;
-            margin: 0 auto;
-            line-height: 1.6;
-        }
-
-        @media (min-width: 480px) {
-            .game-placeholder p {
-                font-size: 0.85rem;
-            }
-        }
-        @media (min-width: 768px) {
-            .game-placeholder p {
-                font-size: 0.95rem;
-            }
-        }
-        @media (min-width: 1024px) {
-            .game-placeholder p {
-                font-size: 1rem;
-            }
-        }
-
-        .game-placeholder .btn-link {
-            display: inline-block;
-            margin-top: 14px;
-            padding: 10px 24px;
-            background: linear-gradient(135deg, var(--emas), var(--merah-bata));
-            color: #fff;
-            font-weight: 700;
-            border-radius: 60px;
-            text-decoration: none;
-            transition: 0.3s;
-            box-shadow: 0 6px 24px rgba(196, 154, 108, 0.16);
-            font-size: 0.8rem;
-        }
-
-        @media (min-width: 480px) {
-            .game-placeholder .btn-link {
-                padding: 12px 30px;
-                font-size: 0.85rem;
-                margin-top: 16px;
-            }
-        }
-        @media (min-width: 768px) {
-            .game-placeholder .btn-link {
-                padding: 14px 36px;
-                font-size: 1rem;
-                margin-top: 18px;
-            }
-        }
-
-        .game-placeholder .btn-link:hover {
-            transform: scale(1.05) translateY(-3px);
-            box-shadow: 0 12px 36px rgba(196, 154, 108, 0.25);
-        }
-
-        /* ============================================================
-           CONSEQUENCE BOX
-           ============================================================ */
-        .consequence-box {
-            border-radius: 14px;
-            padding: 12px 16px;
-            margin-top: 6px;
-            border-left: 5px solid var(--emas);
-            background: rgba(255, 255, 255, 0.25);
-            transition: 0.3s;
-        }
-
-        @media (min-width: 480px) {
-            .consequence-box {
-                padding: 14px 18px;
-                border-left-width: 6px;
-                margin-top: 8px;
-                border-radius: 16px;
-            }
-        }
-        @media (min-width: 768px) {
-            .consequence-box {
-                padding: 16px 22px;
-                border-left-width: 8px;
-                margin-top: 10px;
-                border-radius: 18px;
-            }
-        }
-
-        .consequence-box:hover {
-            background: rgba(255, 255, 255, 0.55);
-        }
-
-        .consequence-box.good {
-            border-left-color: var(--hijau-muda);
-            background: rgba(61, 139, 64, 0.03);
-        }
-
-        .consequence-box.bad {
-            border-left-color: #d48c8c;
-            background: rgba(212, 140, 140, 0.03);
-        }
-
-        .consequence-box h4 {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 0.8rem;
-            margin-bottom: 2px;
-            color: var(--hijau);
-        }
-
-        @media (min-width: 480px) {
-            .consequence-box h4 {
-                font-size: 0.88rem;
-                gap: 8px;
-            }
-        }
-        @media (min-width: 768px) {
-            .consequence-box h4 {
-                font-size: 0.95rem;
-            }
-        }
-
-        .consequence-box p {
-            font-size: 0.8rem;
-            color: #2d2a26;
-            line-height: 1.6;
-        }
-
-        @media (min-width: 480px) {
-            .consequence-box p {
-                font-size: 0.85rem;
-            }
-        }
-        @media (min-width: 768px) {
-            .consequence-box p {
-                font-size: 0.92rem;
-            }
-        }
-
-        /* ============================================================
-           STAT / ABOUT
-           ============================================================ */
-        .stat-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin: 10px 0 14px;
-        }
-
-        @media (min-width: 480px) {
-            .stat-grid {
-                gap: 12px;
-                margin: 12px 0 16px;
-            }
-        }
-        @media (min-width: 768px) {
-            .stat-grid {
-                grid-template-columns: repeat(4, 1fr);
-                gap: 16px;
-                margin: 16px 0 20px;
-            }
-        }
-
-        .stat-item {
-            background: rgba(255, 255, 255, 0.60);
-            border-radius: 14px;
-            padding: 12px 8px;
-            text-align: center;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
-            border: 1px solid rgba(120, 100, 85, 0.04);
-            transition: 0.3s;
-        }
-
-        @media (min-width: 480px) {
-            .stat-item {
-                padding: 14px 10px;
-                border-radius: 16px;
-            }
-        }
-
-        .stat-item:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
-        }
-
-        .stat-item .num {
-            font-size: 1.2rem;
-            font-weight: 800;
-            color: var(--hijau);
-        }
-
-        @media (min-width: 480px) {
-            .stat-item .num {
-                font-size: 1.6rem;
-            }
-        }
-        @media (min-width: 768px) {
-            .stat-item .num {
-                font-size: 2rem;
-            }
-        }
-
-        .stat-item .lbl {
-            font-size: 0.6rem;
-            color: var(--coklat);
-            font-weight: 500;
-        }
-
-        @media (min-width: 480px) {
-            .stat-item .lbl {
-                font-size: 0.7rem;
-            }
-        }
-        @media (min-width: 768px) {
-            .stat-item .lbl {
-                font-size: 0.85rem;
-            }
-        }
-
-        .stat-item i {
-            font-size: 1.2rem;
-            color: var(--emas);
-            display: block;
-            margin-bottom: 3px;
-        }
-
-        @media (min-width: 480px) {
-            .stat-item i {
-                font-size: 1.4rem;
-                margin-bottom: 4px;
-            }
-        }
-        @media (min-width: 768px) {
-            .stat-item i {
-                font-size: 1.6rem;
-            }
-        }
-
-        .stat-item .sub-text {
-            font-size: 0.6rem;
-            color: #5a4a3a;
-            margin-top: 4px;
-            text-align: left;
-            padding: 0 2px;
-        }
-
-        @media (min-width: 480px) {
-            .stat-item .sub-text {
-                font-size: 0.65rem;
-                margin-top: 4px;
-            }
-        }
-        @media (min-width: 768px) {
-            .stat-item .sub-text {
-                font-size: 0.7rem;
-                padding: 0 4px;
-            }
-        }
-
-        .quote-block {
-            background: linear-gradient(135deg, rgba(196, 154, 108, 0.06), rgba(178, 59, 44, 0.03));
-            border-radius: 16px;
-            padding: 14px 18px;
-            border-left: 5px solid var(--emas);
-            font-style: italic;
-            font-size: 0.85rem;
-            color: #3e2f24;
-            margin: 10px 0;
-        }
-
-        @media (min-width: 480px) {
-            .quote-block {
-                padding: 18px 24px;
-                border-radius: 18px;
-                border-left-width: 6px;
-                font-size: 0.95rem;
-                margin: 14px 0;
-            }
-        }
-        @media (min-width: 768px) {
-            .quote-block {
-                padding: 20px 28px;
-                border-radius: 20px;
-                border-left-width: 8px;
-                font-size: 1.05rem;
-                margin: 16px 0;
-            }
-        }
-
-        .quote-block strong {
-            color: var(--hijau);
-            font-style: normal;
-        }
-
-        .quote-block i {
-            font-size: 1.4rem;
-            color: var(--emas);
-            float: left;
-            margin-right: 10px;
-        }
-
-        @media (min-width: 480px) {
-            .quote-block i {
-                font-size: 1.6rem;
-                margin-right: 12px;
-            }
-        }
-        @media (min-width: 768px) {
-            .quote-block i {
-                font-size: 1.8rem;
-                margin-right: 14px;
-            }
-        }
-
-        /* ============================================================
-           FOOTER
-           ============================================================ */
-        .footer {
-            margin-top: 32px;
-            padding-top: 20px;
-            border-top: 2px solid rgba(120, 100, 85, 0.06);
-            text-align: center;
-            color: var(--coklat);
-            font-size: 0.6rem;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 8px 16px;
-        }
-
-        @media (min-width: 480px) {
-            .footer {
-                font-size: 0.7rem;
-                gap: 10px 20px;
-                margin-top: 40px;
-                padding-top: 24px;
-            }
-        }
-        @media (min-width: 768px) {
-            .footer {
-                font-size: 0.8rem;
-                gap: 12px 24px;
-                margin-top: 48px;
-                padding-top: 28px;
-            }
-        }
-
-        .footer i {
-            color: var(--emas);
-        }
-
-        /* ============================================================
-           RESPONSIVE — TEKS SEMUA LAYAR
-           ============================================================ */
-        html {
-            font-size: 14px;
-        }
-        @media (min-width: 480px) {
-            html {
-                font-size: 15px;
-            }
-        }
-        @media (min-width: 768px) {
-            html {
-                font-size: 16px;
-            }
-        }
-        @media (min-width: 1024px) {
-            html {
-                font-size: 17px;
-            }
-        }
-
-        .hero-actions {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-top: 4px;
-        }
-
-        @media (min-width: 480px) {
-            .hero-actions {
-                gap: 10px;
-                margin-top: 6px;
-            }
-        }
-        @media (min-width: 768px) {
-            .hero-actions {
-                gap: 12px;
-                margin-top: 8px;
-            }
-        }
-        @media (min-width: 1024px) {
-            .hero-actions {
-                gap: 14px;
-                margin-top: 10px;
-            }
-        }
-
-        .gap-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 10px;
-        }
-
-        @media (min-width: 480px) {
-            .gap-grid {
-                grid-template-columns: 1fr 1fr;
-                gap: 12px;
-            }
-        }
-
-        .text-small {
-            font-size: 0.8rem;
-        }
-        @media (min-width: 480px) {
-            .text-small {
-                font-size: 0.85rem;
-            }
-        }
-        @media (min-width: 768px) {
-            .text-small {
-                font-size: 0.95rem;
-            }
-        }
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(244, 230, 208, 0.95); 
+            display: none; flex-direction: column; justify-content: center; align-items: center;
+            z-index: 9999; font-family: 'Poppins', sans-serif; border: 6px solid #dca658;
+        }
+        #loading-screen .spinner {
+            width: 80px; height: 80px; border: 10px solid #dca658; border-top: 10px solid #6b442a;
+            border-radius: 50%; animation: spin 1s linear infinite; box-shadow: 0 0 20px rgba(0,0,0,0.2);
+            margin-bottom: 20px; position: relative;
+        }
+        #loading-screen .spinner::after {
+            content: "✦"; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            font-size: 24px; color: #6b442a;
+        }
+        #loading-screen h2 { font-size: 28px; font-weight: 900; color: #4a2e1b; margin-bottom: 5px; }
+        #loading-screen p { font-size: 16px; color: #6b442a; font-weight: 700; font-style: italic; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        @keyframes popUp { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
     </style>
 </head>
 <body>
 
-    <!-- ============================================================
-    LOADING SCREEN
-    ============================================================ -->
-    <div id="loading-screen">
-        <div class="mountain-scene">
-            <div class="sun-rays"></div>
-            <div class="sun"></div>
-            <div class="cloud cloud-1"></div>
-            <div class="cloud cloud-2"></div>
-            <div class="hill-back"></div>
-            <div class="mountain-left"></div>
-            <div class="snow-left"></div>
-            <div class="mountain-right"></div>
-        </div>
+    <div id="desktop-lock">
+        <h1>⚠️ MODE DESKTOP DIWAJIBKAN ⚠️</h1>
+        <p>Agar teks dan gambar pas pada tempatnya, aktifkan Mode Situs Desktop di browsermu.</p>
+        <div class="hint-box">CARA: Klik ( ⋮ ) di pojok browser -> Centang "Situs Desktop"</div>
+        <button class="btn-confirm" onclick="cekDesktopManual()">✅ SAYA SUDAH CENTANG SITUS DESKTOP</button>
+    </div>
 
-        <div class="loading-title">
-            Etnomatematika Nusantara
-            <span class="sub">Warisan Budaya · Fondasi Teknologi</span>
-        </div>
+    <div id="game-wrapper">
+        <div id="game-container">
+            
+            <!-- AUDIO -->
+            <audio id="a-klik" src="slide 1 mulai.mp3" preload="auto"></audio>
+            <audio id="a-welcome" src="welcoming.mp3" preload="auto"></audio>
+            <audio id="a-correct" src="correct.mp3" preload="auto"></audio>
+            <audio id="a-wrong" src="wrong.mp3" preload="auto"></audio>
+            <audio id="a-selamat" src="selamat-datang.mp3" preload="auto"></audio>
+            <audio id="a-tegang" src="tegang.mp3" preload="auto"></audio> 
+            <audio id="a-gamelan" src="gamelan.mp3" preload="auto" loop></audio>
 
-        <div class="loading-poem">
-            “Dari puncak gunung yang menjulang, turunlah ilmu ke lembah kehidupan. Di balik setiap goresan candi dan alunan gamelan, tersimpan angka dan logika yang menunggu untuk ditemukan.”
-        </div>
+            <button class="btn-music-toggle" id="btnMusic" onclick="toggleMusic()">🎵 ON</button>
 
-        <div class="loader-dots">
-            <span></span>
-            <span></span>
-            <span></span>
+            <div id="loading-screen">
+                <div class="spinner"></div>
+                <h2>Nenek Moyang Lagi Natah...</h2>
+                <p>Jangan kemana-mana, bentar lagi wayangnya main!</p>
+            </div>
+
+            <!-- SLIDE 1: AWALAN -->
+            <div id="slide1" class="slide" style="display: block;">
+                <img src="slide 1.png" class="bg-img">
+                <div class="bottom-panel">
+                    <button class="btn-start" onclick="changeSlide('slide2', 'selamat')">MULAI PETUALANGAN</button>
+                </div>
+            </div>
+
+            <!-- SLIDE 2: MENU UTAMA -->
+            <div id="slide2" class="slide">
+                <img src="slide 2.png" class="bg-img">
+                <div class="papan-sign"><p class="papan-text">Selamat Datang di<br>Desa Pelita</p></div>
+                <div class="menu-nav">
+                    <button class="menu-btn" onclick="changeSlide('slideCara', 'klik')">CARA MAIN</button>
+                    <button class="menu-btn" onclick="changeSlide('slideRules', 'klik')">RULES</button>
+                    <button class="menu-btn" onclick="changeSlide('ch1_kelas', 'welcome')">MULAI PETUALANGAN</button>
+                </div>
+            </div>
+
+            <!-- SLIDE 3: CARA MAIN -->
+            <div id="slideCara" class="slide slide-white">
+                <div class="cara-rules-content">
+                    <h2 style="font-family:'Poppins'; font-size:32px; margin-bottom:20px;">🧩 CARA MAIN</h2>
+                    <ul style="list-style:none; font-weight:700; font-size:18px; line-height:2.2;">
+                        <li>1. Selesaikan 12 Tantangan Kesehatan.</li>
+                        <li>2. Gunakan logika medis memilih obat.</li>
+                        <li>3. Dapatkan bintang di setiap misi!</li>
+                    </ul>
+                    <div class="action-btns" style="margin-top: 30px;">
+                        <button class="btn-action btn-back" onclick="changeSlide('slide2', 'klik')">KEMBALI</button>
+                    </div>
+                </div>
+                <div class="char-box-right">
+                    <div class="bubble-container"><p class="bubble-txt">Baca panduan ini agar misimu lancar, Detektif!</p></div>
+                    <img src="nakula.png" class="portrait-huge">
+                </div>
+            </div>
+
+            <!-- SLIDE 4: RULES -->
+            <div id="slideRules" class="slide slide-white">
+                <div class="cara-rules-content">
+                    <h2 style="font-family:'Poppins'; font-size:32px; margin-bottom:20px;">⚖️ RULES</h2>
+                    <ul style="list-style:none; font-weight:700; font-size:18px; line-height:2.2;">
+                        <li>1. Benar = +1 Bintang Sehat.</li>
+                        <li>2. Salah = 0 (Tanpa pengurangan poin).</li>
+                        <li>3. Selalu baca fakta medis di akhir!</li>
+                    </ul>
+                    <div class="action-btns" style="margin-top: 30px;">
+                        <button class="btn-action btn-back" onclick="changeSlide('slide2', 'klik')">KEMBALI</button>
+                        <button class="btn-action btn-next" onclick="changeSlide('ch1_kelas', 'welcome')">MULAI!</button>
+                    </div>
+                </div>
+                <div class="char-box-right">
+                    <div class="bubble-container"><p class="bubble-txt">Detektif, pahami aturan mainnya agar tak tersesat!</p></div>
+                    <img src="sadewa.png" class="portrait-huge">
+                </div>
+            </div>
+
+            <!-- SLIDE 5: KELAS - RINA PUSING (CERITA DIMULAI) -->
+            <div id="ch1_kelas" class="slide">
+                <img src="kelas.png" class="bg-img bg-dim">
+                <img src="rina pusing.png" class="rina-char">
+                <div class="char-box-right">
+                    <div class="bubble-container"><p class="bubble-txt">Siang itu di kelas, Rina tiba-tiba merasa pusing hebat! Kita harus bantu dia memilih obat yang benar, Detektif!</p></div>
+                    <img src="sadewa.png" class="portrait-huge">
+                </div>
+                <div class="bottom-panel" style="background:none; border:none; display:flex; justify-content:center; align-items:flex-end; padding-bottom: 30px;">
+                    <button class="btn-action btn-next" style="padding:15px 40px; font-size:16px; z-index: 50;" onclick="changeSlide('ch1_lab', 'klik')">LANJUTKAN ▶</button>
+                </div>
+            </div>
+
+            <!-- SLIDE 6: MEJA LAB -->
+            <div id="ch1_lab" class="slide">
+                <img src="meja 1.png" class="bg-meja-lab">
+                
+                <div class="meja-lab-small">
+                    <div class="row-atas">
+                        <img src="paracetamol.png" id="item-p" class="obat-item" onclick="selectObat('p')">
+                        <img src="amoxicillin.png" id="item-a" class="obat-item" onclick="selectObat('a')">
+                    </div>
+                    <div class="row-bawah">
+                        <img src="antasida.png" id="item-t" class="obat-item" onclick="selectObat('t')">
+                        <img src="water.png" class="obat-item" onclick="runMix()" style="filter:drop-shadow(0 0 15px cyan);">
+                    </div>
+                </div>
+
+                <div class="char-box-right">
+                    <div class="bubble-container"><p class="bubble-txt">Pilih satu obat di meja lab, lalu klik Gelas Air untuk memberikannya kepada Rina. Jangan sampai salah!</p></div>
+                    <img src="sadewa.png" class="portrait-huge">
+                </div>
+            </div>
+
+            <!-- SLIDE 7: HASIL -->
+            <div id="chResult" class="slide">
+                <img src="kelas.png" class="bg-img">
+                <img id="resRina" src="rina senyum.png" class="rina-char">
+                
+                <div class="result-panel">
+                    <h2 id="resTitle" style="font-family:'Poppins'; font-size:26px; margin-bottom:5px; text-shadow:2px 2px 0 #fff;">HASIL</h2>
+                    <div id="resBox"></div>
+                    <div class="action-btns">
+                        <button id="resBtn" class="btn-action btn-next"></button>
+                    </div>
+                </div>
+
+                <div class="char-box-right">
+                    <div class="bubble-container"><p id="resSadewa" class="bubble-txt"></p></div>
+                    <img src="sadewa.png" class="portrait-huge">
+                </div>
+            </div>
+
         </div>
     </div>
 
-    <!-- ============================================================
-    KONTEN UTAMA
-    ============================================================ -->
-    <div class="container" id="main-content" style="display:none;">
-
-        <!-- ===== NAV ===== -->
-        <nav class="nav-bar">
-            <div class="logo">
-                <i class="fas fa-calculator"></i>
-                Etnomatematika<span>Nusantara</span>
-            </div>
-            <div class="nav-links">
-                <a href="#" data-section="home" class="active"><i class="fas fa-home"></i> Beranda</a>
-                <a href="#" data-section="about"><i class="fas fa-info-circle"></i> Tentang</a>
-                <a href="#" data-section="flashcard"><i class="fas fa-id-card"></i> Flashcard</a>
-                <a href="#" data-section="quiz"><i class="fas fa-question-circle"></i> Quiz</a>
-                <a href="#" data-section="games"><i class="fas fa-gamepad"></i> Games</a>
-            </div>
-        </nav>
-
-        <!-- ============================================================
-        SECTION: HOME
-        ============================================================ -->
-        <section class="section active" id="sec-home">
-            <div class="hero">
-                <div class="hero-text">
-                    <span class="badge"><i class="fas fa-star"></i> Warisan Nusantara</span>
-                    <h1>
-                        <i class="fas fa-quote-left" style="font-size:1rem;color:var(--emas);"></i><br />
-                        Etnomatematika Nusantara:<br />Warisan Budaya, Fondasi Teknologi
-                    </h1>
-                    <p class="sub"><i class="fas fa-mobile-alt" style="color:var(--emas);margin-right:4px;"></i>Kenapa HP-mu bisa hidup? Jawabannya ada di budaya Nusantara.</p>
-                    <div class="hero-actions">
-                        <button class="btn-primary" onclick="navigateTo('quiz')"><i class="fas fa-pencil-alt"></i> Ikuti Quiz</button>
-                        <button class="btn-secondary" onclick="navigateTo('flashcard')"><i class="fas fa-id-card"></i> Flashcard</button>
-                    </div>
-                </div>
-                <div class="hero-img">
-                    <i class="fas fa-scroll"></i>
-                    <i class="fas fa-microchip" style="font-size:1.8rem;display:block;margin:3px 0;"></i>
-                    <small>Prasasti → Kode Biner → HP</small>
-                    <small style="font-size:0.5rem;color:#8f7a6a;">(ganti poster.png)</small>
-                </div>
-            </div>
-
-            <!-- ============================================================
-            MENGAPA KAMU PERLU TAHU INI — penjelasan lebih umum & jelas
-            ============================================================ -->
-            <div class="card" style="background:rgba(255,255,255,0.40);">
-                <h3 style="color:var(--hijau);display:flex;align-items:center;gap:8px;font-size:1rem;">
-                    <i class="fas fa-lightbulb" style="color:var(--emas);"></i> Mengapa Kamu Perlu Tahu Ini?
-                </h3>
-                <div class="benefit-grid">
-
-                    <div class="benefit-item">
-                        <div>
-                            <span class="icon">💻</span>
-                            <span class="title">Teknologi digital berakar dari sistem bilangan Nusantara</span>
-                            <span class="explanation">
-                                Setiap perangkat digital — HP, laptop, komputer — bekerja dengan sistem biner (0 dan 1). Sistem ini adalah turunan dari sistem desimal yang pertama kali digunakan di Nusantara pada abad ke-6. Jadi, setiap kali kamu menggunakan gadget, sebenarnya kamu sedang menikmati warisan matematika leluhur.
-                            </span>
-                        </div>
-                    </div>
-
-                    <div class="benefit-item">
-                        <div>
-                            <span class="icon">🧮</span>
-                            <span class="title">Metode hitung cepat dari nenek moyang masih dipakai</span>
-                            <span class="explanation">
-                                Pedagang di pasar menggunakan metode Blijāh untuk menghitung dengan cepat tanpa kalkulator. Metode ini menggunakan prinsip pembulatan dan pengurangan — sangat efisien dan masih relevan hingga kini dalam transaksi sehari-hari.
-                            </span>
-                        </div>
-                    </div>
-
-                    <div class="benefit-item">
-                        <div>
-                            <span class="icon">🎯</span>
-                            <span class="title">Logika permainan tradisional sama dengan algoritma modern</span>
-                            <span class="explanation">
-                                Permainan tradisional seperti congklak mengajarkan pola, strategi, dan perhitungan. Konsep ini sama dengan cara kerja algoritma dalam pemrograman dan game modern. Dengan memahami logika ini, kamu bisa lebih mudah menguasai teknologi.
-                            </span>
-                        </div>
-                    </div>
-
-                    <div class="benefit-item">
-                        <div>
-                            <span class="icon">🇮🇩</span>
-                            <span class="title">Ini adalah budayamu sendiri — warisan yang patut dibanggakan</span>
-                            <span class="explanation">
-                                Matematika bukanlah barang asing. Ia tumbuh dan berkembang dari budaya Nusantara — dari prasasti, permainan, batik, hingga cara berdagang. Dengan mempelajarinya, kamu tidak hanya pintar, tapi juga bangga menjadi bagian dari peradaban besar Nusantara.
-                            </span>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-            <div class="ticker">
-                <i class="fas fa-bullhorn"></i>
-                <marquee behavior="scroll" scrollamount="3" direction="left" onmouseover="this.stop()" onmouseout="this.start()">
-                    <span style="margin-right:20px;">📜 Prasasti Kedukan Bukit (682 M) — bukti sistem desimal tertua di dunia</span>
-                    <span style="margin-right:20px;">🔢 Angka nol ditemukan di Nusantara sebelum dikenal dunia</span>
-                    <span style="margin-right:20px;">🧮 Metode Blijāh — hitung cepat pedagang Madura</span>
-                    <span style="margin-right:20px;">🎮 Permainan tradisional — logika & algoritma sebelum komputer</span>
-                </marquee>
-            </div>
-        </section>
-
-        <!-- ============================================================
-        SECTION: TENTANG — penjelasan lebih umum
-        ============================================================ -->
-        <section class="section" id="sec-about">
-            <h2 class="section-title"><i class="fas fa-info-circle"></i> Apa Itu Etnomatematika?</h2>
-            <p class="section-sub"><i class="fas fa-arrow-right" style="color:#b8956e;"></i> Belajar matematika melalui budaya sehari-hari — dari permainan, seni, hingga cara hidup.</p>
-
-            <div class="card">
-                <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:center;">
-                    <div style="flex:1;min-width:160px;">
-                        <h3 style="color:var(--hijau);display:flex;align-items:center;gap:8px;font-size:1rem;"><i class="fas fa-puzzle-piece" style="color:var(--emas);"></i> Definisi</h3>
-                        <p style="font-size:0.9rem;">Pendekatan pembelajaran yang mengaitkan <strong>budaya</strong> dengan <strong>matematika</strong>.</p>
-                        <ul style="list-style:none;padding:0;margin-top:6px;">
-                            <li style="display:flex;gap:6px;padding:3px 0;font-size:0.85rem;"><strong style="color:var(--hijau);min-width:50px;">Etno</strong> <span>Budaya, tradisi, masyarakat</span></li>
-                            <li style="display:flex;gap:6px;padding:3px 0;font-size:0.85rem;"><strong style="color:var(--hijau);min-width:50px;">Matematika</strong> <span>Ilmu tentang angka, pola, dan logika</span></li>
-                        </ul>
-                        <p style="margin-top:8px;font-style:italic;color:#5a4a3a;font-size:0.9rem;">
-                            Jadi, etnomatematika adalah belajar matematika melalui budaya sehari-hari — dari permainan tradisional, seni batik, hingga cara berhitung di pasar.
-                        </p>
-                        <p style="margin-top:10px;font-size:0.9rem;">
-                            <strong>Contoh nyata:</strong> Permainan tradisional mengajarkan pola dan strategi. Seni batik menunjukkan simetri dan geometri. Cara berdagang di pasar menggunakan metode hitung cepat. Semua itu adalah matematika yang hidup dan berakar dari budaya kita.
-                        </p>
-                    </div>
-                    <div style="flex:0 0 auto;background:linear-gradient(135deg,rgba(196,154,108,0.08),rgba(178,59,44,0.04));border-radius:16px;padding:12px 16px;text-align:center;">
-                        <i class="fas fa-calculator" style="font-size:2.2rem;color:var(--emas);"></i>
-                        <div style="font-weight:800;color:var(--hijau);font-size:1rem;">+</div>
-                        <i class="fas fa-users" style="font-size:2.2rem;color:#b8956e;"></i>
-                        <div style="font-weight:800;color:var(--hijau);margin-top:4px;font-size:1rem;">= Etnomatematika</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Mengapa Ini Penting — dengan penjelasan lebih jelas -->
-            <div class="card">
-                <h3 style="color:var(--hijau);display:flex;align-items:center;gap:8px;font-size:1rem;"><i class="fas fa-chart-line" style="color:var(--emas);"></i> Mengapa Ini Penting?</h3>
-
-                <div class="stat-grid">
-                    <div class="stat-item" style="border-left:4px solid var(--emas);">
-                        <i class="fas fa-chart-simple"></i>
-                        <div class="num">PISA 2022</div>
-                        <div class="lbl">Literasi sains & matematika Indonesia di peringkat bawah</div>
-                        <div class="sub-text">Banyak siswa kesulitan memahami soal matematika karena diajarkan secara hafalan, bukan pemahaman.</div>
-                    </div>
-                    <div class="stat-item" style="border-left:4px solid var(--merah-bata);">
-                        <i class="fas fa-file-alt"></i>
-                        <div class="num">TKA 2025</div>
-                        <div class="lbl">60% peserta kesulitan teks kompleks</div>
-                        <div class="sub-text">Siswa tidak paham kegunaan matematika dalam kehidupan — hanya menghafal rumus tanpa aplikasi nyata.</div>
-                    </div>
-                    <div class="stat-item" style="border-left:4px solid var(--hijau-muda);">
-                        <i class="fas fa-face-frown"></i>
-                        <div class="num">Survei Nasional</div>
-                        <div class="lbl">Mayoritas siswa tidak suka matematika</div>
-                        <div class="sub-text">Matematika dianggap abstrak dan membosankan — siswa tidak melihat hubungannya dengan kehidupan sehari-hari.</div>
-                    </div>
-                    <div class="stat-item" style="border-left:4px solid var(--emas);">
-                        <i class="fas fa-flag"></i>
-                        <div class="num">100%</div>
-                        <div class="lbl">Relevan dengan kehidupan & teknologi</div>
-                        <div class="sub-text">Semua konsep etnomatematika bisa langsung kamu lihat dan gunakan — dari HP, game, hingga transaksi di pasar.</div>
-                    </div>
-                </div>
-
-                <p style="margin-top:10px;font-size:0.9rem;">
-                    <strong>Tujuan kami:</strong> Menunjukkan bahwa matematika dan teknologi berakar dari budaya Nusantara. Membantu siswa memahami konsep melalui budaya, dan menumbuhkan kebanggaan terhadap warisan intelektual bangsa.
-                </p>
-                <p style="margin-top:6px;font-size:0.85rem;color:#5a4a3a;">
-                    Dengan etnomatematika, matematika tidak lagi menjadi momok. Kamu akan melihatnya dalam permainan, seni, arsitektur, dan kehidupan sehari-hari. Ini membuatmu lebih mudah memahami konsep dan lebih bangga dengan budaya sendiri.
-                </p>
-            </div>
-
-            <div class="quote-block">
-                <i class="fas fa-quote-left"></i>
-                <strong>Bangsa yang besar adalah bangsa yang menghargai dan mengambil pelajaran dari warisan leluhurnya.</strong>
-                <br /><span style="font-style:normal;font-weight:600;color:var(--hijau);">M. Hatta</span>
-            </div>
-        </section>
-
-        <!-- ============================================================
-        SECTION: FLASHCARD
-        ============================================================ -->
-        <section class="section" id="sec-flashcard">
-            <h2 class="section-title"><i class="fas fa-id-card"></i> Flashcard Etnomatematika</h2>
-            <p class="section-sub"><i class="fas fa-arrow-right" style="color:#b8956e;"></i> Klik kartu untuk membalik dan melihat penjelasan.</p>
-
-            <div class="flashcard-grid">
-                <div class="flashcard-wrapper" onclick="this.classList.toggle('flipped')">
-                    <div class="flashcard-inner">
-                        <div class="flashcard-front">
-                            <i class="fas fa-scroll"></i>
-                            <div class="name">Sistem Bilangan Nusantara</div>
-                            <div class="hint"><i class="fas fa-hand-pointer"></i> Klik balik</div>
-                        </div>
-                        <div class="flashcard-back">
-                            <div class="back-title">📜 Sistem Bilangan Nusantara</div>
-                            <div class="back-desc">
-                                Prasasti Kedukan Bukit (682 M) adalah bukti tertua penggunaan sistem desimal di dunia. Nenek moyang kita sudah menggunakan angka 0 sampai 9 untuk berhitung sejak 1400 tahun lalu. Tanpa sistem ini, teknologi digital seperti HP dan komputer tidak akan pernah ada.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="flashcard-wrapper" onclick="this.classList.toggle('flipped')">
-                    <div class="flashcard-inner">
-                        <div class="flashcard-front">
-                            <i class="fas fa-circle"></i>
-                            <div class="name">Angka Nol</div>
-                            <div class="hint"><i class="fas fa-hand-pointer"></i> Klik balik</div>
-                        </div>
-                        <div class="flashcard-back">
-                            <div class="back-title">🔢 Angka Nol</div>
-                            <div class="back-desc">
-                                Konsep angka nol ditemukan di Nusantara pada abad ke-6, sebelum dikenal di India dan dunia Barat. Tanpa angka nol, sistem biner (0 dan 1) yang menjadi dasar semua teknologi digital tidak akan pernah tercipta.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="flashcard-wrapper" onclick="this.classList.toggle('flipped')">
-                    <div class="flashcard-inner">
-                        <div class="flashcard-front">
-                            <i class="fas fa-hand-holding-usd"></i>
-                            <div class="name">Algoritma Blijāh</div>
-                            <div class="hint"><i class="fas fa-hand-pointer"></i> Klik balik</div>
-                        </div>
-                        <div class="flashcard-back">
-                            <div class="back-title">🧮 Algoritma Blijāh</div>
-                            <div class="back-desc">
-                                Metode hitung cepat dari Madura ini menggunakan prinsip penggenapan dan pengurangan. Contoh: harga 17.500 dibulatkan ke 20.000, lalu dikurangi 2.500. Pedagang pasar masih menggunakannya hingga kini — efisien dan tanpa kalkulator.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="flashcard-wrapper" onclick="this.classList.toggle('flipped')">
-                    <div class="flashcard-inner">
-                        <div class="flashcard-front">
-                            <i class="fas fa-chess"></i>
-                            <div class="name">Logika Permainan Tradisional</div>
-                            <div class="hint"><i class="fas fa-hand-pointer"></i> Klik balik</div>
-                        </div>
-                        <div class="flashcard-back">
-                            <div class="back-title">🎯 Logika Permainan Tradisional</div>
-                            <div class="back-desc">
-                                Permainan tradisional mengajarkan pola, strategi, dan perhitungan — sama dengan cara kerja algoritma dalam pemrograman modern. Bermain permainan ini melatih otak untuk berpikir kritis dan terencana.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="flashcard-wrapper" onclick="this.classList.toggle('flipped')">
-                    <div class="flashcard-inner">
-                        <div class="flashcard-front">
-                            <i class="fas fa-palette"></i>
-                            <div class="name">Geometri Batik</div>
-                            <div class="hint"><i class="fas fa-hand-pointer"></i> Klik balik</div>
-                        </div>
-                        <div class="flashcard-back">
-                            <div class="back-title">🎨 Geometri Batik</div>
-                            <div class="back-desc">
-                                Motif batik seperti Parang, Kawung, dan Megamendung memiliki pola geometris dan simetri. Kawung misalnya memiliki simetri 4 — dapat dilipat dan diputar 4 kali. Ini membuktikan nenek moyang kita sudah menguasai geometri dan mengaplikasikannya dalam seni.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card" style="background:rgba(255,255,255,0.40);">
-                <h4 style="color:var(--hijau);display:flex;align-items:center;gap:8px;font-size:0.95rem;"><i class="fas fa-lightbulb" style="color:var(--emas);"></i> Tips Kehidupan Nyata</h4>
-                <div class="consequence-box good">
-                    <h4><i class="fas fa-check-circle" style="color:var(--hijau-muda);"></i> Jika Kamu Paham</h4>
-                    <p>Kamu akan mengerti bahwa teknologi modern berakar dari budaya Nusantara. Kamu jadi lebih mudah memahami konsep digital dan lebih bangga dengan warisan leluhur.</p>
-                </div>
-                <div class="consequence-box bad" style="margin-top:6px;">
-                    <h4><i class="fas fa-times-circle" style="color:#d48c8c;"></i> Jika Kamu Mengabaikan</h4>
-                    <p>Kamu akan terus melihat matematika sebagai sesuatu yang asing dan sulit, padahal akarnya ada di sekitarmu — dalam permainan, seni, dan cara hidup sehari-hari.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- ============================================================
-        SECTION: QUIZ — 15 SOAL
-        ============================================================ -->
-        <section class="section" id="sec-quiz">
-            <h2 class="section-title"><i class="fas fa-question-circle"></i> Uji Pemahaman</h2>
-            <p class="section-sub"><i class="fas fa-arrow-right" style="color:#b8956e;"></i> 15 soal untuk menguji pemahamanmu tentang etnomatematika.</p>
-
-            <div class="card" id="quizContainer">
-                <div class="quiz-progress">
-                    <span class="info" id="quizInfo">Soal 1/15</span>
-                    <span class="score" id="quizScore">Skor: 0</span>
-                </div>
-                <div id="quizQuestion" class="quiz-question">Soal akan muncul di sini</div>
-                <div id="quizOptions" class="quiz-options"></div>
-                <div id="quizFeedback" class="quiz-feedback"></div>
-                <div class="quiz-nav">
-                    <button class="prev" id="prevBtn" onclick="prevQuestion()"><i class="fas fa-arrow-left"></i> Sebelumnya</button>
-                    <button class="reset" onclick="resetQuiz()"><i class="fas fa-redo"></i> Ulangi</button>
-                    <button class="next" id="nextBtn" onclick="nextQuestion()">Selanjutnya <i class="fas fa-arrow-right"></i></button>
-                </div>
-            </div>
-
-            <div class="card" style="background:rgba(255,255,255,0.40);">
-                <h4 style="color:var(--hijau);display:flex;align-items:center;gap:8px;font-size:0.95rem;"><i class="fas fa-hand-pointer" style="color:var(--emas);"></i> Fungsi Kehidupan Sehari-hari</h4>
-                <div class="gap-grid">
-                    <div class="consequence-box good">
-                        <h4><i class="fas fa-check-circle" style="color:var(--hijau-muda);"></i> Jawaban Benar</h4>
-                        <p>Kamu menguatkan pemahaman bahwa matematika itu dekat dengan budaya. Ini membantumu memecahkan masalah lebih kreatif dan percaya diri.</p>
-                    </div>
-                    <div class="consequence-box bad">
-                        <h4><i class="fas fa-times-circle" style="color:#d48c8c;"></i> Jawaban Salah</h4>
-                        <p>Kesalahan adalah kesempatan belajar. Dengan belajar dari kesalahan, kamu jadi lebih tangguh dan tidak mudah menyerah saat menghadapi tantangan.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ============================================================
-        SECTION: GAMES
-        ============================================================ -->
-        <section class="section" id="sec-games">
-            <h2 class="section-title"><i class="fas fa-gamepad"></i> Games Etnomatematika</h2>
-            <p class="section-sub"><i class="fas fa-arrow-right" style="color:#b8956e;"></i> Tiga skenario interaktif berbasis etnomatematika.</p>
-
-            <div class="game-placeholder">
-                <i class="fas fa-puzzle-piece"></i>
-                <h3>Game Edukasi Interaktif</h3>
-                <p>
-                    Tiga skenario seru:<br />
-                    <strong>1. Kode Rahasia</strong> (Sistem Biner)<br />
-                    <strong>2. Hitung Cepat</strong> (Algoritma Blijāh)<br />
-                    <strong>3. Logika Game</strong> (Pola & Strategi)
-                </p>
-                <p style="margin-top:4px;font-size:0.75rem;color:#8f7a6a;">
-                    Alur: Situasi → Konflik → Pilihan → Konsekuensi → Refleksi
-                </p>
-                <a href="#" class="btn-link" id="gameLinkBtn" target="_blank">
-                    <i class="fas fa-play"></i> Mainkan Sekarang
-                </a>
-                <p style="margin-top:6px;font-size:0.6rem;color:#b8956e;">
-                    Ganti link # dengan URL game-mu
-                </p>
-            </div>
-
-            <div class="card" style="background:rgba(255,255,255,0.40);">
-                <h4 style="color:var(--hijau);display:flex;align-items:center;gap:8px;font-size:0.95rem;"><i class="fas fa-lightbulb" style="color:var(--emas);"></i> Fungsi Kehidupan Sehari-hari dari Game</h4>
-                <div class="consequence-box good">
-                    <h4><i class="fas fa-check-circle" style="color:var(--hijau-muda);"></i> Pilihan Berbasis Budaya</h4>
-                    <p>Kamu belajar bahwa solusi teknologi sudah ada dalam budaya Nusantara. Ini membuatmu lebih menghargai warisan dan lebih mudah menguasai teknologi.</p>
-                </div>
-                <div class="consequence-box bad" style="margin-top:6px;">
-                    <h4><i class="fas fa-times-circle" style="color:#d48c8c;"></i> Pilihan Asal-asalan</h4>
-                    <p>Kamu kehilangan kesempatan untuk memahami konsep. Di dunia nyata, ini membuatmu bergantung pada alat dan lemah dalam pemecahan masalah.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- ===== FOOTER ===== -->
-        <div class="footer">
-            <span><i class="fas fa-calculator"></i> Etnomatematika Nusantara</span>
-            <span><i class="fas fa-user-graduate"></i> Nazwa Ananda Devina · SMP Muhammadiyah 17 Ciputat</span>
-            <span><i class="fas fa-trophy"></i> LKIP 2026 · SMA Taruna Nusantara</span>
-        </div>
-
-    </div>
-
-    <!-- ============================================================
-    JAVASCRIPT
-    ============================================================ -->
     <script>
-        (function() {
-            'use strict';
+        function resizeGame() {
+            const game = document.getElementById('game-container');
+            const scaleX = window.innerWidth / 920;
+            const scaleY = window.innerHeight / 620;
+            let scale = Math.min(scaleX, scaleY);
+            if(scale > 1) scale = 1;
+            game.style.transform = `scale(${scale})`;
+        }
 
-            // =========================================
-            // LOADING SCREEN
-            // =========================================
-            const loading = document.getElementById('loading-screen');
-            const mainContent = document.getElementById('main-content');
+        function cekLayar() {
+            if (window.innerWidth < 800) {
+                document.getElementById('desktop-lock').style.display = 'flex';
+                document.getElementById('game-wrapper').style.display = 'none';
+            } else {
+                document.getElementById('desktop-lock').style.display = 'none';
+                document.getElementById('game-wrapper').style.display = 'flex';
+                resizeGame();
+            }
+        }
 
+        window.onload = cekLayar;
+        window.onresize = cekLayar;
+        function cekDesktopManual() { document.getElementById('desktop-lock').style.display = 'none'; document.getElementById('game-wrapper').style.display = 'flex'; resizeGame(); }
+
+        const sfx = { 
+            klik: document.getElementById('a-klik'), 
+            welcome: document.getElementById('a-welcome'), 
+            correct: document.getElementById('a-correct'), 
+            wrong: document.getElementById('a-wrong'),
+            selamat: document.getElementById('a-selamat'),
+            tegang: document.getElementById('a-tegang') 
+        };
+        
+        let selectedObat = "";
+        let isMusicOn = true;
+        let isLoading = false;
+
+        function playSfx(type) { 
+            if(sfx[type]) { 
+                sfx[type].currentTime = 0; 
+                sfx[type].play().catch(e=>e); 
+            } 
+        }
+
+        function toggleMusic() {
+            const btn = document.getElementById('btnMusic');
+            const gamelan = document.getElementById('a-gamelan');
+            if(isMusicOn) {
+                gamelan.pause();
+                btn.innerText = "🔇 OFF";
+                btn.classList.add('muted');
+                isMusicOn = false;
+            } else {
+                gamelan.currentTime = 0;
+                gamelan.play().catch(e=>e);
+                btn.innerText = "🎵 ON";
+                btn.classList.remove('muted');
+                isMusicOn = true;
+            }
+        }
+
+        // ⏳ LOADING SCREEN
+        function showLoading(callback, duration = 800) {
+            if(isLoading) return;
+            isLoading = true;
+            const loader = document.getElementById('loading-screen');
+            loader.style.display = 'flex';
             setTimeout(() => {
-                loading.classList.add('hide');
-                mainContent.style.display = 'block';
-                document.body.style.overflow = 'auto';
-            }, 2200);
+                loader.style.display = 'none';
+                isLoading = false;
+                if (typeof callback === 'function') {
+                    callback();
+                }
+            }, duration);
+        }
 
-            // =========================================
-            // DATA SOAL — 15 SOAL dengan penjelasan jelas
-            // =========================================
-            const questions = [{
-                q: 'Apa yang dimaksud dengan etnomatematika?',
-                options: ['Belajar matematika melalui budaya', 'Belajar budaya melalui matematika', 'Menghafal rumus', 'Membuat kerajinan'],
-                correct: 0,
-                explanation: 'Etnomatematika adalah pendekatan yang mengaitkan budaya dengan matematika. Dalam kehidupan sehari-hari, kamu bisa melihatnya saat bermain permainan tradisional, membuat batik, atau berdagang di pasar. Dengan memahami ini, matematika tidak lagi terasa asing.'
-            }, {
-                q: 'Prasasti Kedukan Bukit berasal dari abad ke berapa?',
-                options: ['Abad ke-4', 'Abad ke-6', 'Abad ke-8', 'Abad ke-10'],
-                correct: 1,
-                explanation: 'Prasasti Kedukan Bukit ditemukan di Sumatera dan berasal dari tahun 682 Masehi (abad ke-6). Ini adalah bukti tertua sistem desimal di dunia — nenek moyang kita sudah menggunakan angka 0-9 sejak 1400 tahun lalu.'
-            }, {
-                q: 'Apa yang diajarkan oleh permainan tradisional dalam matematika?',
-                options: ['Pola dan strategi', 'Warna dan bentuk', 'Gerakan fisik', 'Suara dan irama'],
-                correct: 0,
-                explanation: 'Permainan tradisional mengajarkan pola, strategi, dan perhitungan. Konsep ini sama dengan cara kerja algoritma dalam pemrograman dan game modern.'
-            }, {
-                q: 'Metode hitung cepat dari Madura disebut...',
-                options: ['Blijāh', 'Bijak', 'Cepat Madura', 'Metode Jari'],
-                correct: 0,
-                explanation: 'Blijāh adalah metode penggenapan dan pengurangan. Contoh: harga 17.500 dibulatkan ke 20.000, lalu dikurangi 2.500. Ini membuat hitungan lebih cepat dan efisien.'
-            }, {
-                q: 'Angka nol ditemukan di Nusantara pada abad ke...',
-                options: ['Abad ke-6', 'Abad ke-8', 'Abad ke-10', 'Abad ke-12'],
-                correct: 0,
-                explanation: 'Konsep angka nol sudah dikenal di Nusantara sejak abad ke-6, bahkan sebelum dikenal di India dan dunia Barat. Tanpa angka nol, sistem biner (0 dan 1) sebagai dasar semua teknologi digital tidak akan pernah tercipta.'
-            }, {
-                q: 'Apa hubungan batik dengan matematika?',
-                options: ['Motif batik mengandung geometri', 'Batik hanya seni murni', 'Batik tidak ada kaitannya', 'Batik dibuat dengan mesin'],
-                correct: 0,
-                explanation: 'Motif batik seperti Parang, Kawung, dan Megamendung memiliki pola geometris dan simetri. Ini membuktikan bahwa nenek moyang kita sudah menguasai geometri dan mengaplikasikannya dalam seni.'
-            }, {
-                q: 'Sistem bilangan desimal menggunakan angka...',
-                options: ['0 sampai 9', '1 sampai 10', '0 sampai 10', '1 sampai 9'],
-                correct: 0,
-                explanation: 'Sistem desimal menggunakan 10 digit: 0,1,2,3,4,5,6,7,8,9. Ini adalah sistem yang kita gunakan sehari-hari untuk menghitung, berbelanja, dan mengukur.'
-            }, {
-                q: 'Apa manfaat utama belajar etnomatematika?',
-                options: ['Memahami matematika melalui budaya', 'Menghafal rumus dengan cepat', 'Menjadi ahli matematika', 'Mendapat nilai bagus'],
-                correct: 0,
-                explanation: 'Dengan etnomatematika, matematika tidak lagi abstrak. Kamu bisa melihatnya dalam permainan, seni, arsitektur, dan kehidupan sehari-hari. Ini membuatmu lebih mudah memahami konsep dan lebih bangga dengan budaya sendiri.'
-            }, {
-                q: 'Rumah adat Joglo mengandung konsep...',
-                options: ['Geometri', 'Kimia', 'Biologi', 'Fisika'],
-                correct: 0,
-                explanation: 'Struktur Joglo menggunakan geometri dan keseimbangan. Bentuk atap, tiang, dan susunannya menunjukkan pemahaman tentang sudut, simetri, dan proporsi — bukti arsitektur Nusantara sarat matematika.'
-            }, {
-                q: 'Teknologi digital berbasis sistem...',
-                options: ['Biner (0 dan 1)', 'Desimal (0-9)', 'Oktal (0-7)', 'Heksadesimal (0-15)'],
-                correct: 0,
-                explanation: 'Semua perangkat digital — HP, laptop, server — menggunakan sistem biner (0 dan 1). Sistem biner adalah turunan dari sistem desimal yang pertama kali dikembangkan di Nusantara.'
-            }, {
-                q: 'Apa fungsi angka nol dalam sistem biner?',
-                options: ['Menjadi dasar dari semua kode digital', 'Hanya untuk hiasan', 'Untuk menghitung uang', 'Untuk mengukur waktu'],
-                correct: 0,
-                explanation: 'Angka nol adalah salah satu dari dua digit dalam sistem biner. Tanpa nol, tidak ada komputer, HP, atau internet. Konsep nol dari Nusantara adalah kunci dari seluruh peradaban digital.'
-            }, {
-                q: 'Contoh aplikasi etnomatematika dalam kehidupan sehari-hari adalah...',
-                options: ['Transaksi jual-beli menggunakan Blijāh', 'Menonton televisi', 'Membaca buku', 'Bermain game'],
-                correct: 0,
-                explanation: 'Transaksi jual-beli menggunakan metode Blijāh adalah contoh langsung etnomatematika. Setiap kali kamu berbelanja dan menghitung kembalian, sebenarnya kamu sedang menggunakan warisan matematika Nusantara.'
-            }, {
-                q: 'Belajar etnomatematika membantu kita untuk...',
-                options: ['Memahami teknologi melalui budaya', 'Menghafal rumus lebih cepat', 'Menjadi programmer handal', 'Mendapat nilai matematika sempurna'],
-                correct: 0,
-                explanation: 'Etnomatematika membuatmu mengerti bahwa teknologi dan budaya itu saling terkait. Kamu akan melihat HP-mu bukan sebagai benda asing, tapi sebagai hasil dari perjalanan panjang pemikiran matematis dari Nusantara.'
-            }, {
-                q: 'Motif batik Kawung memiliki simetri berapa?',
-                options: ['Simetri 4', 'Simetri 2', 'Simetri 6', 'Simetri 8'],
-                correct: 0,
-                explanation: 'Kawung memiliki simetri lipat 4 dan simetri putar 90 derajat. Ini menunjukkan pemahaman yang dalam tentang geometri transformasi.'
-            }, {
-                q: 'Belajar etnomatematika membantu kita memahami bahwa...',
-                options: ['Teknologi berakar dari budaya Nusantara', 'Teknologi berasal dari luar negeri', 'Budaya tidak penting untuk teknologi', 'Matematika hanya untuk ilmuwan'],
-                correct: 0,
-                explanation: 'Dengan etnomatematika, kita menyadari bahwa teknologi modern yang kita gunakan setiap hari sebenarnya berakar dari pemikiran matematis yang sudah ada dalam budaya Nusantara sejak ribuan tahun lalu.'
-            }];
+        function changeSlide(id, sound) {
+            let durasi = 800; 
+            if(id === 'slide2' && sound === 'selamat') {
+                durasi = 4000; // 4 detik saat mulai game
+            }
+            if(id === 'chResult') {
+                durasi = 600; 
+            }
 
-            // =========================================
-            // QUIZ STATE
-            // =========================================
-            let current = 0;
-            let score = 0;
-            let answered = new Array(questions.length).fill(false);
-            let selected = new Array(questions.length).fill(null);
-
-            const questionEl = document.getElementById('quizQuestion');
-            const optionsEl = document.getElementById('quizOptions');
-            const feedbackEl = document.getElementById('quizFeedback');
-            const infoEl = document.getElementById('quizInfo');
-            const scoreEl = document.getElementById('quizScore');
-
-            function renderQuestion() {
-                const q = questions[current];
-                infoEl.textContent = `Soal ${current+1}/${questions.length}`;
-                scoreEl.textContent = `Skor: ${score}`;
-
-                questionEl.textContent = q.q;
-
-                optionsEl.innerHTML = '';
-                const labels = ['A', 'B', 'C', 'D'];
-                q.options.forEach((opt, idx) => {
-                    const btn = document.createElement('button');
-                    btn.textContent = `${labels[idx]}. ${opt}`;
-                    btn.dataset.idx = idx;
-                    if (answered[current]) {
-                        btn.disabled = true;
-                        if (idx === q.correct) btn.classList.add('correct');
-                        if (selected[current] === idx && idx !== q.correct) btn.classList.add('wrong');
-                    }
-                    btn.addEventListener('click', function() {
-                        if (answered[current]) return;
-                        const choice = parseInt(this.dataset.idx);
-                        selectAnswer(choice);
-                    });
-                    optionsEl.appendChild(btn);
-                });
-
-                if (answered[current]) {
-                    const qq = questions[current];
-                    const isCorrect = selected[current] === qq.correct;
-                    feedbackEl.className = 'quiz-feedback show ' + (isCorrect ? 'success' : 'fail');
-                    const icon = isCorrect ? '✅' : '❌';
-                    const status = isCorrect ? 'Jawaban Tepat' : 'Kurang Tepat';
-                    feedbackEl.innerHTML = `
-                                <strong>${icon} ${status}</strong>
-                                <div class="explanation">
-                                    <strong>📖 Penjelasan</strong><br />
-                                    ${qq.explanation}
-                                </div>
-                            `;
+            showLoading(() => {
+                const musicBtn = document.getElementById('btnMusic');
+                if(id === 'slideCara' || id === 'slideRules') {
+                    musicBtn.classList.add('hidden');
                 } else {
-                    feedbackEl.className = 'quiz-feedback';
-                    feedbackEl.innerHTML = '';
+                    musicBtn.classList.remove('hidden');
                 }
 
-                document.getElementById('prevBtn').disabled = current === 0;
-                document.getElementById('nextBtn').textContent = current === questions.length - 1 ? 'Selesai 🎉' : 'Selanjutnya →';
-            }
-
-            function selectAnswer(choice) {
-                if (answered[current]) return;
-                const q = questions[current];
-                const isCorrect = choice === q.correct;
-                if (isCorrect) score++;
-                answered[current] = true;
-                selected[current] = choice;
-                renderQuestion();
-            }
-
-            function nextQuestion() {
-                if (current < questions.length - 1) {
-                    current++;
-                    renderQuestion();
-                } else {
-                    alert(`🎉 Quiz selesai! Skor akhir kamu: ${score}/${questions.length}\n\nTerima kasih telah menguji pemahamanmu tentang etnomatematika. Ingatlah bahwa setiap jawaban yang kamu pelajari akan membantumu memahami bahwa teknologi dan matematika berakar dari budaya Nusantara. Teruslah belajar dan banggalah dengan warisan leluhurmu.`);
-                }
-            }
-
-            function prevQuestion() {
-                if (current > 0) {
-                    current--;
-                    renderQuestion();
-                }
-            }
-
-            function resetQuiz() {
-                if (confirm('Yakin ingin mengulang dari awal? Skor akan direset.')) {
-                    current = 0;
-                    score = 0;
-                    answered = new Array(questions.length).fill(false);
-                    selected = new Array(questions.length).fill(null);
-                    renderQuestion();
-                }
-            }
-
-            window.nextQuestion = nextQuestion;
-            window.prevQuestion = prevQuestion;
-            window.resetQuiz = resetQuiz;
-
-            // =========================================
-            // NAVIGASI
-            // =========================================
-            const navLinks = document.querySelectorAll('.nav-links a');
-            const sections = {
-                home: document.getElementById('sec-home'),
-                about: document.getElementById('sec-about'),
-                flashcard: document.getElementById('sec-flashcard'),
-                quiz: document.getElementById('sec-quiz'),
-                games: document.getElementById('sec-games'),
-            };
-
-            function navigateTo(sectionId) {
-                Object.values(sections).forEach(el => el.classList.remove('active'));
-                const target = sections[sectionId];
-                if (target) target.classList.add('active');
-
-                navLinks.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.dataset.section === sectionId) {
-                        link.classList.add('active');
+                // 🎵 LOGIKA KHUSUS: GAMELAN MATI SAAT TEGANG
+                const gamelan = document.getElementById('a-gamelan');
+                if (id === 'ch1_kelas') {
+                    // 1. Jika musik menyala, pause gamelan
+                    if (isMusicOn) {
+                        gamelan.pause();
                     }
-                });
-                document.querySelector('.container').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    // 2. Putar efek tegang
+                    playSfx('tegang');
+                    // 3. Pasang listener "Once" agar setelah tegang selesai, gamelan menyala kembali
+                    sfx.tegang.onended = () => {
+                        if (isMusicOn) {
+                            gamelan.currentTime = 0;
+                            gamelan.play().catch(e=>e);
+                        }
+                        sfx.tegang.onended = null; // Bersihkan listener
+                    };
+                } else if (sound) {
+                    if(sound === 'selamat') {
+                        playSfx('selamat');
+                        if(isMusicOn) {
+                            gamelan.currentTime = 0;
+                            gamelan.play().catch(e=>e);
+                        }
+                    } else {
+                        playSfx(sound);
+                    }
+                }
+
+                document.querySelectorAll('.slide').forEach(s => s.style.display = 'none');
+                document.getElementById(id).style.display = 'block';
+            }, durasi);
+        }
+
+        // 🔥 KLIK OBAT LANGSUNG RESPONSIF
+        function selectObat(val) {
+            playSfx('klik');
+            selectedObat = val;
+            document.getElementById('item-p').classList.remove('obat-active');
+            document.getElementById('item-a').classList.remove('obat-active');
+            document.getElementById('item-t').classList.remove('obat-active');
+            if(val === 'p') document.getElementById('item-p').classList.add('obat-active');
+            if(val === 'a') document.getElementById('item-a').classList.add('obat-active');
+            if(val === 't') document.getElementById('item-t').classList.add('obat-active');
+        }
+
+        function runMix() {
+            if(!selectedObat) { alert("Pilih obat di atas meja dulu!"); return; }
+            const rina = document.getElementById('resRina'), title = document.getElementById('resTitle'), box = document.getElementById('resBox'), dialog = document.getElementById('resSadewa'), btn = document.getElementById('resBtn');
+            
+            if(selectedObat === 'p') {
+                playSfx('correct'); 
+                rina.src = "rina senyum.png"; title.innerText = "✅ BERHASIL!"; title.style.color = "#2e7d32";
+                box.innerText = "Paracetamol adalah analgesik yang tepat dan aman untuk sakit kepala Rina. Hebat!";
+                dialog.innerText = "Luar biasa! Rina sudah kembali ceria. Kamu memang detektif medis yang teliti!";
+                btn.innerText = "LANJUT CHAPTER 2"; btn.onclick = () => { alert("Tunggu Update!"); changeSlide('slide2', 'klik'); };
+            } else {
+                playSfx('wrong'); 
+                rina.src = "rina mual.png"; title.innerText = "❌ GAGAL!"; title.style.color = "#c62828";
+                box.innerText = selectedObat === 'a' ? "Amoxicillin itu antibiotik, bukan pereda pusing! Rina malah mual." : "Antasida itu obat lambung, tidak bisa menyembuhkan pusing Rina!";
+                dialog.innerText = "Aduh, racikannya salah! Rina jadi makin mual. Ayo coba teliti lagi!";
+                btn.innerText = "COBA LAGI"; btn.onclick = () => changeSlide('ch1_lab', 'klik');
             }
-
-            navLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const sec = this.dataset.section;
-                    if (sec) navigateTo(sec);
-                });
-            });
-
-            window.navigateTo = navigateTo;
-
-            // =========================================
-            // GAME LINK
-            // =========================================
-            const gameBtn = document.getElementById('gameLinkBtn');
-            // gameBtn.href = "https://namauser.github.io/game-etnomatematika";
-
-            // =========================================
-            // INIT
-            // =========================================
-            renderQuestion();
-            navigateTo('home');
-
-        })();
+            changeSlide('chResult');
+        }
     </script>
-
 </body>
 </html>
