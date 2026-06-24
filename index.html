@@ -1017,10 +1017,9 @@
             }
         }
 
-        /* ===== HERO IMG — rasio 3:2 untuk poster.png ===== */
         .hero-img {
             flex: 1 1 200px;
-            aspect-ratio: 3 / 2;
+            aspect-ratio: 3/2;
             background: rgba(230, 220, 208, 0.25);
             border-radius: 20px;
             display: flex;
@@ -1101,7 +1100,7 @@
             }
         }
 
-        /* ===== BACKGROUND LAYER — rasio 16:9 ===== */
+        /* ===== BACKGROUND LAYER ===== */
         .bg-layer {
             position: fixed;
             inset: 0;
@@ -1114,10 +1113,10 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            aspect-ratio: 16 / 9;
+            aspect-ratio: 16/9;
         }
 
-        /* ===== TICKER (MARQUEE) ===== */
+        /* ===== TICKER ===== */
         .ticker {
             background: rgba(255, 255, 255, 0.55);
             backdrop-filter: blur(4px);
@@ -1289,7 +1288,7 @@
         .flashcard-wrapper {
             perspective: 800px;
             cursor: pointer;
-            aspect-ratio: 3 / 4;
+            aspect-ratio: 3/4;
         }
 
         .flashcard-inner {
@@ -2172,7 +2171,7 @@
             }
         }
 
-        /* ===== ETNO ILLUSTRATION — rasio 2:3 ===== */
+        /* ===== ETNO ILLUSTRATION ===== */
         .etno-illustration {
             display: flex;
             flex-wrap: wrap;
@@ -2182,7 +2181,7 @@
         }
 
         .etno-illustration img {
-            aspect-ratio: 2 / 3;
+            aspect-ratio: 2/3;
             object-fit: cover;
             width: 100%;
             max-width: 180px;
@@ -2207,154 +2206,102 @@
             }
         }
 
-        /* ===== CALL TO ACTION — poster cta.png rasio 2:3 ===== */
-        .cta-section {
-            background: rgba(255, 255, 255, 0.50);
+        /* ===== DASHBOARD JELAJAHI ===== */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+            margin: 16px 0;
+        }
+
+        @media (min-width: 480px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 20px;
+            }
+        }
+
+        .dashboard-card {
+            background: var(--putih-trans);
+            backdrop-filter: blur(4px);
             border-radius: var(--radius);
             padding: 24px 20px;
-            margin-top: 24px;
             text-align: center;
-            border: 2px dashed rgba(120, 100, 85, 0.10);
-            transition: 0.3s;
-        }
-
-        @media (min-width: 480px) {
-            .cta-section {
-                padding: 32px 28px;
-            }
-        }
-        @media (min-width: 768px) {
-            .cta-section {
-                padding: 40px 36px;
-            }
-        }
-
-        .cta-section:hover {
-            border-color: var(--emas);
-            background: rgba(255, 255, 255, 0.70);
-        }
-
-        .cta-section .cta-poster {
-            aspect-ratio: 2 / 3;
-            object-fit: cover;
-            width: 100%;
-            max-width: 320px;
-            border-radius: 16px;
-            box-shadow: var(--shadow);
-            margin: 0 auto 16px;
-            display: block;
-            transition: 0.3s;
-        }
-
-        .cta-section .cta-poster:hover {
-            transform: scale(1.02);
-            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.08);
-        }
-
-        .cta-section h3 {
-            color: var(--hijau);
-            font-size: 1.2rem;
-            margin-bottom: 8px;
-        }
-
-        @media (min-width: 480px) {
-            .cta-section h3 {
-                font-size: 1.4rem;
-            }
-        }
-        @media (min-width: 768px) {
-            .cta-section h3 {
-                font-size: 1.6rem;
-            }
-        }
-
-        .cta-section p {
-            color: var(--coklat);
-            font-size: 0.9rem;
-            max-width: 600px;
-            margin: 0 auto 12px;
-        }
-
-        @media (min-width: 480px) {
-            .cta-section p {
-                font-size: 0.95rem;
-            }
-        }
-        @media (min-width: 768px) {
-            .cta-section p {
-                font-size: 1rem;
-            }
-        }
-
-        .cta-section .cta-links {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 12px;
-            margin-top: 12px;
-        }
-
-        .cta-section .cta-links a {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 8px 20px;
-            border-radius: 60px;
-            font-weight: 700;
-            font-size: 0.75rem;
+            border: 2px solid rgba(120, 100, 85, 0.06);
+            transition: var(--transition);
+            cursor: pointer;
             text-decoration: none;
-            transition: 0.3s;
-            border: 2px solid transparent;
-            background: rgba(255, 255, 255, 0.70);
+            color: inherit;
+            display: block;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dashboard-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(196, 154, 108, 0.03), rgba(178, 59, 44, 0.02));
+            opacity: 0;
+            transition: 0.4s;
+        }
+
+        .dashboard-card:hover::before {
+            opacity: 1;
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.06);
+            border-color: var(--emas);
+        }
+
+        .dashboard-card .icon {
+            font-size: 2.8rem;
+            color: var(--emas);
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .dashboard-card h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
             color: var(--hijau);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+            margin-bottom: 4px;
         }
 
-        @media (min-width: 480px) {
-            .cta-section .cta-links a {
-                padding: 10px 24px;
-                font-size: 0.8rem;
-            }
-        }
-        @media (min-width: 768px) {
-            .cta-section .cta-links a {
-                padding: 12px 30px;
-                font-size: 0.9rem;
-            }
+        .dashboard-card p {
+            font-size: 0.85rem;
+            color: var(--coklat);
+            line-height: 1.5;
         }
 
-        .cta-section .cta-links a:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+        .dashboard-card .arrow {
+            display: inline-block;
+            margin-top: 8px;
+            color: var(--emas);
+            font-weight: 700;
+            transition: 0.3s;
         }
 
-        .cta-section .cta-links a.primary {
-            background: linear-gradient(135deg, var(--hijau), var(--hijau-muda));
-            color: #fff;
+        .dashboard-card:hover .arrow {
+            transform: translateX(6px);
         }
 
-        .cta-section .cta-links a.primary:hover {
-            box-shadow: 0 8px 24px rgba(61, 139, 64, 0.20);
+        .dashboard-card.gold {
+            border-color: var(--emas);
         }
 
-        .cta-section .cta-links a.gold {
-            background: linear-gradient(135deg, var(--emas), var(--merah-bata));
-            color: #fff;
+        .dashboard-card.gold .icon {
+            color: var(--merah-bata);
         }
 
-        .cta-section .cta-links a.gold:hover {
-            box-shadow: 0 8px 24px rgba(196, 154, 108, 0.25);
-        }
-
-        .cta-section .cta-links a.outline {
+        .dashboard-card.green {
             border-color: var(--hijau-muda);
-            background: transparent;
-            color: var(--hijau-muda);
         }
 
-        .cta-section .cta-links a.outline:hover {
-            background: var(--hijau-muda);
-            color: #fff;
+        .dashboard-card.green .icon {
+            color: var(--hijau-muda);
         }
 
         /* ===== REFERENCES ===== */
@@ -2615,6 +2562,7 @@
             <div class="nav-links">
                 <a href="#" data-section="home" class="active"><i class="fas fa-home"></i> Beranda</a>
                 <a href="#" data-section="about"><i class="fas fa-info-circle"></i> Tentang</a>
+                <a href="#" data-section="dashboard"><i class="fas fa-compass"></i> Jelajahi</a>
                 <a href="#" data-section="flashcard"><i class="fas fa-id-card"></i> Flashcard</a>
                 <a href="#" data-section="quiz"><i class="fas fa-question-circle"></i> Quiz</a>
                 <a href="#" data-section="games"><i class="fas fa-gamepad"></i> Games</a>
@@ -2633,7 +2581,7 @@
                     <p class="sub"><i class="fas fa-mobile-alt" style="color:var(--emas);margin-right:4px;"></i>Kenapa HP-mu bisa hidup? Jawabannya ada di budaya Nusantara.</p>
                     <div class="hero-actions">
                         <button class="btn-primary" onclick="navigateTo('quiz')"><i class="fas fa-pencil-alt"></i> Ikuti Quiz</button>
-                        <button class="btn-secondary" onclick="navigateTo('flashcard')"><i class="fas fa-id-card"></i> Flashcard</button>
+                        <button class="btn-secondary" onclick="navigateTo('dashboard')"><i class="fas fa-compass"></i> Jelajahi</button>
                     </div>
                 </div>
                 <div class="hero-img" id="posterContainer">
@@ -2647,7 +2595,6 @@
                 </div>
             </div>
 
-            <!-- Mengapa Kamu Perlu Tahu Ini -->
             <div class="card" style="background:rgba(255,255,255,0.40);">
                 <h3 style="color:var(--hijau);display:flex;align-items:center;gap:8px;font-size:1rem;">
                     <i class="fas fa-lightbulb" style="color:var(--emas);"></i> Mengapa Kamu Perlu Tahu Ini?
@@ -2662,7 +2609,6 @@
                             </span>
                         </div>
                     </div>
-
                     <div class="benefit-item">
                         <div>
                             <span class="icon">🧮</span>
@@ -2672,7 +2618,6 @@
                             </span>
                         </div>
                     </div>
-
                     <div class="benefit-item">
                         <div>
                             <span class="icon">🎯</span>
@@ -2682,7 +2627,6 @@
                             </span>
                         </div>
                     </div>
-
                     <div class="benefit-item">
                         <div>
                             <span class="icon">🇮🇩</span>
@@ -2695,7 +2639,6 @@
                 </div>
             </div>
 
-            <!-- Ticker -->
             <div class="ticker">
                 <i class="fas fa-bullhorn"></i>
                 <marquee behavior="scroll" scrollamount="4" direction="left" onmouseover="this.stop()" onmouseout="this.start()">
@@ -2734,7 +2677,6 @@
                 </div>
             </div>
 
-            <!-- etno.png rasio 2:3 -->
             <div class="card">
                 <h3 style="color:var(--hijau);display:flex;align-items:center;gap:8px;font-size:1rem;">
                     <i class="fas fa-image" style="color:var(--emas);"></i> Etnomatematika dalam Kehidupan
@@ -2751,7 +2693,6 @@
                 </div>
             </div>
 
-            <!-- Mengapa Ini Penting -->
             <div class="card">
                 <h3 style="color:var(--hijau);display:flex;align-items:center;gap:8px;font-size:1rem;"><i class="fas fa-chart-line" style="color:var(--emas);"></i> Mengapa Ini Penting?</h3>
 
@@ -2796,7 +2737,6 @@
                 <br /><span style="font-style:normal;font-weight:600;color:var(--hijau);">M. Hatta</span>
             </div>
 
-            <!-- REFERENSI DATA -->
             <div class="references">
                 <strong>📊 Referensi Data Akurat</strong><br />
                 • <strong>PISA 2022</strong> — OECD. (2023). <em>PISA 2022 Results: Mathematics Performance</em>. <a href="https://www.oecd.org/publications/pisa-2022-results-volume-i-53f23881-en.htm" target="_blank">https://www.oecd.org/publications/pisa-2022-results-volume-i-53f23881-en.htm</a><br />
@@ -2804,6 +2744,50 @@
                 • <strong>Survei Nasional</strong> — Kementerian Pendidikan dan Kebudayaan. (2024). <em>Survei Nasional Literasi dan Numerasi</em>. <a href="https://www.kemdikbud.go.id/" target="_blank">https://www.kemdikbud.go.id/</a><br />
                 • <strong>Prasasti Kedukan Bukit</strong> — Boechari. (1966). <em>Prasasti Kedukan Bukit dan Sistem Bilangan di Nusantara</em>. Jakarta: Departemen Pendidikan dan Kebudayaan.<br />
                 • <strong>Metode Blijāh</strong> — Zaenuddin, H. (2019). <em>Etnomatematika Madura: Metode Blijāh dalam Transaksi Perdagangan</em>. Jurnal Pendidikan Matematika, 5(2), 112-120.
+            </div>
+        </section>
+
+        <!-- ===== SECTION: DASHBOARD JELAJAHI ===== -->
+        <section class="section" id="sec-dashboard">
+            <h2 class="section-title"><i class="fas fa-compass"></i> Jelajahi Etnomatematika Nusantara</h2>
+            <p class="section-sub"><i class="fas fa-arrow-right" style="color:#b8956e;"></i> Pilih petualanganmu dan mulai belajar!</p>
+
+            <div class="dashboard-grid">
+                <!-- Mainkan Game -->
+                <a href="#sec-games" class="dashboard-card gold" onclick="navigateTo('games')">
+                    <span class="icon"><i class="fas fa-gamepad"></i></span>
+                    <h3>Mainkan Game</h3>
+                    <p>3 skenario interaktif berbasis etnomatematika. Temukan logika di balik permainan tradisional.</p>
+                    <span class="arrow">Jelajahi →</span>
+                </a>
+
+                <!-- Ikuti Quiz -->
+                <a href="#sec-quiz" class="dashboard-card green" onclick="navigateTo('quiz')">
+                    <span class="icon"><i class="fas fa-pencil-alt"></i></span>
+                    <h3>Ikuti Quiz</h3>
+                    <p>15 soal untuk menguji pemahamanmu. Setiap jawaban membawa kamu lebih dekat pada warisan Nusantara.</p>
+                    <span class="arrow">Mulai →</span>
+                </a>
+
+                <!-- Lihat Flashcards -->
+                <a href="#sec-flashcard" class="dashboard-card" onclick="navigateTo('flashcard')">
+                    <span class="icon"><i class="fas fa-id-card"></i></span>
+                    <h3>Lihat Flashcards</h3>
+                    <p>5 kartu pengetahuan dasar. Klik untuk membalik dan pelajari setiap konsep dengan mudah.</p>
+                    <span class="arrow">Buka →</span>
+                </a>
+
+                <!-- Unduh Makalah -->
+                <a href="makalah-etnomatematika.pdf" class="dashboard-card" target="_blank">
+                    <span class="icon"><i class="fas fa-file-pdf"></i></span>
+                    <h3>Unduh Makalah</h3>
+                    <p>Dapatkan makalah lengkap tentang Etnomatematika Nusantara dalam format PDF.</p>
+                    <span class="arrow">Download →</span>
+                </a>
+            </div>
+
+            <div style="text-align:center;margin-top:12px;font-size:0.8rem;color:#8f7a6a;">
+                <i class="fas fa-info-circle" style="color:var(--emas);"></i> Makalah akan tersedia dalam format PDF.
             </div>
         </section>
 
@@ -2989,26 +2973,6 @@
             </div>
         </section>
 
-        <!-- ===== CALL TO ACTION — cta.png rasio 2:3 ===== -->
-        <section class="section" id="sec-cta">
-            <div class="cta-section">
-                <img src="cta.png" alt="Call to Action Etnomatematika" class="cta-poster" onerror="this.alt='Call to Action'; this.style.display='none';" />
-                <h3><i class="fas fa-rocket" style="color:var(--emas);"></i> Siap Menjelajah Lebih Dalam?</h3>
-                <p>
-                    Etnomatematika bukan hanya teori, tetapi juga pengalaman. Mulai petualanganmu sekarang dengan bermain game, menguji pemahaman lewat quiz, atau mempelajari flashcard. Setiap langkah akan membawamu lebih dekat pada warisan teknologi Nusantara.
-                </p>
-                <div class="cta-links">
-                    <a href="#sec-quiz" class="primary" onclick="navigateTo('quiz')"><i class="fas fa-pencil-alt"></i> Ikuti Quiz</a>
-                    <a href="#sec-games" class="gold" onclick="navigateTo('games')"><i class="fas fa-gamepad"></i> Mainkan Game</a>
-                    <a href="#sec-flashcard" class="outline" onclick="navigateTo('flashcard')"><i class="fas fa-id-card"></i> Flashcard</a>
-                    <a href="#" class="outline" onclick="alert('Makalah akan segera tersedia untuk diunduh.')"><i class="fas fa-file-pdf"></i> Unduh Makalah</a>
-                </div>
-                <p style="margin-top:12px;font-size:0.75rem;color:#8f7a6a;">
-                    * Makalah dalam format PDF akan ditambahkan kemudian.
-                </p>
-            </div>
-        </section>
-
         <!-- ===== FOOTER ===== -->
         <footer class="footer">
             <div class="footer-left">
@@ -3019,6 +2983,7 @@
             <div class="footer-right">
                 <a href="#sec-home" onclick="navigateTo('home')"><i class="fas fa-home"></i> Beranda</a>
                 <a href="#sec-about" onclick="navigateTo('about')"><i class="fas fa-info-circle"></i> Tentang</a>
+                <a href="#sec-dashboard" onclick="navigateTo('dashboard')"><i class="fas fa-compass"></i> Jelajahi</a>
                 <a href="#sec-flashcard" onclick="navigateTo('flashcard')"><i class="fas fa-id-card"></i> Flashcard</a>
                 <a href="#sec-quiz" onclick="navigateTo('quiz')"><i class="fas fa-question-circle"></i> Quiz</a>
                 <a href="#sec-games" onclick="navigateTo('games')"><i class="fas fa-gamepad"></i> Games</a>
@@ -3257,10 +3222,10 @@
             const sections = {
                 home: document.getElementById('sec-home'),
                 about: document.getElementById('sec-about'),
+                dashboard: document.getElementById('sec-dashboard'),
                 flashcard: document.getElementById('sec-flashcard'),
                 quiz: document.getElementById('sec-quiz'),
                 games: document.getElementById('sec-games'),
-                cta: document.getElementById('sec-cta'),
             };
 
             function navigateTo(sectionId) {
