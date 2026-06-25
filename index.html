@@ -9,7 +9,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <style>
-        /* ===== SEMUA CSS SAMA DENGAN SEBELUMNYA ===== */
+        /* ============================================================
+           RESET & VARIABEL
+           ============================================================ */
         * {
             margin: 0;
             padding: 0;
@@ -57,7 +59,9 @@
             }
         }
 
-        /* ===== LOADING SCREEN ===== */
+        /* ============================================================
+           LOADING SCREEN
+           ============================================================ */
         #loading-screen {
             position: fixed;
             inset: 0;
@@ -525,7 +529,9 @@
             }
         }
 
-        /* ===== NAV ===== */
+        /* ============================================================
+           NAVIGASI
+           ============================================================ */
         .nav-bar {
             display: flex;
             align-items: center;
@@ -698,7 +704,9 @@
             color: var(--hijau);
         }
 
-        /* ===== SECTION ===== */
+        /* ============================================================
+           SECTION
+           ============================================================ */
         .section {
             display: none;
             animation: fadeSlide 0.5s ease forwards;
@@ -720,7 +728,23 @@
             }
         }
 
-        /* ===== CARD & ELEMEN ===== */
+        body.quiz-focus .section:not(#sec-quiz) {
+            display: none !important;
+        }
+        body.quiz-focus .nav-bar {
+            display: none !important;
+        }
+        body.quiz-focus .footer {
+            display: none !important;
+        }
+        body.quiz-focus #sec-quiz {
+            display: block !important;
+            padding-top: 30px;
+        }
+
+        /* ============================================================
+           CARD & ELEMEN UMUM
+           ============================================================ */
         .card {
             background: var(--putih-trans);
             backdrop-filter: blur(6px);
@@ -933,7 +957,9 @@
             }
         }
 
-        /* ===== HOME ===== */
+        /* ============================================================
+           HOME
+           ============================================================ */
         .hero {
             display: flex;
             flex-wrap: wrap;
@@ -1086,7 +1112,6 @@
             }
         }
 
-        /* ===== BACKGROUND LAYER ===== */
         .bg-layer {
             position: fixed;
             inset: 0;
@@ -1102,7 +1127,6 @@
             aspect-ratio: 16/9;
         }
 
-        /* ===== TICKER ===== */
         .ticker {
             background: rgba(255, 255, 255, 0.55);
             backdrop-filter: blur(4px);
@@ -1172,7 +1196,9 @@
             }
         }
 
-        /* ===== BENEFIT GRID ===== */
+        /* ============================================================
+           BENEFIT GRID
+           ============================================================ */
         .benefit-grid {
             display: grid;
             grid-template-columns: 1fr;
@@ -1248,7 +1274,9 @@
             }
         }
 
-        /* ===== FLASHCARD ===== */
+        /* ============================================================
+           FLASHCARD (FLIP 3D)
+           ============================================================ */
         .flashcard-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
@@ -1420,7 +1448,9 @@
             }
         }
 
-        /* ===== QUIZ ===== */
+        /* ============================================================
+           QUIZ
+           ============================================================ */
         .quiz-progress {
             display: flex;
             justify-content: space-between;
@@ -1756,7 +1786,9 @@
             color: #fff;
         }
 
-        /* ===== GAME PLACEHOLDER ===== */
+        /* ============================================================
+           GAME PLACEHOLDER
+           ============================================================ */
         .game-placeholder {
             background: var(--putih-trans);
             backdrop-filter: blur(4px);
@@ -1905,7 +1937,9 @@
             box-shadow: 0 12px 36px rgba(196, 154, 108, 0.25);
         }
 
-        /* ===== CONSEQUENCE BOX ===== */
+        /* ============================================================
+           CONSEQUENCE BOX
+           ============================================================ */
         .consequence-box {
             border-radius: 14px;
             padding: 12px 16px;
@@ -1984,7 +2018,9 @@
             }
         }
 
-        /* ===== STAT / ABOUT ===== */
+        /* ============================================================
+           STAT & ABOUT
+           ============================================================ */
         .stat-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -2157,7 +2193,9 @@
             }
         }
 
-        /* ===== ETNO ILLUSTRATION ===== */
+        /* ============================================================
+           ETNO ILLUSTRATION
+           ============================================================ */
         .etno-illustration {
             display: flex;
             flex-wrap: wrap;
@@ -2192,7 +2230,9 @@
             }
         }
 
-        /* ===== DASHBOARD ===== */
+        /* ============================================================
+           DASHBOARD
+           ============================================================ */
         .dashboard-grid {
             display: grid;
             grid-template-columns: 1fr;
@@ -2296,7 +2336,9 @@
             box-shadow: 0 16px 48px rgba(0, 0, 0, 0.08);
         }
 
-        /* ===== REFERENCES ===== */
+        /* ============================================================
+           REFERENCES
+           ============================================================ */
         .references {
             background: rgba(255, 255, 255, 0.60);
             border-radius: 16px;
@@ -2337,7 +2379,9 @@
             color: var(--hijau);
         }
 
-        /* ===== FOOTER ===== */
+        /* ============================================================
+           FOOTER
+           ============================================================ */
         .footer {
             margin-top: 40px;
             padding-top: 24px;
@@ -2432,7 +2476,9 @@
             }
         }
 
-        /* ===== RESPONSIVE ===== */
+        /* ============================================================
+           RESPONSIVE
+           ============================================================ */
         html {
             font-size: 14px;
         }
@@ -2615,7 +2661,7 @@
                             <span class="icon">🎯</span>
                             <span class="title">Logika permainan tradisional sama dengan algoritma modern</span>
                             <span class="explanation">
-                                Permainan tradisional seperti congklak mengajarkan pola, strategi, dan perhitungan — sama dengan cara kerja algoritma dalam pemrograman.
+                                Permainan tradisional mengajarkan pola, strategi, dan perhitungan — sama dengan cara kerja algoritma dalam pemrograman.
                             </span>
                         </div>
                     </div>
@@ -2739,13 +2785,12 @@
             <h2 class="section-title"><i class="fas fa-compass"></i> Jelajahi Etnomatematika Nusantara</h2>
             <p class="section-sub"><i class="fas fa-arrow-right" style="color:#b8956e;"></i> Pilih petualanganmu dan mulai belajar!</p>
 
-            <!-- CTA POSTER — cta.jpg -->
+            <!-- CTA POSTER -->
             <div class="cta-hero">
                 <img src="cta.jpg" alt="Jelajahi Etnomatematika Nusantara" onerror="this.alt='Poster CTA'; this.style.display='none';" />
             </div>
 
             <div class="dashboard-grid">
-                <!-- Mainkan Game -->
                 <a href="#sec-games" class="dashboard-card" onclick="navigateTo('games')">
                     <span class="icon"><i class="fas fa-gamepad"></i></span>
                     <h3>Mainkan Game</h3>
@@ -2753,7 +2798,6 @@
                     <span class="arrow">Jelajahi →</span>
                 </a>
 
-                <!-- Ikuti Quiz -->
                 <a href="#sec-quiz" class="dashboard-card" onclick="navigateTo('quiz')">
                     <span class="icon"><i class="fas fa-pencil-alt"></i></span>
                     <h3>Ikuti Quiz</h3>
@@ -2761,7 +2805,6 @@
                     <span class="arrow">Mulai →</span>
                 </a>
 
-                <!-- Lihat Flashcards -->
                 <a href="#sec-flashcard" class="dashboard-card" onclick="navigateTo('flashcard')">
                     <span class="icon"><i class="fas fa-id-card"></i></span>
                     <h3>Lihat Flashcards</h3>
@@ -2769,7 +2812,6 @@
                     <span class="arrow">Buka →</span>
                 </a>
 
-                <!-- Unduh Makalah -->
                 <a href="makalah-etnomatematika.pdf" class="dashboard-card" target="_blank">
                     <span class="icon"><i class="fas fa-file-pdf"></i></span>
                     <h3>Unduh Makalah</h3>
@@ -2798,9 +2840,7 @@
                         </div>
                         <div class="flashcard-back">
                             <div class="back-title">📜 Sistem Bilangan Nusantara</div>
-                            <div class="back-desc">
-                                Prasasti Kedukan Bukit (682 M) adalah bukti tertua sistem desimal di dunia. Nenek moyang sudah menggunakan angka 0-9 sejak 1400 tahun lalu.
-                            </div>
+                            <div class="back-desc">Prasasti Kedukan Bukit (682 M) adalah bukti tertua sistem desimal di dunia. Nenek moyang sudah menggunakan angka 0-9 sejak 1400 tahun lalu.</div>
                         </div>
                     </div>
                 </div>
@@ -2814,9 +2854,7 @@
                         </div>
                         <div class="flashcard-back">
                             <div class="back-title">🔢 Angka Nol</div>
-                            <div class="back-desc">
-                                Konsep angka nol ditemukan di Nusantara pada abad ke-6, sebelum dikenal di India dan dunia Barat. Tanpa nol, sistem biner tidak ada.
-                            </div>
+                            <div class="back-desc">Konsep angka nol ditemukan di Nusantara pada abad ke-6, sebelum dikenal di India dan dunia Barat. Tanpa nol, sistem biner tidak ada.</div>
                         </div>
                     </div>
                 </div>
@@ -2830,9 +2868,7 @@
                         </div>
                         <div class="flashcard-back">
                             <div class="back-title">🧮 Algoritma Blijāh</div>
-                            <div class="back-desc">
-                                Metode hitung cepat dari Madura: penggenapan dan pengurangan. Contoh: 17.500 dibulatkan ke 20.000, lalu dikurangi 2.500.
-                            </div>
+                            <div class="back-desc">Metode hitung cepat dari Madura: penggenapan dan pengurangan. Contoh: 17.500 dibulatkan ke 20.000, lalu dikurangi 2.500.</div>
                         </div>
                     </div>
                 </div>
@@ -2846,9 +2882,7 @@
                         </div>
                         <div class="flashcard-back">
                             <div class="back-title">🎯 Logika Permainan Tradisional</div>
-                            <div class="back-desc">
-                                Permainan tradisional mengajarkan pola, strategi, dan perhitungan — sama dengan algoritma dalam pemrograman modern.
-                            </div>
+                            <div class="back-desc">Permainan tradisional mengajarkan pola, strategi, dan perhitungan — sama dengan algoritma dalam pemrograman modern.</div>
                         </div>
                     </div>
                 </div>
@@ -2862,9 +2896,7 @@
                         </div>
                         <div class="flashcard-back">
                             <div class="back-title">🎨 Geometri Batik</div>
-                            <div class="back-desc">
-                                Motif batik seperti Parang, Kawung memiliki pola geometris dan simetri. Kawung memiliki simetri 4.
-                            </div>
+                            <div class="back-desc">Motif batik seperti Parang, Kawung memiliki pola geometris dan simetri. Kawung memiliki simetri 4.</div>
                         </div>
                     </div>
                 </div>
@@ -2960,7 +2992,7 @@
                 document.body.style.overflow = 'auto';
             }, 2200);
 
-            // ===== AUDIO ELEMEN =====
+            // ===== AUDIO =====
             const correctSound = new Audio('correct.mp3');
             const wrongSound = new Audio('wrong.mp3');
             correctSound.volume = 0.6;
